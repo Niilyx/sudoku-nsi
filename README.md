@@ -10,4 +10,4 @@ et pour les liens ``[texte](lien du texte)``
 ##### Site Web :
 - Python/JavaScript (ou les deux si nécessaire) @Niilyx
 - HTML + CSS (Valentyn)
-- Design des éléments et assets @Axxiar
+- Design des éléments et assets @Aixiis
