@@ -11,3 +11,6 @@ et pour les liens ``[texte](lien du texte)``
 - Python/JavaScript (ou les deux si nécessaire) @Niilyx
 - HTML + CSS (Valentyn) @SH8LL3
 - Design des éléments et assets @Aixiis
+
+- [x] #739
+- [ ] popopopopopopo
