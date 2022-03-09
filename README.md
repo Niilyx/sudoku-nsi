@@ -9,4 +9,5 @@ et pour les liens ``[texte](lien du texte)``
 ## Cahier des Charges
 ##### Site Web :
 - Python/Java script (ou les deux si nécessaire)
-- 
+- HTML + CSS (Valentyn)
+- Design des éléments et assets
