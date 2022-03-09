@@ -9,7 +9,7 @@ et pour les liens ``[texte](lien du texte)``
 ## Cahier des Charges
 ##### Site Web :
 - Python/JavaScript (ou les deux si nécessaire) [@Niilyx](https://github.com/Niilyx)
-- HTML + CSS (Valentyn) @SH8LL3
+- HTML + CSS (Valentyn) [@SH8LL3](https://github.com/SH8LL3)
 - Design des éléments et assets [@Aixiis](https://github.com/Aixiis)
 
 - [x] #739
