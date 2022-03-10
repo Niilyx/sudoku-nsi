@@ -1,4 +1,7 @@
 /*Je met ça temporairement juste pour avoir un truc*/
+body {
+	background-color: rgb(227, 238, 238);
+}
 h1 {
 	text-align:center;
 }
