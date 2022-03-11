@@ -16,16 +16,41 @@ class Sudoku:
             - size : taille du sudoku (4x4,6x6,9x9), par défaut 4
         """
         self.size = size
-        self.tableau = self.generate_sudoku(self.size)  # tableau qui représente le sudoku
+        self.tableau = self.generate_empty_sudoku(self.size)  # tableau qui représente le sudoku
 
 
-    def generate_sudoku(self,size):
+    # --- Fonctions modifiants le sudoku ---
+    def generate_empty_sudoku(self,size):
         """int -> list
         Génére et renvoie un sudoku vide en fonction de la taille précisée ('size')
         """
-        return [0 for i in range(size**2)]
+        return [i for i in range(size**2)]
 
 
+    # --- Fonctions récupérants des données sur le sudoku (getters,...) ---
+    def get_row(self,row):
+        """int -> list | bool
+        Renvoie une liste contenant les numéros de la ligne donnée en paramètres ('row')"""
+        if row > self.size or row < 1:
+            return False
+
+        start = (row-1)*self.size
+        return [self.tableau[i] for i in range(start,start+self.size)]
+        
+    def get_column(self,column):
+        """int -> list | bool
+        Renvoie une liste contenant les numéros de la colonne donnée en paramètres ('column')"""
+        if column > self.size or column < 1:
+            return False
+        print([self.tableau[i] for i in range(column-1,self.size**2,self.size)])
+
+    def get_square(self,square):
+        """int -> list
+        Renvoie une liste contenant les numéros du carré donné en paramètres ('square')"""
+        pass
+
+
+    # --- Fonctions de tests ---
     def debug(self):
         """-> str | bool
         Print le sudoku actuel dans un format plus lisible"""
