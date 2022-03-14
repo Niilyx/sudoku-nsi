@@ -1,7 +1,32 @@
 /*Je met ça temporairement juste pour avoir un truc*/
 body {
+	font: Sudoku;
 	background-color: rgb(227, 238, 238); /* proposé par Maxim */
 }
+
 h1 {
 	text-align:center;
+}
+
+p {
+	text-align: center;
+}
+
+.container {
+	margin: auto;
+	height: 720px;
+	width: 1080px;
+}
+
+#setting {
+	text-align: center;
+	padding: 5px;
+}
+
+#footer {
+	border-radius: .3em .3em .3em .3em;
+	padding: 5px;
+	background-color: #999999;
+	color: white;
+	text-align: right;
 }
