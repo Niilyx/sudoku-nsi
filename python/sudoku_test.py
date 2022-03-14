@@ -44,11 +44,63 @@ class Sudoku:
             return False
         print([self.tableau[i] for i in range(column-1,self.size**2,self.size)])
 
-    def get_square(self,square):
+    def get_square(self,square):    # pas du tout opti, à amélorer si possible
         """int -> list
         Renvoie une liste contenant les numéros du carré donné en paramètres ('square')"""
-        pass
+        
+        # sudoku 4x4
+        if self.size == 4:
+            if square == 1:
+                print([self.tableau[0],self.tableau[1],self.tableau[4],self.tableau[5]])
+            elif square == 2:
+                print([self.tableau[2],self.tableau[3],self.tableau[6],self.tableau[7]])
+            elif square == 3:
+                print([self.tableau[8],self.tableau[9],self.tableau[12],self.tableau[13]])
+            elif square == 4:
+                print([self.tableau[10],self.tableau[11],self.tableau[14],self.tableau[15]])
+            else:
+                print("Invalid square number")
 
+        # sudoku 6x6
+        elif self.size == 6:
+            if square == 1:
+                print([self.tableau[i+j] for i in range(0,7,6) for j in range(3)])
+            elif square == 2:
+                print([self.tableau[i+j] for i in range(3,10,6) for j in range(3)])
+            elif square == 3:
+                print([self.tableau[i+j] for i in range(12,19,6) for j in range(3)])
+            elif square == 4:
+                print([self.tableau[i+j] for i in range(15,22,6) for j in range(3)])
+            elif square == 5:
+                print([self.tableau[i+j] for i in range(24,31,6) for j in range(3)])
+            elif square == 6:
+                print([self.tableau[i+j] for i in range(27,34,6) for j in range(3)])
+            else:
+                print("Invalid square number")
+
+    # sudoku 9x9
+        elif self.size == 9:
+            if square == 1:
+                print([(i+j) for i in range(0,19,9) for j in range(3)])
+            elif square == 2:
+                print([(i+j) for i in range(3,22,9) for j in range(3)])
+            elif square == 3:
+                print([(i+j) for i in range(6,25,9) for j in range(3)])
+            elif square == 4:
+                print([(i+j) for i in range(27,46,9) for j in range(3)])
+            elif square == 5:
+                print([(i+j) for i in range(30,49,9) for j in range(3)])
+            elif square == 6:
+                print([(i+j) for i in range(33,52,9) for j in range(3)])
+            elif square == 7:
+                print([(i+j) for i in range(54,73,9) for j in range(3)])
+            elif square == 8:
+                print([(i+j) for i in range(57,76,9) for j in range(3)])
+            elif square == 9:
+                print([(i+j) for i in range(60,79,9) for j in range(3)])
+            else:
+                print("Invalid square number")
+    
 
     # --- Fonctions de tests ---
     def debug(self):
@@ -84,6 +136,8 @@ if __name__ == "__main__":
     sk_6x6 = Sudoku(6)
     sk_9x9 = Sudoku(9)
     
-    sk_4x4.debug()
-    sk_6x6.debug()
+    # sk_4x4.debug() 
+    # sk_6x6.debug()
     sk_9x9.debug()
+    for i in range(1,10):
+        sk_9x9.get_square(i)
