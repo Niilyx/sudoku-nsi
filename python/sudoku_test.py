@@ -138,6 +138,4 @@ if __name__ == "__main__":
     
     # sk_4x4.debug() 
     # sk_6x6.debug()
-    sk_9x9.debug()
-    for i in range(1,10):
-        sk_9x9.get_square(i)
+    # sk_9x9.debug()
