@@ -7,6 +7,7 @@ Notes :
     • sk = sudoku
     • ici, les 0 dans les sudokus représentent des cases vides
 """
+from random import randint
 
 class Sudoku:
     """doc needed"""
@@ -24,7 +25,17 @@ class Sudoku:
         """int -> list
         Génére et renvoie un sudoku vide en fonction de la taille précisée ('size')
         """
-        return [i for i in range(size**2)]
+        return [0 for i in range(size**2)]
+
+    def generate_sudoku(self):
+        for i in range(60):
+            tile = randint(0,80)
+            if self.tableau[tile] == 0:
+                print("empty tile")
+                random_int = randint(1,9)
+                self.tableau[tile] = random_int
+            else:
+                print("not empty")
 
 
     # --- Fonctions récupérants des données sur le sudoku (getters,...) ---
@@ -131,11 +142,15 @@ class Sudoku:
 
 
 
+
+
 if __name__ == "__main__":
     sk_4x4 = Sudoku() # 4x4 par défaut
     sk_6x6 = Sudoku(6)
     sk_9x9 = Sudoku(9)
     
+    sk_9x9.generate_sudoku()
+    sk_9x9.debug()
     # sk_4x4.debug() 
     # sk_6x6.debug()
     # sk_9x9.debug()
