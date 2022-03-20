@@ -5,15 +5,15 @@ Toute aide est la bienvenue !
 
 Notes :
     • sk = sudoku
-    • ici, les 0 dans les sudokus représentent des Tiles vides
+    • ici, les 0 dans les sudokus représentent des cases vides
     • Le sudoku peut être de taille 4x4 ou 9x9
-    • Chaque Tile de sudoku est représentée par un objet de la classe Tile
-            chaque Tile a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
+    • Chaque case de sudoku est représentée par un objet de la classe Cell
+            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
 """
 from math import sqrt
-from random import randint
+from random import choice, randint
 
-class Tile:
+class Cell:
     """doc needed"""
     def __init__(self,value,x,y):
         """Constructeur
@@ -57,21 +57,43 @@ class Sudoku:
         """int -> list[int]
         Génére et renvoie un sudoku vide en fonction de la taille précisée ('size')
         """
-        return [[Tile(0,i,int(j/self.size)) for i in range(self.size)] for j in range(0,self.size**2,self.size)]
+        return [[Cell(0,i,int(j/self.size)) for i in range(self.size)] for j in range(0,self.size**2,self.size)]
         
 
-    def generate_sudoku(self):
-        for i in range(60):
-            random_tile = self.tableau[randint(0,self.size-1)][randint(0,self.size-1)] 
-            print(type(random_tile))
-            if random_tile.value == 0:
-                print("empty")
-                if self.is_correct(random_tile):
-                    random_tile.value = 5
-                else:
-                    random_tile.value = "X"
-            else:
-                print("not empty")
+    def generate_sudoku(self):      # assez basique pour l'instant et pas opti
+ 
+        # x=1
+        # y=0
+        # self.tableau[y][x].value = 1
+        # y=3
+        # if self.is_correct(self.tableau[y][x],1):
+        #     print(True)
+        #     self.tableau[y][x].value = 1
+        #     self.debug()
+        # else:
+        #     print(False)
+        #     self.tableau[y][x].value = "X"
+
+        for i in range(16):
+            random_cell = self.tableau[randint(0,self.size-1)][randint(0,self.size-1)]
+
+            if random_cell.value == 0:
+                random_list = [i for i in range(1,5)]
+                new_cell = choice(random_list)
+
+                while True:
+                    self.debug()
+                    print(new_cell)
+                    if self.is_correct(random_cell,new_cell):
+                        print(True)
+                        random_cell.value = new_cell
+                        break                        
+                    else:
+                        print(False)
+                        random_cell.value = "X"
+                        random_list.remove(new_cell)
+                        new_cell = choice(random_list)
+
 
 
     # --- Fonctions récupérants des données sur le sudoku (getters,...) ---
@@ -110,13 +132,14 @@ class Sudoku:
     
 
     # --- Fonctions de tests et aide ---
-    def is_correct(self,tile,new_tile):
-        """Tile*int-> bool
-        Renvoie True si 'new_tile' peut être placée aux coordonées x,y de 'tile'
+    def is_correct(self,cell,new_cell):
+        """Cell*int-> bool
+        Renvoie True si 'new_cell' peut être placée aux coordonées x,y de 'cell'
             sinon renvoie False"""
-        value,x,y,square = new_tile,tile.x,tile.y,tile.get_square(self.size)     # square est le numéro carré auqel appartient la case
-
-        if value in self.get_row(x+1) or value in self.get_column(y+1) or value in self.get_square(square):
+        x,y,square = cell.x,cell.y,cell.get_square(self.size)     # square est le numéro carré auqel appartient la case
+        # print(x+1,y+1,square)
+        # print(new_cell,":\n",self.get_row(y+1),"\n",self.get_column(x+1),"\n",self.get_square(square))
+        if new_cell in self.get_row(y+1) or new_cell in self.get_column(x+1) or new_cell in self.get_square(square):
             return False
         return True
 
@@ -125,7 +148,7 @@ class Sudoku:
         """-> str
         Print le sudoku actuel dans un format plus lisible"""        
         for i in self.tableau:
-            print([i[j] for j in range(len(i))])
+            print([i[j].value for j in range(len(i))])
 
 
 
@@ -134,6 +157,6 @@ if __name__ == "__main__":
     sk_4x4 = Sudoku() # 4x4 par défaut
     sk_9x9 = Sudoku(9)
 
-    sk_4x4.debug()
-    # sk_4x4.generate_sudoku()
+    # sk_4x4.debug()
+    sk_4x4.generate_sudoku()
     # sk_4x4.debug()
