@@ -49,7 +49,10 @@ class Sudoku:
             - size : taille du sudoku (4x4 ou 9x9), par défaut 4
         """
         self.size = size
-        self.tableau = self.__generate_empty_sudoku()  # tableau qui représente le sudoku
+        self.tableau = []
+        self.generate_sudoku()
+        self.debug()
+        # self.tableau = self.__generate_empty_sudoku()  # tableau qui représente le sudoku
         
 
     # --- Fonctions modifiants le sudoku ---
@@ -61,18 +64,12 @@ class Sudoku:
         
 
     def generate_sudoku(self):      # assez basique pour l'instant et pas opti
- 
-        # x=1
-        # y=0
-        # self.tableau[y][x].value = 1
-        # y=3
-        # if self.is_correct(self.tableau[y][x],1):
-        #     print(True)
-        #     self.tableau[y][x].value = 1
-        #     self.debug()
-        # else:
-        #     print(False)
-        #     self.tableau[y][x].value = "X"
+        # l = [i for i in range(1,self.size+1)]
+        # for i in range(self.size):
+        #     choice_l  = choice(l)
+        #     self.tableau.append(choice_l)
+        #     l.remove(choice_l)
+
 
         for i in range(16):
             random_cell = self.tableau[randint(0,self.size-1)][randint(0,self.size-1)]
@@ -92,7 +89,15 @@ class Sudoku:
                         print(False)
                         random_cell.value = "X"
                         random_list.remove(new_cell)
-                        new_cell = choice(random_list)
+                        if len(random_list) <= 0:
+                            r=len([i for i in self.get_row(random_cell.y+1) if i == 0])
+                            c=len([i for i in self.get_column(random_cell.x+1) if i == 0])
+                            s=len([i for i in self.get_square(random_cell.get_square()) if i == 0])
+
+                            print(min(r,c,s))
+
+                        else:
+                            new_cell = choice(random_list)
 
 
 
