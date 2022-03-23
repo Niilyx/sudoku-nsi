@@ -24,6 +24,25 @@ class Cell {
 }
 
 
+function range(start=0,end,interval=1) {
+	var l = []
+	for (var i = start; i < end;i += interval) {
+		l.push(i)
+	}
+	return l
+}
+function range(end, interval=1) {
+	var l = []
+	for (var i = 0; i < end;i += interval) {
+		l.push(i)
+	}
+	return l
+}
+function choose(choices) {
+	var index = Math.floor(Math.random() * choices.length);
+	return choices[index];
+  }
+
 class Sudoku {
 	constructor(size=4) {
 		this.size = size;
@@ -39,6 +58,15 @@ class Sudoku {
 			}
 			l.push(l2)
 			l2 = []
+		}
+		
+		// on retire des valeurs une à une de temp, puis on la régénère sur nombres :)
+		let nombres = range(this.size**2)
+		var temp = nombres;
+		for (var i=0;i<this.size;i++){
+			for (var j=0;j<this.size;j++){
+
+			}
 		}
 		return l
 	}
