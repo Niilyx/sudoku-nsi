@@ -135,13 +135,20 @@ class Sudoku:
     
 
     # --- Fonctions de tests et aide ---
+    def is_complete(self):
+        """renvoie True si le sudoku est entier sinon False"""
+        for i in self.tableau:
+            for j in i:
+                if j.value == 0:
+                    return False
+        return True
+
     def is_correct(self,cell,new_cell):
         """Cell*int-> bool
         Renvoie True si 'new_cell' peut être placée aux coordonées x,y de 'cell'
             sinon renvoie False"""
         x,y,square = cell.x,cell.y,cell.get_square(self.size)     # square est le numéro carré auqel appartient la case
-        # print(x+1,y+1,square)
-        # print(new_cell,":\n",self.get_row(y+1),"\n",self.get_column(x+1),"\n",self.get_square(square))
+        
         if new_cell in self.get_row(y+1) or new_cell in self.get_column(x+1) or new_cell in self.get_square(square):
             return False
         return True
@@ -150,8 +157,22 @@ class Sudoku:
     def debug(self):
         """-> str
         Print le sudoku actuel dans un format plus lisible"""        
-        for i in self.tableau:
-            print([(i[j].x,i[j].y) for j in range(len(i))])
+        # for i in self.tableau:
+        #     print([i[j].value for j in range(len(i))])
+
+        TableTB = "|--------------------------------|"
+        TableMD = "|----------+----------+----------|"
+        print(TableTB)
+        for i in range(self.size):
+            for j in range(self.size):
+                if ((i.value == 3 or i.value == 6) and j.value == 0):
+                    print(TableMD)
+                if (j.value == 0 or j.value == 3 or j.value == 6):
+                    print("|", end=" ")
+                print(" " + str(self.tableau[i][j]), end=" ")
+                if (j.value == 8):
+                    print("|")
+        print(TableTB)
 
 
 
@@ -160,6 +181,6 @@ if __name__ == "__main__":
     sk_4x4 = Sudoku() # 4x4 par défaut
     sk_9x9 = Sudoku(9)
 
-    # sk_4x4.debug()
+    # # sk_4x4.debug()
     # sk_4x4.generate_sudoku()
     sk_4x4.debug()
