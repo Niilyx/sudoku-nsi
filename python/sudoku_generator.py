@@ -50,9 +50,7 @@ class Sudoku:
         """
         self.size = size
         self.tableau = []
-        self.generate_sudoku()
-        self.debug()
-        # self.tableau = self.__generate_empty_sudoku()  # tableau qui représente le sudoku
+        self.tableau = self.__generate_empty_sudoku()  # tableau qui représente le sudoku
         
 
     # --- Fonctions modifiants le sudoku ---
@@ -153,7 +151,7 @@ class Sudoku:
         """-> str
         Print le sudoku actuel dans un format plus lisible"""        
         for i in self.tableau:
-            print([i[j].value for j in range(len(i))])
+            print([(i[j].x,i[j].y) for j in range(len(i))])
 
 
 
@@ -163,5 +161,5 @@ if __name__ == "__main__":
     sk_9x9 = Sudoku(9)
 
     # sk_4x4.debug()
-    sk_4x4.generate_sudoku()
-    # sk_4x4.debug()
+    # sk_4x4.generate_sudoku()
+    sk_4x4.debug()
