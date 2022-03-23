@@ -1,3 +1,24 @@
+function range(start=0,end,interval=1) {
+	var l = []
+	for (var i = start; i < end;i += interval) {
+		l.push(i)
+	}
+	return l
+}
+function range(end, interval=1) {
+	var l = []
+	for (var i = 0; i < end;i += interval) {
+		l.push(i)
+	}
+	return l
+}
+function choose(choices) {
+	var index = Math.floor(Math.random() * choices.length);
+	return choices[index];
+}
+
+
+
 class Cell {
 	constructor(value,x,y){
 		this.value = value;
@@ -24,24 +45,7 @@ class Cell {
 }
 
 
-function range(start=0,end,interval=1) {
-	var l = []
-	for (var i = start; i < end;i += interval) {
-		l.push(i)
-	}
-	return l
-}
-function range(end, interval=1) {
-	var l = []
-	for (var i = 0; i < end;i += interval) {
-		l.push(i)
-	}
-	return l
-}
-function choose(choices) {
-	var index = Math.floor(Math.random() * choices.length);
-	return choices[index];
-  }
+
 
 class Sudoku {
 	constructor(size=4) {
