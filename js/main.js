@@ -17,8 +17,6 @@ function choose(choices) {
 	return choices[index];
 }
 
-
-
 class Cell {
 	constructor(value,x,y){
 		this.value = value;
@@ -50,11 +48,19 @@ class Cell {
 class Sudoku {
 	constructor(size=4) {
 		this.size = size;
-        this.tableau = this.generate_empty_sudoku();
 		this.tableau = this.make();
+        var count = 0
+        while (!this.is_correct()) {
+            this.tableau = this.make();
+            // count++
+            // if (count > 100) {
+            //     console.log("wtf???")
+            //     break
+            // }
+        }
 	}
 
-    // Renvoie les valeurs d'une colonne, ou les cells elle-mêmes.
+    // Renvoie les valeurs d'une colonne, ou les cells elles-mêmes.
     get_column(column, values=true) {
         if (column > this.size || column < 1) {
             console.log("Bad column asked: " + column)
@@ -62,38 +68,36 @@ class Sudoku {
         }
 
         var l = []
-
         if (values) {
             for (var i in range1(this.size)) {
-                l.push((this.tableau[i][column]).value)
+                l.push((this.tableau[i][column - 1]).value)
             }
         } else {
             for (var i in range1(this.size)) {
-                l.push(this.tableau[i][column])
+                l.push(this.tableau[i][column - 1])
             }
         }
         return l
     }
 
-    // Renvoie les valeurs d'une ligne, ou les cells elle-mêmes.
+    // Renvoie les valeurs d'une ligne, ou les cells elles-mêmes.
     get_row(row, values=true) {
         if (row > this.size || row < 1) {
             console.log("Bad row asked: " + row)
             return false
         }
 
-        var l = []
-
         if (values) {
+
+            var l = []
+
             for (var i in range1(this.size)) {
-                l.push((this.tableau[i][row]).value)
+                l.push((this.tableau[row - 1][i]).value)
             }
-        } else {
-            for (var i in range1(this.size)) {
-                l.push(this.tableau[i][row])
-            }
+            return l
         }
-        return l
+        return this.tableau[row - 1]
+        
     }
 
     // Renvoie les valeurs d'un carré, ou les cells elle-mêmes.
@@ -131,11 +135,12 @@ class Sudoku {
     }
 
     is_correct() {
+        if (this.tableau == undefined) return false
         //anciennement is_complete()
         for (var i in range1(this.size)) {
             for (var j in range1(this.size)) {
                 var current_cell = this.tableau[i][j]
-                if (current_cell.value == 0 || this.get_row(i+1).count(current_cell.value) > 1 || this.get_column(j+1).count(current_cell.value) > 1 || this.get_square(current_cell.get_square(this.size)).count(current_cell.value) > 1) {
+                if (current_cell.value == 0 || this.get_row(i+1).filter((x) => x == current_cell.value) > 1 || this.get_column(j+1).filter((x) => x == current_cell.value) > 1 || this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value) > 1) {
                     return false
                 }
             }
@@ -149,13 +154,13 @@ class Sudoku {
         var y = cell.y
         var square = cell.get_square(this.size)
         if (this.get_row(y+1).includes(new_cell)) {
-            return this.get_row(y+1, false), this.get_row(y+1).findIndex(new_cell)
+            return [this.get_row(y+1, false), this.get_row(y+1).findIndex((element) => element == new_cell)]
         }
         else if (this.get_column(x+1).includes(new_cell)) {
-            return this.get_column(x+1, false), this.get_column(y+1).findIndex(new_cell)
+            return [this.get_column(x+1, false), this.get_column(y+1).findIndex((element) => element == new_cell)]
         }
         else if (this.get_square(square).includes(new_cell)) {
-            return this.get_square(square, false), this.get_square(square).findIndex(new_cell)
+            return [this.get_square(square, false), this.get_square(square).findIndex((element) => element == new_cell)]
         }
 
         return true
@@ -181,7 +186,7 @@ class Sudoku {
                 this.tableau = this.generate_empty_sudoku()
             }
 
-            for (var i in range1(100)) {
+            for (var i in range1(500)) {
                 var random_x = Math.floor(Math.random() * (this.size))
                 var random_y = Math.floor(Math.random() * (this.size))
                 var random_cell = this.tableau[random_y][random_x]
@@ -202,13 +207,15 @@ class Sudoku {
                                 if (rand_list[i] === new_cell) {
                                     rand_list.splice(i,1)
                                     could_delete = true
+                                    break
                                 }
                             }
 
                             if (could_delete) {
                                 new_cell = choose(rand_list)
                             } else {
-                                if (this.is_good_move(random_cell, random_cell.value)) {
+                                // vraiment?
+                                if (this.is_good_move(random_cell, random_cell.value) === true) {
                                     var old_cell = is_good_move[0][is_good_move[1]]
                                     old_cell.value = 0
                                     random_cell.value = new_cell
@@ -223,7 +230,24 @@ class Sudoku {
         }
     }
 
+    make1() {
+        this.tableau = this.generate_empty_sudoku()
 
+        var choice = range2(1, this.size + 1)
+        for (var y in range1(this.size)) {
+            for (var x in range1(this.size)) {
+                var cur_cell = this.tableau[y][x]
+
+                var rand = choose(choice)
+                while (!this.is_good_move(cur_cell, rand)) {
+                    rand = choose(choice)
+                }
+                cur_cell.value = rand
+                this.tableau[y][x] = cur_cell
+            }
+        }
+        console.log(this.tableau)
+    }
 	generate_empty_sudoku() {
 		var l = [];
 		var l2 = [];
