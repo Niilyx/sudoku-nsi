@@ -38,6 +38,28 @@ class Cell:
                 return 3
             elif 2 <= self.x <= 3 and 2 <= self.y <= 3:
                 return 4
+            
+            
+        elif size == 9:
+            if 0 <= self.x <= 2 and 0 <= self.y <= 2:
+                return 1
+            elif 3 <= self.x <= 5 and 0 <= self.y <= 2:
+                return 2
+            elif 6 <= self.x <= 8 and 0 <= self.y <= 2:
+                return 3
+            elif 0 <= self.x <= 2 and 3 <= self.y <= 5:
+                return 4
+            elif 3 <= self.x <= 5 and 3 <= self.y <= 5:
+                return 5
+            elif 6 <= self.x <= 8 and 3 <= self.y <= 5:
+                return 6
+            elif 0 <= self.x <= 2 and 6 <= self.y <= 8:
+                return 7
+            elif 3 <= self.x <= 5 and 6 <= self.y <= 8:
+                return 8
+            elif 6 <= self.x <= 8 and 6 <= self.y <= 8:
+                return 9
+        
 
 
 
@@ -56,7 +78,6 @@ class Sudoku:
         #     [Cell(3,0,3),Cell(4,1,3),Cell(2,2,3),Cell(1,3,3)],
         # ]
         self.tableau = self.__generate_empty_sudoku()  # tableau qui représente le sudoku
-        
 
     # --- Fonctions modifiants le sudoku ---
     def __generate_empty_sudoku(self):
@@ -82,16 +103,16 @@ class Sudoku:
                 break
             else:
                 self.tableau = self.__generate_empty_sudoku()
-
-            for i in range(100):
+    
+            for i in range(5000):
                 random_x = randint(0,self.size-1)
                 random_y = randint(0,self.size-1)
                 random_cell = self.tableau[random_y][random_x]
                 
                 if random_cell.value == 0:
-                    random_list = [i for i in range(1,5)]
+                    random_list = [i for i in range(1,self.size+1)]
                     new_cell = choice(random_list)
-
+    
                     while True:
                         # print(new_cell)
                         # self.debug()
@@ -114,9 +135,9 @@ class Sudoku:
                                     random_cell.value = new_cell
                                     # print("")
                                 break
-                # print("-------")
-        
-        self.debug()
+               # print("-------")
+    
+       # self.debug()
         print(self.is_complete())
 
 
@@ -205,7 +226,7 @@ class Sudoku:
         """-> str
         Print le sudoku actuel dans un format plus lisible"""        
         for i in self.tableau:
-            print([i[j].value for j in range(len(i))])
+            print([(i[j].value) for j in range(len(i))])
 
 
 
@@ -214,7 +235,7 @@ class Sudoku:
 if __name__ == "__main__":
     sk_4x4 = Sudoku() # 4x4 par défaut
     sk_9x9 = Sudoku(9)
-
-    # # sk_4x4.debug()
+    
+    #sk_9x9.debug()
     sk_4x4.generate_sudoku()
     # sk_4x4.debug()
