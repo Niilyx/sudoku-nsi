@@ -8,7 +8,7 @@ Notes :
     • ici, les 0 dans les sudokus représentent des cases vides
     • Le sudoku peut être de taille 4x4 ou 9x9
     • Chaque case de sudoku est représentée par un objet de la classe Cell
-            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
+            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le array 
 """
 from math import sqrt
 from random import choice, randint
@@ -71,13 +71,9 @@ class Sudoku:
             - size : taille du sudoku (4x4 ou 9x9), par défaut 4
         """
         self.size = size
-        # self.tableau = [
-        #     [Cell(2,0,0),Cell(3,1,0),Cell(1,2,0),Cell(4,3,0)],
-        #     [Cell(4,0,1),Cell(1,1,1),Cell(3,2,1),Cell(2,3,1)],
-        #     [Cell(1,0,2),Cell(2,1,2),Cell(3,2,2),Cell(3,3,2)],
-        #     [Cell(3,0,3),Cell(4,1,3),Cell(2,2,3),Cell(1,3,3)],
-        # ]
-        self.tableau = self.__generate_empty_sudoku()  # tableau qui représente le sudoku
+        self.array = self.__generate_empty_sudoku()  # listes imbriquées représant le sudoku
+        self.unsolved_array = [[self.array[j][i] for i in range(self.size)] for j in range(self.size)]   # liste des cellules non résolues 
+
 
     # --- Fonctions modifiants le sudoku ---
     def __generate_empty_sudoku(self):
@@ -87,57 +83,69 @@ class Sudoku:
         return [[Cell(0,i,int(j/self.size)) for i in range(self.size)] for j in range(0,self.size**2,self.size)]
         
 
-    def generate_sudoku(self):      # TRES basique pour l'instant et pas opti DU TOUT (no way)
-        # l = [i for i in range(1,self.size+1)]
-        # for i in range(self.size):
-        #     choice_l  = choice(l)
-        #     self.tableau.append(choice_l)
-        #     l.remove(choice_l)
-        
-            # test = 0
-            # while test <= 15:
-            
+    def generate_sudoku(self):      # TRES basique pour l'instant et pas opti DU TOUT           
         while True:
 
+            for i in range(200):
+                print([[i.value for i in j] for j in self.unsolved_array])
+                for j in self.unsolved_array:
+                    #wesh
+                    break
+
+                a = list(enumerate(self.unsolved_array))
+                aleat = choice(a)
+                unsolved_list_y = aleat[0]
+
+                if not aleat[1]:
+                    self.unsolved_array.pop(unsolved_list_y)
+                    a = list(enumerate(self.unsolved_array))
+                    aleat = choice(a)
+                    unsolved_list_y = aleat[0]
+                    
+                aleat2 = choice(list(enumerate(aleat[1])))
+                unsolved_list_x = aleat2[0]
+                random_cell = aleat2[1]
+
+                cell_x = random_cell.x
+                cell_y = random_cell.y
+                
+                random_list = [i for i in range(1,self.size+1)]
+                new_cell = choice(random_list)
+                print(new_cell,":",cell_x,cell_y)
+
+                while True:
+                    # print(new_cell)
+                    # self.debug()
+                    move_is_correct = self.is_correct(random_cell,new_cell)
+                    if move_is_correct == True:
+                        # print("je pose")
+                        self.array[cell_y][cell_x].value = new_cell
+                        self.unsolved_array[unsolved_list_y].pop(unsolved_list_x)
+                        # self.debug()
+                        break
+                    else :
+                        try:
+                            # print("je change de nombre")
+                            random_list.remove(new_cell)
+                            new_cell = choice(random_list)
+                        except:
+                            # print("je swap")
+                            if self.is_correct(random_cell,random_cell.value):
+                                old_cell = move_is_correct[0][move_is_correct[1]]
+                                old_cell.value = 0
+                                self.array[cell_y][cell_x].value = new_cell
+                                self.unsolved_array[unsolved_list_y].pop(unsolved_list_x)
+                                # print("")
+                            break
+                print("-------")
+    
             if self.is_complete():
                 break
             else:
-                self.tableau = self.__generate_empty_sudoku()
+                self.array = self.__generate_empty_sudoku()
+                self.unsolved_array = [[self.array[j][i] for i in range(self.size)] for j in range(self.size)]
     
-            for i in range(5000):
-                random_x = randint(0,self.size-1)
-                random_y = randint(0,self.size-1)
-                random_cell = self.tableau[random_y][random_x]
-                
-                if random_cell.value == 0:
-                    random_list = [i for i in range(1,self.size+1)]
-                    new_cell = choice(random_list)
-    
-                    while True:
-                        # print(new_cell)
-                        # self.debug()
-                        move_is_correct = self.is_correct(random_cell,new_cell)
-                        if move_is_correct == True:
-                            # print("je pose")
-                            random_cell.value = new_cell
-                            # self.debug()
-                            break
-                        else :
-                            try:
-                                # print("je change de nombre")
-                                random_list.remove(new_cell)
-                                new_cell = choice(random_list)
-                            except:
-                                # print("je swap")
-                                if self.is_correct(random_cell,random_cell.value):
-                                    old_cell = move_is_correct[0][move_is_correct[1]]
-                                    old_cell.value = 0
-                                    random_cell.value = new_cell
-                                    # print("")
-                                break
-               # print("-------")
-    
-       # self.debug()
+        self.debug()
         print(self.is_complete())
 
 
@@ -151,9 +159,9 @@ class Sudoku:
             return False
 
         if values:
-            return [self.tableau[i][column-1].value for i in range(len(self.tableau))]
+            return [self.array[i][column-1].value for i in range(len(self.array))]
         else:
-            return [self.tableau[i][column-1] for i in range(len(self.tableau))]
+            return [self.array[i][column-1] for i in range(len(self.array))]
 
 
     def get_row(self,row,values=True):
@@ -163,10 +171,9 @@ class Sudoku:
             return False
 
         if values:
-            return [i.value for i in self.tableau[row-1]]
+            return [i.value for i in self.array[row-1]]
         else:
-            return [i for i in self.tableau[row-1]]
-
+            return [i for i in self.array[row-1]]
 
 
     def get_square(self,square,values=True):    # pas du tout opti, à amélorer si possible
@@ -181,13 +188,13 @@ class Sudoku:
         y_min = ((square-1)//sr_size)*sr_size
 
         if values:
-            for j in self.tableau:
+            for j in self.array:
                 for k in j:
                     if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min*sr_size+sr_size:
                         l.append(k.value)
         
         else:
-            for j in self.tableau:
+            for j in self.array:
                 for k in j:
                     if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min*sr_size+sr_size:
                         l.append(k)
@@ -199,7 +206,7 @@ class Sudoku:
         """renvoie True si le sudoku est entier sinon False"""
         for i in range(self.size):
             for j in range(self.size):
-                current_cell = self.tableau[i][j]
+                current_cell = self.array[i][j]
                 if current_cell.value == 0 or self.get_row(i+1).count(current_cell.value) > 1 or self.get_column(j+1).count(current_cell.value) > 1 or self.get_square(current_cell.get_square(self.size)).count(current_cell.value) > 1:
                     return False
         return True
@@ -208,7 +215,7 @@ class Sudoku:
         """Cell*int-> bool
         Renvoie True si 'new_cell' peut être placée aux coordonées x,y de 'cell'
             sinon renvoie False"""
-        x,y,square = cell.x,cell.y,cell.get_square(self.size)     # square est le numéro carré auqel appartient la case
+        x,y,square = cell.x,cell.y,cell.get_square(self.size)     # square est le numéro du carré auquel appartient la case
         
         if new_cell in self.get_row(y+1):
             return self.get_row(y+1,False),self.get_row(y+1).index(new_cell)
@@ -225,7 +232,7 @@ class Sudoku:
     def debug(self):
         """-> str
         Print le sudoku actuel dans un format plus lisible"""        
-        for i in self.tableau:
+        for i in self.array:
             print([(i[j].value) for j in range(len(i))])
 
 
@@ -234,7 +241,7 @@ class Sudoku:
 
 if __name__ == "__main__":
     sk_4x4 = Sudoku() # 4x4 par défaut
-    sk_9x9 = Sudoku(9)
+    # sk_9x9 = Sudoku(9)
     
     #sk_9x9.debug()
     sk_4x4.generate_sudoku()
