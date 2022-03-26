@@ -31,7 +31,7 @@ class Cell {
     
 	get_square(size) {
 		if (size == 4) {
-			if (0 <= this.x && this.x <= 1 && 0 <= this.y && this.y <= 1){
+			if (0 <= this.x && this.x <= 1 && 0 <= this.y && this.y <= 1) {
                 return 1
 			}
             else if (2 <= this.x && this.x <= 3 && 0 <= this.y && this.y <= 1){
@@ -112,16 +112,19 @@ class Sudoku {
 
         var l = []
         var sr_size = Math.sqrt(this.size)   // racine carrée de la taille du sudoku
+        console.log(sr_size)
         var x_min = ((square-1)%sr_size)*sr_size
         // Math.floor(x/y) <=> x//y
         var y_min = (Math.floor((square-1)/sr_size))*sr_size
+        console.log(x_min,y_min);
+        console.log(x_min+sr_size,y_min*sr_size+sr_size);
 
         if (values){
-            for (var j in this.tableau) {
-                for (var k in j) {
-                    if (x_min <= k.x < x_min+sr_size && y_min <= k.y < y_min*sr_size+sr_size) {
-                        l.push(k.value)
-                    }
+            for (var j of this.tableau) {
+                for (var k of j) {
+                  if ((x_min <= k.x && k.x < x_min+sr_size) && (y_min <= k.y && k.y < y_min*sr_size+sr_size)) {
+                      l.push(k.value)
+                  }
                 }        
             }
         }
@@ -169,19 +172,9 @@ class Sudoku {
         return true
     }
     
-    make(numbers) {
-      var sudoku = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      ];
-        while (!sudoku_complete(sudoku) || sudoku_invalid(sudoku)) {
+    make(numbers) { //numbers : nombre de numéros à ajouter (si numbers=30, le sudoku aura 30 chiffres de remplis)
+
+        // while (!sudoku_complete(sudoku) || sudoku_invalid(sudoku)) {
         
           // new empty sudoku
         var sudoku3 = [
@@ -196,7 +189,6 @@ class Sudoku {
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
             ];
             var sudoku = JSON.parse(JSON.stringify(sudoku3));
-            console.log(sudoku3)
             // how many numbers are entered already?
             let numbersDone = 0;
         
@@ -218,9 +210,9 @@ class Sudoku {
             }
             }
             sudoku = JSON.parse(JSON.stringify(sudoku3));
-            console.log(sudoku)
+            // console.log(sudoku)
             //solveSudoku();
-        }
+        // }
     }
 
 
@@ -229,15 +221,23 @@ class Sudoku {
 		var l2 = [];
 		for (var y = 0; y < this.size;y++) {
 			for (var x = 0; x < this.size;x++) {
-				l2.push(new Cell(0,x,y))
+				l2.push(new Cell(x+y,x,y))
 			}
 			l.push(l2)
 			l2 = []
-		}
-		
+		}	
 		return l
 	}
 
+  debug() {
+    for (var i of this.tableau) {
+      var l = []
+      for (var j of range1(i.length)) {
+        l.push(i[j].value)
+      }
+      console.log(l)
+    }
+  }
 }
 
 // returns true if there are two equal numbers in the same row
@@ -255,82 +255,91 @@ function duplicateNumberInRow(s, fieldY) {
     return false;
   }
   
-  // returns true if there are two equal numbers in the same col
-  function duplicateNumberInCol(s, fieldX) {
-    numbers = new Array();
-    for (var i = 0; i < 9; i++) {
-      if (s[fieldX][i] !== 0) {
-        if (numbers.includes(s[fieldX][i])) {
+// returns true if there are two equal numbers in the same col
+function duplicateNumberInCol(s, fieldX) {
+  numbers = new Array();
+  for (var i = 0; i < 9; i++) {
+    if (s[fieldX][i] !== 0) {
+      if (numbers.includes(s[fieldX][i])) {
+        return true;
+      } else {
+        numbers.push(s[fieldX][i]);
+      }
+    }
+  }
+  return false;
+}
+  
+// returns true if there are two equal numbers in the same box
+function duplicateNumberInBox(s, fieldX, fieldY) {
+  boxX = Math.floor(fieldX / 3);
+  boxY = Math.floor(fieldY / 3);
+  numbers = new Array();
+  for (var i = 0; i < 3; i++) {
+    for (var j = 0; j < 3; j++) {
+      x = i + 3 * boxX;
+      y = j + 3 * boxY;
+      if (s[x][y] !== 0) {
+        if (numbers.includes(s[x][y])) {
           return true;
         } else {
-          numbers.push(s[fieldX][i]);
+          numbers.push(s[x][y]);
         }
       }
     }
-    return false;
   }
-  
-  // returns true if there are two equal numbers in the same box
-  function duplicateNumberInBox(s, fieldX, fieldY) {
-    boxX = Math.floor(fieldX / 3);
-    boxY = Math.floor(fieldY / 3);
-    numbers = new Array();
-    for (var i = 0; i < 3; i++) {
-      for (var j = 0; j < 3; j++) {
-        x = i + 3 * boxX;
-        y = j + 3 * boxY;
-        if (s[x][y] !== 0) {
-          if (numbers.includes(s[x][y])) {
-            return true;
-          } else {
-            numbers.push(s[x][y]);
-          }
-        }
-      }
-    }
-    return false;
-  }
-  
-  // returns true if there are two equal numbers in the same row, col or box
-  function duplicateNumberExists(s, fieldX, fieldY) {
-    if (duplicateNumberInRow(s, fieldY)) {
-      return true;
-    }
-    if (duplicateNumberInCol(s, fieldX)) {
-      return true;
-    }
-    if (duplicateNumberInBox(s, fieldX, fieldY)) {
-      return true;
-    }
-    return false;
-  }
+  return false;
+}
 
-  function sudoku_complete(sudoku) {
-    for (var i = 0; i < 9; i++) {
-      for (var j = 0; j < 9; j++) {
-        if (sudoku[i][j] === 0) {
-          return false;
-        }
-      }
-    }
+// returns true if there are two equal numbers in the same row, col or box
+function duplicateNumberExists(s, fieldX, fieldY) {
+  if (duplicateNumberInRow(s, fieldY)) {
     return true;
   }
-  
-  //Tests if there are any duplicate numbers in a sudoku
-  function sudoku_invalid(s) {
-    for (var i = 0; i < 9; i++) {
-      for (var j = 0; j < 9; j++) {
-        if (duplicateNumberExists(s, i, j)) {
-          return true;
-        }
+  if (duplicateNumberInCol(s, fieldX)) {
+    return true;
+  }
+  if (duplicateNumberInBox(s, fieldX, fieldY)) {
+    return true;
+  }
+  return false;
+}
+
+function sudoku_complete(sudoku) {
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      if (sudoku[i][j] === 0) {
+        return false;
       }
     }
-    return false;
   }
+  return true;
+}
+
+//Tests if there are any duplicate numbers in a sudoku
+function sudoku_invalid(s) {
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      if (duplicateNumberExists(s, i, j)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
   
 
 console.log("Program Starting")
 var a = new Sudoku(4)
 // console.log(a.tableau)
 a.make(25)
+a.debug()
+console.log("--")
+console.log(a.get_square(0))
+console.log(a.get_square(1))
+// console.log(a.get_square(2))
+// console.log(a.get_square(3))
+// console.log(a.get_square(4))
+
+
 console.log("End")
