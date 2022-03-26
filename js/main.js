@@ -1,345 +1,94 @@
-/* --- Recréations de fonctions utiles --- */
+var numSelected = null;
 
-function range2(start=0,end,interval=1) {
-    var l = []
-	for (var i = start; i < end;i += interval) {
-        l.push(i)
-	}
-	return l
-}
-function range1(end, interval=1) {
-    var l = []
-	for (var i = 0; i < end;i += interval) {
-        l.push(i)
-	}
-	return l
-}
-function choose(choices) {
-    var index = Math.floor(Math.random() * choices.length);
-	return choices[index];
-}
+/* Un exemple */
+var sudoku = [
+    [0, 0, 7, 4, 9, 1, 6, 0, 5],
+    [2, 0, 0, 0, 6, 0, 3, 0, 9],
+    [0, 0, 0, 0, 0, 7, 0, 1, 0],
+    [0, 5, 8, 6, 0, 0, 0, 0, 4],
+    [0, 0, 3, 0, 0, 0, 0, 9, 0],
+    [0, 0, 6, 2, 0, 0, 1, 8, 7],
+    [9, 0, 4, 0, 7, 0, 0, 0, 2],
+    [6, 7, 0, 8, 3, 0, 0, 0, 0],
+    [8, 1, 0, 0, 4, 5, 0, 0, 0]
+]
 
+var solution = [
+    [3, 8, 7, 4, 9, 1, 6, 2, 5],
+    [2, 4, 1, 5, 6, 8, 3, 7, 9],
+    [5, 6, 9, 3, 2, 7, 4, 1, 8],
+    [7, 5, 8, 6, 1, 9, 2, 3, 4],
+    [1, 2, 3, 7, 8, 4, 5, 9, 6],
+    [4, 9, 6, 2, 5, 3, 1, 8, 7],
+    [9, 3, 4, 1, 7, 6, 8, 5, 2],
+    [6, 7, 5, 8, 3, 2, 9, 4, 1],
+    [8, 1, 2, 9, 4, 5, 7, 6, 3]
+]
 
-/* --- Classes --- */
-
-class Cell {
-    constructor(value,x,y){
-        this.value = value;
-		this.x =x;
-		this.y = y;
-	}
-    
-	get_square(size) {
-		if (size == 4) {
-			if (0 <= this.x && this.x <= 1 && 0 <= this.y && this.y <= 1) {
-                return 1
-			}
-            else if (2 <= this.x && this.x <= 3 && 0 <= this.y && this.y <= 1){
-                return 2
-            }
-            else if (0 <= this.x && this.x <= 1 && 2 <= this.y && this.y <= 3){
-                return 3
-            }
-            else if (2 <= this.x && this.x <= 3 && 2 <= this.y && this.y <= 3){
-                return 4
-            }
-    	}
-	}
+window.onload = function () {
+    setUp();
 }
 
+function setUp() {
 
-class Sudoku {
-	constructor(size=4) {
-		this.size = size;
-		this.tableau = this.generate_empty_sudoku()
-        // var count = 0
-        // while (!this.is_correct()) {
-        //     this.tableau = this.make();
-        //     // count++
-        //     // if (count > 100) {
-        //     //     console.log("wtf???")
-        //     //     break
-        //     // }
-        // }
-	}
-
-    // Renvoie les valeurs d'une colonne, ou les cells elles-mêmes.
-    get_column(column, values=true) {
-        if (column > this.size || column < 1) {
-            console.log("Bad column asked: " + column)
-            return false
-        }
-
-        var l = []
-        if (values) {
-            for (var i in range1(this.size)) {
-                l.push((this.tableau[i][column - 1]).value)
-            }
-        } else {
-            for (var i in range1(this.size)) {
-                l.push(this.tableau[i][column - 1])
-            }
-        }
-        return l
+    // Digits
+    for (let i = 0; i < 9; i++) {
+        let number = document.createElement("div");
+        number.id = i;
+        number.innerText = i;
+        number.addEventListener("click", selectNumber);
+        number.classList.add("number");
+        document.getElementById("digits").appendChild(number);
     }
 
-    // Renvoie les valeurs d'une ligne, ou les cells elles-mêmes.
-    get_row(row, values=true) {
-        if (row > this.size || row < 1) {
-            console.log("Bad row asked: " + row)
-            return false
-        }
+    // Board
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            let cell = document.createElement("div");
+            cell.id = i.toString() + ":" + j.toString();    // les id des div seront de la forme i:j (avec i la ligne et j la colonne)
 
-        if (values) {
-
-            var l = []
-
-            for (var i in range1(this.size)) {
-                l.push((this.tableau[row - 1][i]).value)
+            // Placement des cases de départ
+            if (sudoku[i][j] != 0) {
+                cell.innerText = sudoku[i][j];
+                cell.classList.add("start-cell");
             }
-            return l
-        }
-        return this.tableau[row - 1]
-        
-    }
-
-    // Renvoie les valeurs d'un carré, ou les cells elle-mêmes.
-    get_square(square, values=true) {
-        if (square > this.size || square < 1) {
-            console.log("Bad square asked: " + square)
-            return false
-        }
-
-        var l = []
-        var sr_size = Math.sqrt(this.size)   // racine carrée de la taille du sudoku
-        console.log(sr_size)
-        var x_min = ((square-1)%sr_size)*sr_size
-        // Math.floor(x/y) <=> x//y
-        var y_min = (Math.floor((square-1)/sr_size))*sr_size
-        console.log(x_min,y_min);
-        console.log(x_min+sr_size,y_min*sr_size+sr_size);
-
-        if (values){
-            for (var j of this.tableau) {
-                for (var k of j) {
-                  if ((x_min <= k.x && k.x < x_min+sr_size) && (y_min <= k.y && k.y < y_min*sr_size+sr_size)) {
-                      l.push(k.value)
-                  }
-                }        
+            // Placement d'une ligne verticale et horizontale pour marquer les séparations
+            if (i == 2 || i == 5) {
+                cell.classList.add("horizontal-line");
             }
-        }
-        else {
-            for (var j in this.tableau) {
-                for (var k in j) {
-                    if (x_min <= k.x < x_min+sr_size && y_min <= k.y < y_min*sr_size+sr_size) {
-                        l.push(k)
-                    }
-                }
+            if (j == 2 || j == 5) {
+                cell.classList.add("vertical-line");
             }
+
+            cell.addEventListener("click", selectCell);
+            cell.classList.add("cell");
+            document.getElementById("board").appendChild(cell);
         }
-        return l
     }
-
-    is_correct() {
-        if (this.tableau == undefined) return false
-        //anciennement is_complete()
-        for (var i in range1(this.size)) {
-            for (var j in range1(this.size)) {
-                var current_cell = this.tableau[i][j]
-                if (current_cell.value == 0 || this.get_row(i+1).filter((x) => x == current_cell.value) > 1 || this.get_column(j+1).filter((x) => x == current_cell.value) > 1 || this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value) > 1) {
-                    return false
-                }
-            }
-        }
-        return true
-    }
-
-    is_good_move(cell, new_cell) {
-        //anciennement is_correct()
-        var x = cell.x
-        var y = cell.y
-        var square = cell.get_square(this.size)
-        if (this.get_row(y+1).includes(new_cell)) {
-            return [this.get_row(y+1, false), this.get_row(y+1).findIndex((element) => element == new_cell)]
-        }
-        else if (this.get_column(x+1).includes(new_cell)) {
-            return [this.get_column(x+1, false), this.get_column(y+1).findIndex((element) => element == new_cell)]
-        }
-        else if (this.get_square(square).includes(new_cell)) {
-            return [this.get_square(square, false), this.get_square(square).findIndex((element) => element == new_cell)]
-        }
-        
-        return true
-    }
-    
-    make(numbers) { //numbers : nombre de numéros à ajouter (si numbers=30, le sudoku aura 30 chiffres de remplis)
-
-        // while (!sudoku_complete(sudoku) || sudoku_invalid(sudoku)) {
-        
-          // new empty sudoku
-        var sudoku3 = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ];
-            var sudoku = JSON.parse(JSON.stringify(sudoku3));
-            // how many numbers are entered already?
-            let numbersDone = 0;
-        
-            while (numbersDone < numbers) {
-            let fieldX = Math.floor(Math.random() * 9);
-            let fieldY = Math.floor(Math.random() * 9);
-            let number = Math.floor(Math.random() * 9) + 1;
-            //alert("" + fieldX + " " + fieldY + " " + number);
-        
-            if (sudoku3[fieldX][fieldY] === 0) {
-                sudoku3[fieldX][fieldY] = number;
-                if (duplicateNumberExists(sudoku3, fieldX, fieldY)) {
-                sudoku3[fieldX][fieldY] = 0;
-                continue;
-                } else {
-                numbersDone++;
-                }
-                //alert("" + numbersDone);
-            }
-            }
-            sudoku = JSON.parse(JSON.stringify(sudoku3));
-            // console.log(sudoku)
-            //solveSudoku();
-        // }
-    }
-
-
-	generate_empty_sudoku() {
-		var l = [];
-		var l2 = [];
-		for (var y = 0; y < this.size;y++) {
-			for (var x = 0; x < this.size;x++) {
-				l2.push(new Cell(x+y,x,y))
-			}
-			l.push(l2)
-			l2 = []
-		}	
-		return l
-	}
-
-  debug() {
-    for (var i of this.tableau) {
-      var l = []
-      for (var j of range1(i.length)) {
-        l.push(i[j].value)
-      }
-      console.log(l)
-    }
-  }
 }
 
-// returns true if there are two equal numbers in the same row
-function duplicateNumberInRow(s, fieldY) {
-    numbers = new Array();
-    for (var i = 0; i < 9; i++) {
-      if (s[i][fieldY] !== 0) {
-        if (numbers.includes(s[i][fieldY])) {
-          return true;
-        } else {
-          numbers.push(s[i][fieldY]);
+function selectNumber() {
+    if (numSelected != null) {
+        numSelected.classList.remove("number-selected");    // on enlève le background si il y'a déjà un nombre de séléctionné
+    }
+    // if (numSelected != this) {
+    numSelected = this;
+    numSelected.classList.add("number-selected");
+    // } else {
+    //     numSelected = null;
+    // }
+}
+
+function selectCell() {
+    if (numSelected) {  // on vérifie qu'un nombre est séléctionnée
+        if (this.innerText != "") { // on vérifie que la case sur laquelle on dépose notre chiffre n'est pas déjà remplie
+            return;
         }
-      }
+
+        this.innerText = numSelected.id;
+        let coords = this.id.split(":");
+        let row = parseInt(coords[0]);
+        let column = parseInt(coords[1]);
+        // to be continued
     }
-    return false;
-  }
-  
-// returns true if there are two equal numbers in the same col
-function duplicateNumberInCol(s, fieldX) {
-  numbers = new Array();
-  for (var i = 0; i < 9; i++) {
-    if (s[fieldX][i] !== 0) {
-      if (numbers.includes(s[fieldX][i])) {
-        return true;
-      } else {
-        numbers.push(s[fieldX][i]);
-      }
-    }
-  }
-  return false;
 }
-  
-// returns true if there are two equal numbers in the same box
-function duplicateNumberInBox(s, fieldX, fieldY) {
-  boxX = Math.floor(fieldX / 3);
-  boxY = Math.floor(fieldY / 3);
-  numbers = new Array();
-  for (var i = 0; i < 3; i++) {
-    for (var j = 0; j < 3; j++) {
-      x = i + 3 * boxX;
-      y = j + 3 * boxY;
-      if (s[x][y] !== 0) {
-        if (numbers.includes(s[x][y])) {
-          return true;
-        } else {
-          numbers.push(s[x][y]);
-        }
-      }
-    }
-  }
-  return false;
-}
-
-// returns true if there are two equal numbers in the same row, col or box
-function duplicateNumberExists(s, fieldX, fieldY) {
-  if (duplicateNumberInRow(s, fieldY)) {
-    return true;
-  }
-  if (duplicateNumberInCol(s, fieldX)) {
-    return true;
-  }
-  if (duplicateNumberInBox(s, fieldX, fieldY)) {
-    return true;
-  }
-  return false;
-}
-
-function sudoku_complete(sudoku) {
-  for (var i = 0; i < 9; i++) {
-    for (var j = 0; j < 9; j++) {
-      if (sudoku[i][j] === 0) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-//Tests if there are any duplicate numbers in a sudoku
-function sudoku_invalid(s) {
-  for (var i = 0; i < 9; i++) {
-    for (var j = 0; j < 9; j++) {
-      if (duplicateNumberExists(s, i, j)) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-  
-
-console.log("Program Starting")
-var a = new Sudoku(4)
-// console.log(a.tableau)
-a.make(25)
-a.debug()
-console.log("--")
-console.log(a.get_square(0))
-console.log(a.get_square(1))
-// console.log(a.get_square(2))
-// console.log(a.get_square(3))
-// console.log(a.get_square(4))
-
-
-console.log("End")
