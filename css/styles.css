@@ -1,6 +1,5 @@
-/*Je met ça temporairement juste pour avoir un truc*/
 body {
-	font: Sudoku;
+	font: Sudoku; /* ? */
 	background-color: rgb(227, 238, 238); /* proposé par Maxim */
 }
 
@@ -22,6 +21,74 @@ p {
 	text-align: center;
 	padding: 5px;
 }
+
+/* La grille du sudoku */
+#board {
+	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
+	width: 450px;
+	height: 450px;
+	margin: 20px auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Les cases du sudoku */
+.cell {
+	width: 48px;
+	height: 48px;
+	border: 1px solid lightgray;
+	cursor: pointer;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Les cases de départs */
+.start-cell {
+	background-color: rgb(214, 225, 225); /*temporaire*/
+}
+
+/* La div avec les nombres à sélectionner */
+#digits {
+	user-select: none;
+	width: 450px;
+	height: 50px;
+	margin: 20px auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Les nombres à sélectionner pour les poser dans le sudoku */
+.number {
+	width: 44px;
+	height: 44px;
+	border: 1px solid black;
+	margin: 2px;
+	cursor: pointer;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Le nombre de la div #digits sélectionné (s'il y en a un) */
+.number-selected {
+	background-color: lightsalmon; /*temporaire*/
+}
+
+/* Les cases au-dessus des lignes horizontales */
+.horizontal-line {
+	border-bottom: 1px solid black;
+}
+
+/* Les cases à gauche des lignes verticales */
+.vertical-line {
+	border-right: 1px solid black;
+}
+
 
 #footer {
 	border-radius: .3em .3em .3em .3em;
