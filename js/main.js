@@ -102,37 +102,37 @@ class Sudoku {
 
     // Renvoie les valeurs d'un carré, ou les cells elle-mêmes.
     get_square(square, values=true) {
-        if (square > this.size || square < 1) {
-            console.log("Bad square asked: " + square)
-            return false
-        }
+      if (square > this.size || square < 1) {
+          console.log("Bad square asked: " + square)
+          return false
+      }
 
-        var l = []
-        var sr_size = Math.sqrt(this.size)   // racine carrée de la taille du sudoku
-        var x_min = ((square-1)%sr_size)*sr_size
-        // Math.floor(x/y) <=> x//y
-        var y_min = (Math.floor((square-1)/sr_size))*sr_size
+      var l = []
+      var sr_size = Math.sqrt(this.size)   // racine carrée de la taille du sudoku
+      console.log(sr_size)
+      var x_min = ((square-1)%sr_size)*sr_size
+      var y_min = (Math.floor((square-1)/sr_size))*sr_size  // Math.floor(x/y) <=> x//y
 
-        if (values){
-            for (var j in this.tableau) {
-                for (var k in j) {
-                    if (x_min <= k.x < x_min+sr_size && y_min <= k.y < y_min*sr_size+sr_size) {
-                        l.push(k.value)
-                    }
-                }        
-            }
-        }
-        else {
-            for (var j in this.tableau) {
-                for (var k in j) {
-                    if (x_min <= k.x < x_min+sr_size && y_min <= k.y < y_min*sr_size+sr_size) {
-                        l.push(k)
-                    }
+      if (values){
+          for (var j of this.tableau) {
+              for (var k of j) {
+                if ((x_min <= k.x && k.x < x_min+sr_size) && (y_min <= k.y && k.y < y_min*sr_size+sr_size)) {
+                    l.push(k.value)
                 }
-            }
-        }
-        return l
-    }
+              }        
+          }
+      }
+      else {
+          for (var j of this.tableau) {
+              for (var k of j) {
+                if ((x_min <= k.x && k.x < x_min+sr_size) && (y_min <= k.y && k.y < y_min*sr_size+sr_size)) {
+                      l.push(k)
+                  }
+              }
+          }
+      }
+      return l
+  }
 
     is_correct() {
         if (this.tableau == undefined) return false
@@ -261,6 +261,16 @@ class Sudoku {
 		
 		return l
 	}
+
+  debug() {
+    for (var i of this.tableau) {
+      var l = []
+      for (var j of range1(i.length)) {
+        l.push(i[j].value)
+      }
+      console.log(l)
+    }
+  }
 }
 
 var a = new Sudoku(4)
