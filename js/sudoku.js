@@ -29,20 +29,48 @@ class Cell {
     this.y = y;
   }
 
-  get_square(size) {
-    if (size == 4) {
-      if (0 <= this.x && this.x <= 1 && 0 <= this.y && this.y <= 1) {
-        return 1
-      }
-      else if (2 <= this.x && this.x <= 3 && 0 <= this.y && this.y <= 1) {
-        return 2
-      }
-      else if (0 <= this.x && this.x <= 1 && 2 <= this.y && this.y <= 3) {
-        return 3
-      }
-      else if (2 <= this.x && this.x <= 3 && 2 <= this.y && this.y <= 3) {
-        return 4
-      }
+    get_square(size) {
+        if (size == 4) {
+            if (0 <= this.x && this.x <= 1 && 0 <= this.y && this.y <= 1) {
+              return 1
+            }
+            else if (2 <= this.x && this.x <= 3 && 0 <= this.y && this.y <= 1) {
+              return 2
+            }
+            else if (0 <= this.x && this.x <= 1 && 2 <= this.y && this.y <= 3) {
+              return 3
+            }
+            else if (2 <= this.x && this.x <= 3 && 2 <= this.y && this.y <= 3) {
+              return 4
+            }
+        } else if (size == 9) {
+            if (0 <= self.x && self.x <= 2 && 0 <= self.y && self.y <= 2 ) {
+                return 1
+            }
+            else if ( 3 <= self.x && self.x <= 5 && 0 <= self.y && self.y <= 2) {
+                return 2
+            }
+            else if ( 6 <= self.x && self.x <= 8 && 0 <= self.y && self.y <= 2) {
+                return 3
+            }
+            else if ( 0 <= self.x && self.x <= 2 && 3 <= self.y && self.y <= 5) {
+                return 4
+            }
+            else if ( 3 <= self.x && self.x <= 5 && 3 <= self.y && self.y <= 5) {
+                return 5
+            }
+            else if ( 6 <= self.x && self.x <= 8 && 3 <= self.y && self.y <= 5) {
+                return 6
+            }
+            else if ( 0 <= self.x && self.x <= 2 && 6 <= self.y && self.y <= 8) {
+                return 7
+            }
+            else if ( 3 <= self.x && self.x <= 5 && 6 <= self.y && self.y <= 8) {
+                return 8
+            }
+            else if ( 6 <= self.x && self.x <= 8 && 6 <= self.y && self.y <= 8) {
+                return 9    
+            }
     }
   }
 }
@@ -94,7 +122,7 @@ class Sudoku {
 
       var l = []
 
-      for (var i in range1(this.size)) {
+      for (var i of range1(this.size)) {
         l.push((this.tableau[row - 1][i]).value)
       }
       return l
@@ -137,89 +165,123 @@ class Sudoku {
     return l
   }
 
-  is_correct() {
-    if (this.tableau == undefined) return false;
-    //anciennement is_complete()
-    for (var i of range1(this.size)) {
-      for (var j of range1(this.size)) {
-        var current_cell = this.tableau[i][j];
-        if (current_cell.value == 0 ||
-            this.get_row(i + 1).filter((x) => x == current_cell.value).length > 1 ||
-            this.get_column(j + 1).filter((x) => x == current_cell.value).length > 1 ||
-            this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value).length > 1) {
-          return false;
+    is_correct() {
+        if (this.tableau == undefined) return false;
+        //anciennement is_complete()
+        for (var i of range1(this.size)) {
+            for (var j of range1(this.size)) {
+                var current_cell = this.tableau[i][j];
+                if (current_cell.value == 0 || this.get_row(i + 1).filter((x) => x == current_cell.value).length > 1 || this.get_column(j + 1).filter((x) => x == current_cell.value).length > 1 || this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value).length > 1) {
+                    return false;
+                }
+            }
         }
-      }
-    }
-    return true;
-  }
-
-  is_good_move2(cell, new_cell) {
-    //anciennement is_correct()
-    var x = cell.x
-    var y = cell.y
-    var square = cell.get_square(this.size)
-    if (this.get_row(y + 1).includes(new_cell)) {
-      return [this.get_row(y + 1, false), this.get_row(y + 1).findIndex((element) => element == new_cell)]
-    }
-    else if (this.get_column(x + 1).includes(new_cell)) {
-      return [this.get_column(x + 1, false), this.get_column(y + 1).findIndex((element) => element == new_cell)]
-    }
-    else if (this.get_square(square).includes(new_cell)) {
-      return [this.get_square(square, false), this.get_square(square).findIndex((element) => element == new_cell)]
+        return true;
     }
 
-    return true;
-  }
+    is_good_move2(cell, new_cell) {
+        //anciennement is_correct()
+        var x = cell.x
+        var y = cell.y
+        var square = cell.get_square(this.size)
+        if (this.get_row(y + 1).includes(new_cell)) {
+            return [this.get_row(y + 1, false), this.get_row(y + 1).findIndex((element) => element == new_cell)]
+        }
+        else if (this.get_column(x + 1).includes(new_cell)) {
+            return [this.get_column(x + 1, false), this.get_column(y + 1).findIndex((element) => element == new_cell)]
+        }
+        else if (this.get_square(square).includes(new_cell)) {
+            return [this.get_square(square, false), this.get_square(square).findIndex((element) => element == new_cell)]
+        }
+      
+        return true;
+    }
   
-  is_good_move(cell, new_cell) {
-    //anciennement is_correct()
-    console.log(new_cell)
-    var x = cell.x
-    var y = cell.y
-    var square = cell.get_square(this.size)
-
-    if (this.get_row(y + 1).includes(new_cell)) {
-      return false;
-    }
-    if (this.get_column(x + 1).includes(new_cell)) {
-      return false;
-    }
-    if (this.get_square(square).includes(new_cell)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  make(numbers) { 
-    //pass
-  }
-
-
-
-  generate_empty_sudoku() {
-    var l = [];
-    var l2 = [];
-    for (var y = 0; y < this.size; y++) {
-      for (var x = 0; x < this.size; x++) {
-        l2.push(new Cell(0, x, y))
+    /*
+    is_good_move(cell, new_cell) {
+      //anciennement is_correct()
+      console.log(new_cell)
+      var x = cell.x
+      var y = cell.y
+      var square = cell.get_square(this.size)   
+      if (this.get_row(y + 1).includes(new_cell)) {
+        return false;
       }
-      l.push(l2)
-      l2 = []
-    }
-    return l
-  }
-
-  debug() {
-    for (var i of this.tableau) {
-      var l = []
-      for (var j of range1(i.length)) {
-        l.push(i[j].value)
+      if (this.get_column(x + 1).includes(new_cell)) {
+        return false;
       }
-      console.log(l)
+      if (this.get_square(square).includes(new_cell)) {
+        return false;
+      } 
+      return true;
     }
-  }
+    */
+
+    make() {
+        while (true) {
+            var empty_cell = this.find_empty_cell()
+            if (empty_cell == null) { break }
+
+            var numbers = range2(1,this.size+1)
+            var new_value = choose(numbers)
+
+            while (true) {
+                var correct_move = this.is_good_move2(empty_cell, new_value)
+
+                if (correct_move === true) {
+                    empty_cell.value = new_value // je veux rien casser.
+                    this.tableau[empty_cell.y][empty_cell.x].value = new_value
+                    break
+                }
+
+                else {
+                    var index = numbers.indexOf(new_value)
+
+                    //si non trouvé...
+                    if (index == -1) {
+                        var old_cell = correct_move[0][correct_move[1]]
+                        this.tableau[old_cell.y][old_cell.x].value = 0
+                    } else {
+                        new_value = choose(numbers)
+                    }
+                }
+            }
+        }
+    }
+
+    find_empty_cell() {
+        for (var i of this.tableau) {
+            for (var j of i) {
+                if (j.value === 0) {
+                    return j
+                }
+            }
+        }
+        return null
+    }
+
+    generate_empty_sudoku() {
+        var l = [];
+        var l2 = [];
+        for (var y = 0; y < this.size; y++) {
+            for (var x = 0; x < this.size; x++) {
+                l2.push(new Cell(0, x, y))
+            }
+            l.push(l2)
+            l2 = []
+        }
+        return l
+    }
+
+    debug() {
+        for (var i of this.tableau) {
+            var l = []
+            for (var j of range1(i.length)) {
+                l.push(i[j].value)
+            }
+            console.log(l)
+        }
+    }
 }
 
 // returns true if there are two equal numbers in the same row
@@ -313,14 +375,10 @@ function sudoku_invalid(s) {
 
 console.log("Program Starting")
 var a = new Sudoku(4)
+a.make()
+// var b = new Sudoku(9)
 // console.log(a.tableau)
 // a.make(100)
-a.tableau = [
-  [new Cell(3,0,0),new Cell(4,1,0),new Cell(2,2,0),new Cell(1,3,0)],
-  [new Cell(1,0,1),new Cell(2,1,1),new Cell(3,2,1),new Cell(4,3,1)],
-  [new Cell(4,0,2),new Cell(3,1,2),new Cell(1,2,2),new Cell(2,3,2)],
-  [new Cell(2,0,3),new Cell(1,1,3),new Cell(4,2,3),new Cell(3,3,3)],
-]
-a.make(50)
+
 console.log(a.is_correct());
 console.log("End")

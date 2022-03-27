@@ -101,7 +101,7 @@ class Sudoku:
             if not empty_cell:
                 break
             
-            numbers = [i for i in range(1,self.size+1)] # Les possibilités à tester
+            numbers = list(range(1,self.size+1)) # Les possibilités à tester
             new_value = choice(numbers)
 
             while True:
