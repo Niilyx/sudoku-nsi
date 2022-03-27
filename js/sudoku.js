@@ -189,48 +189,8 @@ class Sudoku {
     return true;
   }
 
-  make(numbers) { //numbers : nombre de numéros à ajouter (si numbers=30, le sudoku aura 30 chiffres de remplis)
-
-    // while (!sudoku_complete(sudoku) || sudoku_invalid(sudoku)) {
-
-    // new empty sudoku
-   
-    // var sudoku2 = JSON.parse(JSON.stringify(this.tableau));
-    // how many numbers are entered already?
-    let numbersDone = 0;
-
-    while (numbersDone < numbers) {
-      let fieldX = Math.floor(Math.random() * this.size);
-      let fieldY = Math.floor(Math.random() * this.size);
-      let number = Math.floor(Math.random() * this.size) + 1;
-      //alert("" + fieldX + " " + fieldY + " " + number);
-      console.log("Value : ",this.tableau[fieldY][fieldX].value)
-      
-      if (this.tableau[fieldY][fieldX].value === 0) {
-    
-        if (!this.is_good_move(this.tableau[fieldY][fieldX],number)) {
-          console.log("Value unchanged")
-          console.log("---")
-          numbersDone++;
-          continue;
-        }
-        else {
-          console.log("New value : ", this.tableau[fieldY][fieldX].value)
-          this.tableau[fieldY][fieldX].value = number;
-          numbersDone++;
-          console.log("---");
-        }
-        // if (!this.is_good_move(this.tableau[fieldY][fieldX],number)) {
-        // } else {
-        // }
-        
-        //alert("" + numbersDone);
-      }
-    }
-    // sudoku = JSON.parse(JSON.stringify(sudoku));
-    // console.log(sudoku)
-    //solveSudoku();
-    // }
+  make(numbers) { 
+    //pass
   }
 
 
