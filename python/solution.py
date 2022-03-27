@@ -96,25 +96,32 @@ class Sudoku:
             while True:
 
                 move_is_correct = self.is_correct(empty_cell,new_value)
-                
+
                 if move_is_correct == True:
+                    # print(True)
                     # on pose le chiffre
+                    # print("On pose")
                     empty_cell.value = new_value
                     break
 
-                else :
+                else:
+                    # print(False)
                     try:
                         # on réessaye avec un autre chiffre
                         numbers.remove(new_value)
                         new_value = choice(numbers)
+                        # print(f"On change new_value : {new_value}")
                     except:
                         # on échange les cases
+                        #ici il faudrait test 3 fois en fait, (au cas où il y'auraits)
                         old_cell = move_is_correct[0][move_is_correct[1]]
+                        # print(f"Cases changées : {old_cell.value,old_cell.x,old_cell.y} => {new_value}")
                         old_cell.value = 0
-                        empty_cell.value = new_value
-                        break
-            self.debug()
-            print("---")
+                        # if self.is_correct(empty_cell,new_value) == True:
+                        #     empty_cell.value = new_value
+                        # break
+            # self.debug()
+            # print("---")
 
 
     # --- Fonctions récupérants des données sur le sudoku (getters,...) ---
@@ -201,15 +208,15 @@ class Sudoku:
 
         # si la ligne contient la nouvelle valeur
         if new_value in self.get_row(y+1):  
-            return self.get_row(y+1,False),self.get_row(y+1).index(cell.value)
+            return self.get_row(y+1,False),self.get_row(y+1).index(new_value)
 
         # si la colonne contient la nouvelle valeur
         elif new_value in self.get_column(x+1): 
-            return self.get_column(x+1,False),self.get_column(x+1).index(cell.value)
+            return self.get_column(x+1,False),self.get_column(x+1).index(new_value)
 
         # si le carré contient la nouvelle valeur
         elif new_value in self.get_square(square):  
-            return self.get_square(square,False),self.get_square(square).index(cell.value)
+            return self.get_square(square,False),self.get_square(square).index(new_value)
 
         return True
 
@@ -225,7 +232,7 @@ class Sudoku:
 
 if __name__ == "__main__":
     sk_4x4 = Sudoku() # 4x4 par défaut
-    sk_9x9 = Sudoku(4)
+    sk_9x9 = Sudoku(9)
 
     sk_9x9.generate_sudoku()
     sk_9x9.debug()
