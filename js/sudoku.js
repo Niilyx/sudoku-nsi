@@ -126,8 +126,8 @@ class Sudoku {
       }
     }
     else {
-      for (var j in this.tableau) {
-        for (var k in j) {
+      for (var j of this.tableau) {
+        for (var k of j) {
           if (x_min <= k.x < x_min + sr_size && y_min <= k.y < y_min * sr_size + sr_size) {
             l.push(k)
           }
@@ -358,5 +358,6 @@ a.tableau = [
   [new Cell(4,0,2),new Cell(3,1,2),new Cell(1,2,2),new Cell(2,3,2)],
   [new Cell(2,0,3),new Cell(1,1,3),new Cell(4,2,3),new Cell(3,3,3)],
 ]
+a.make(50)
 console.log(a.is_correct());
 console.log("End")
