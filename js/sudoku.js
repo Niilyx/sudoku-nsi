@@ -20,7 +20,7 @@ function choose(choices) {
 class Cell {
 	constructor(value,x,y){
 		this.value = value;
-		this.x =x;
+		this.x = x;
 		this.y = y;
 	}
 
@@ -49,7 +49,7 @@ class Sudoku {
 	constructor(size=4) {
 		this.size = size;
 		this.tableau = this.make();
-        var count = 0
+        // var count = 0
         while (!this.is_correct()) {
             this.tableau = this.make();
             // count++
@@ -69,11 +69,11 @@ class Sudoku {
 
         var l = []
         if (values) {
-            for (var i in range1(this.size)) {
+            for (var i of range1(this.size)) {
                 l.push((this.tableau[i][column - 1]).value)
             }
         } else {
-            for (var i in range1(this.size)) {
+            for (var i of range1(this.size)) {
                 l.push(this.tableau[i][column - 1])
             }
         }
@@ -91,7 +91,7 @@ class Sudoku {
 
             var l = []
 
-            for (var i in range1(this.size)) {
+            for (var i of range1(this.size)) {
                 l.push((this.tableau[row - 1][i]).value)
             }
             return l
@@ -137,8 +137,8 @@ class Sudoku {
     is_correct() {
         if (this.tableau == undefined) return false
         //anciennement is_complete()
-        for (var i in range1(this.size)) {
-            for (var j in range1(this.size)) {
+        for (var i of range1(this.size)) {
+            for (var j of range1(this.size)) {
                 var current_cell = this.tableau[i][j]
                 if (current_cell.value == 0 || this.get_row(i+1).filter((x) => x == current_cell.value) > 1 || this.get_column(j+1).filter((x) => x == current_cell.value) > 1 || this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value) > 1) {
                     return false
@@ -234,8 +234,8 @@ class Sudoku {
         this.tableau = this.generate_empty_sudoku()
 
         var choice = range2(1, this.size + 1)
-        for (var y in range1(this.size)) {
-            for (var x in range1(this.size)) {
+        for (var y of range1(this.size)) {
+            for (var x of range1(this.size)) {
                 var cur_cell = this.tableau[y][x]
 
                 var rand = choose(choice)
