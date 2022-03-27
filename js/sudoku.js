@@ -119,7 +119,7 @@ class Sudoku {
     if (values) {
       for (var j of this.tableau) {
         for (var k of j) {
-          if ((x_min <= k.x && k.x < x_min + sr_size) && (y_min <= k.y && k.y < y_min * sr_size + sr_size)) {
+          if ((x_min <= k.x && k.x < x_min + sr_size) && (y_min <= k.y && k.y < y_min + sr_size)) {
             l.push(k.value)
           }
         }
@@ -128,7 +128,7 @@ class Sudoku {
     else {
       for (var j of this.tableau) {
         for (var k of j) {
-          if (x_min <= k.x < x_min + sr_size && y_min <= k.y < y_min * sr_size + sr_size) {
+          if (x_min <= k.x < x_min + sr_size && y_min <= k.y < y_min + sr_size) {
             l.push(k)
           }
         }
@@ -143,7 +143,10 @@ class Sudoku {
     for (var i of range1(this.size)) {
       for (var j of range1(this.size)) {
         var current_cell = this.tableau[i][j];
-        if (current_cell.value == 0 || this.get_row(i + 1).filter((x) => x == current_cell.value).length > 1 || this.get_column(j + 1).filter((x) => x == current_cell.value).length > 1 || this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value).length > 1) {
+        if (current_cell.value == 0 ||
+            this.get_row(i + 1).filter((x) => x == current_cell.value).length > 1 ||
+            this.get_column(j + 1).filter((x) => x == current_cell.value).length > 1 ||
+            this.get_square(current_cell.get_square(this.size)).filter((x) => x == current_cell.value).length > 1) {
           return false;
         }
       }
