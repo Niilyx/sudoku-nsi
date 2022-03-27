@@ -70,6 +70,17 @@ class Sudoku:
         """
         self.size = size
         self.grid = self.__generate_empty_sudoku()  # la grille est vide au départ
+        print("-----------------")
+        print(self.get_square(1))
+        print(self.get_square(2))
+        print(self.get_square(3))
+        print(self.get_square(4))
+        print(self.get_square(5))
+        print(self.get_square(6))
+        print(self.get_square(7))
+        print(self.get_square(8))
+        print(self.get_square(9))
+        print("-----------------")
         
 
     # --- Fonctions modifiants le sudoku ---
@@ -177,13 +188,13 @@ class Sudoku:
         if values:
             for j in self.grid:
                 for k in j:
-                    if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min*sr_size+sr_size:
+                    if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
                         l.append(k.value)
         
         else:
             for j in self.grid:
                 for k in j:
-                    if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min*sr_size+sr_size:
+                    if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
                         l.append(k)
         return l
     
