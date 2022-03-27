@@ -54,7 +54,7 @@ class Sudoku {
             this.tableau = this.make();
             // count++
             // if (count > 100) {
-            //     console.log("wtf???")
+            //     console.log("???")
             //     break
             // }
         }
