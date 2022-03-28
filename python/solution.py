@@ -231,7 +231,7 @@ class Sudoku:
 
         return True
 
-
+   
     def debug(self):
         """Print le sudoku actuel dans un format plus lisible"""        
         for i in self.grid:
@@ -239,12 +239,10 @@ class Sudoku:
 
 
 
-
-
 if __name__ == "__main__":
-    sk_4x4 = Sudoku() # 4x4 par défaut
     sk_9x9 = Sudoku(9)
 
     sk_9x9.generate_sudoku()
     sk_9x9.debug()
     print("Le sudoku est complet : ",sk_9x9.is_complete())
+    

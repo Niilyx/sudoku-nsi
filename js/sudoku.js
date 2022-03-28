@@ -367,7 +367,7 @@ function sudoku_invalid(s) {
 
 
 console.log("Program Starting")
-var a = new Sudoku(4)
+// var a = new Sudoku(4)
 var b = new Sudoku(9)
 
 console.log(a.is_correct());
