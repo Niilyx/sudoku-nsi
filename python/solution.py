@@ -241,7 +241,6 @@ class Sudoku:
 
 if __name__ == "__main__":
     sk_9x9 = Sudoku(9)
-
     sk_9x9.generate_sudoku()
     sk_9x9.debug()
     print("Le sudoku est complet : ",sk_9x9.is_complete())

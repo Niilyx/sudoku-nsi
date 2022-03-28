@@ -252,19 +252,63 @@
 			        for i in self.grid:
 			            print([i[j].value for j in range(len(i))])
 
+			sudoku = None
+			def new_game(ev):
+				global sudoku
+
+				difficulty = document["time"].value
+
+				nb_cases_a_suppr = 0
+
+				if difficulty == "5min":
+					nb_cases_a_suppr = 5
+				elif difficulty == "10min":
+					nb_cases_a_suppr = 6
+				elif difficulty == "10min":
+					nb_cases_a_suppr = 7
 
 
+				if difficulty == "1min":
+					sudoku = Sudoku(4)
+					sudoku.generate_sudoku()
+					
+					for row in range(4):
+						coords = list(choice(range(4)) for _ in range(3))
+						# Supprimer les doublons
+						coords = list(dict.fromkeys(coords))
+						for i in coords:
+							sudoku.grid[row][i].value = 0
+					
+					if document["digits"].childElementCount == 9:
+						window.changeBoard(4)
+				else:
+					sudoku = Sudoku(9)
+					sudoku.generate_sudoku()
+					for row in range(9):
+						coords = list(choice(range(9)) for _ in range(nb_cases_a_suppr))
+						# Supprimer les doublons
+						coords = list(dict.fromkeys(coords))
+						for i in coords:
+							sudoku.grid[row][i].value = 0
+					
+					if document["digits"].childElementCount == 4:
+						window.changeBoard(4)
+
+				sudoku.debug()
+
+				# On place!
+				for y in range(sudoku.size):
+					for x in range(sudoku.size):
+						if sudoku.grid[y][x].value != 0:
+							document[str(x) + ":" + str(y)].text = sudoku.grid[y][x].value
+							window.addClass(str(x) + ":" + str(y), "start-cell")
+						else:
+							document[str(x) + ":" + str(y)].text = ""
 
 
-			sk_9x9 = Sudoku(9)
+			document["new_game"].bind("click", new_game)
 
-			sk_9x9.generate_sudoku()
-			sk_9x9.debug()
-			print("Le sudoku est complet : ",sk_9x9.is_complete())
-			for y in range(sk_9x9.size):
-				for x in range(sk_9x9.size):
-					document[str(x) + ":" + str(y)].text = sk_9x9.grid[y][x].value
-			
+			#print("Le sudoku est complet : ",sudoku.is_complete())
 			
 			
 			@bind("div.cell", "click")
@@ -277,8 +321,12 @@
 					return
 				
 				new_value = l[0].innerText
-				coords = ev.target.id.split(":")
 				ev.target.innerText = new_value
+				print(ev.target.id)
+				sudoku.grid[int(ev.target.id[-1])][int(ev.target.id[0])].value = int(new_value)
+
+
+				
 			
 		</script>
     	<div class="container">
@@ -287,11 +335,13 @@
 	        <div id="setting">
 	        	<label for="time">Choose your difficulty:</label>
 	        	<select id="time">
-	        		<option value="5min">Très facile (~1 minute)</option>
-	        		<option value="10min">Facile (~10 minutes)</option>
-	        		<option value="15min" selected>Moyen (~15 minutes)</option>
-	        		<option value="30min">Difficile (~20 minutes)</option>	<!-- temps à préciser -->
+	        		<option value="1min">Très facile (~1 minute)</option>
+	        		<option value="5min">Facile (~10 minutes)</option>
+					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
+	        		<option value="10min" selected>Moyen (~15 minutes)</option>
+	        		<option value="20min">Difficile (~20 minutes)</option>	<!-- temps à préciser -->
 	        	</select>
+				<button id="new_game">Nouvelle partie</button>
 	        </div>
 
 			<!-- Grille sudoku -->

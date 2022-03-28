@@ -30,8 +30,12 @@ window.onload = function () {
     brython();
 }
 
+function addClass(id, classe) {
+    document.getElementById(id).classList.add(classe)
+}
+
 function setUp() {
-    
+    /*
     // Digits
     for (let i = 1; i <= 9; i++) {
         let number = document.createElement("div");
@@ -67,6 +71,10 @@ function setUp() {
             document.getElementById("board").appendChild(cell);
         }
     }
+    */
+
+    changeBoard(9)
+    document.getElementById("new_game").click()
 }
 
 function selectNumber() {
