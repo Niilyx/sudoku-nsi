@@ -44,31 +44,31 @@ class Cell {
               return 4
             }
         } else if (size == 9) {
-            if (0 <= self.x && self.x <= 2 && 0 <= self.y && self.y <= 2 ) {
+            if (0 <= this.x && this.x <= 2 && 0 <= this.y && this.y <= 2 ) {
                 return 1
             }
-            else if ( 3 <= self.x && self.x <= 5 && 0 <= self.y && self.y <= 2) {
+            else if ( 3 <= this.x && this.x <= 5 && 0 <= this.y && this.y <= 2) {
                 return 2
             }
-            else if ( 6 <= self.x && self.x <= 8 && 0 <= self.y && self.y <= 2) {
+            else if ( 6 <= this.x && this.x <= 8 && 0 <= this.y && this.y <= 2) {
                 return 3
             }
-            else if ( 0 <= self.x && self.x <= 2 && 3 <= self.y && self.y <= 5) {
+            else if ( 0 <= this.x && this.x <= 2 && 3 <= this.y && this.y <= 5) {
                 return 4
             }
-            else if ( 3 <= self.x && self.x <= 5 && 3 <= self.y && self.y <= 5) {
+            else if ( 3 <= this.x && this.x <= 5 && 3 <= this.y && this.y <= 5) {
                 return 5
             }
-            else if ( 6 <= self.x && self.x <= 8 && 3 <= self.y && self.y <= 5) {
+            else if ( 6 <= this.x && this.x <= 8 && 3 <= this.y && this.y <= 5) {
                 return 6
             }
-            else if ( 0 <= self.x && self.x <= 2 && 6 <= self.y && self.y <= 8) {
+            else if ( 0 <= this.x && this.x <= 2 && 6 <= this.y && this.y <= 8) {
                 return 7
             }
-            else if ( 3 <= self.x && self.x <= 5 && 6 <= self.y && self.y <= 8) {
+            else if ( 3 <= this.x && this.x <= 5 && 6 <= this.y && this.y <= 8) {
                 return 8
             }
-            else if ( 6 <= self.x && self.x <= 8 && 6 <= self.y && self.y <= 8) {
+            else if ( 6 <= this.x && this.x <= 8 && 6 <= this.y && this.y <= 8) {
                 return 9    
             }
     }
@@ -80,15 +80,7 @@ class Sudoku {
   constructor(size = 4) {
     this.size = size;
     this.tableau = this.generate_empty_sudoku()
-    // var count = 0
-    // while (!this.is_correct()) {
-    //     this.tableau = this.make();
-    //     // count++
-    //     // if (count > 100) {
-    //     //     console.log("wtf???")
-    //     //     break
-    //     // }
-    // }
+    Object.assign(this, this.make(this))
   }
 
   // Renvoie les valeurs d'une colonne, ou les cells elles-mêmes.
@@ -247,6 +239,7 @@ class Sudoku {
                 }
             }
         }
+        return this
     }
 
     find_empty_cell() {
@@ -375,10 +368,8 @@ function sudoku_invalid(s) {
 
 console.log("Program Starting")
 var a = new Sudoku(4)
-a.make()
-// var b = new Sudoku(9)
-// console.log(a.tableau)
-// a.make(100)
+var b = new Sudoku(9)
 
 console.log(a.is_correct());
+console.log(b.is_correct());
 console.log("End")
