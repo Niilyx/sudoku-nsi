@@ -1,4 +1,5 @@
 var numSelected = null;
+var hasSetUp = false;
 
 window.onload = function () {
     setUp();
@@ -15,32 +16,19 @@ function removeClass(element, classe) {
 
 function setUp() {
    changeBoard(9)
+   hasSetUp = true;
 }
 
 function selectNumber() {
     if (numSelected != null) {
+        if (this.classList.contains("number-selected")) {
+            numSelected.classList.remove("number-selected");
+            return
+        }
         numSelected.classList.remove("number-selected");    // on enlève le background si il y'a déjà un nombre de séléctionné
     }
-    // if (numSelected != this) {
     numSelected = this;
     numSelected.classList.add("number-selected");
-    // } else {
-    //     numSelected = null;
-    // }
-}
-
-function selectCell() {
-    if (numSelected) {  // on vérifie qu'un nombre est séléctionnée
-        if (this.innerText != "") { // on vérifie que la case sur laquelle on dépose notre chiffre n'est pas déjà remplie
-            return;
-        }
-
-        this.innerText = numSelected.id;
-        let coords = this.id.split(":");
-        let row = parseInt(coords[0]);
-        let column = parseInt(coords[1]);
-        // to be continued
-    }
 }
 
 function changeBoard(newSize) {
@@ -99,6 +87,7 @@ function changeBoard(newSize) {
 
             // cell.addEventListener("click", selectCell);
             cell.classList.add("cell");
+            if (!hasSetUp) { cell.classList.add("start-cell") }
             document.getElementById("board").appendChild(cell);
         }
     }
