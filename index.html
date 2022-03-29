@@ -194,10 +194,10 @@
 			        y_min = ((square-1)//sr_size)*sr_size
 
 			        if values:
-			            for j in self.grid:
-			                for k in j:
-			                    if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
-			                        l.append(k.value)
+			        	for j in self.grid:
+							for k in j:
+								if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
+									l.append(k.value)
 
 			        else:
 			            for j in self.grid:
@@ -210,8 +210,7 @@
 			    # --- Fonctions de tests et aide ---
 
 			    def is_complete(self):
-			        """renvoie True si le sudoku est entier sinon False"""
-					return True
+			        """renvoie True si le sudoku est réussi sinon False"""
 			        for i in range(self.size):
 			            for j in range(self.size):
 			                current_cell = self.grid[i][j]
