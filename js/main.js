@@ -60,6 +60,7 @@ function changeBoard(newSize) {
     }
 
     document.getElementById('board').setAttribute("style","width:" + (newSize * 50).toString() +"px;height:" + (newSize * 50).toString() + "px;");
+    document.getElementById('digits').setAttribute("style","width:" + (newSize * 50).toString() +"px;height: 50px;");
 
     // Board
     for (let i = 0; i < newSize; i++) {

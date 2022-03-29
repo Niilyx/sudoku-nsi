@@ -264,6 +264,7 @@
 				if sudoku.is_complete():
 					window.win()
 			
+			solution = []
 			sudoku = None
 			def new_game(ev):
 				global sudoku
@@ -283,6 +284,9 @@
 					sudoku = Sudoku(4)
 					sudoku.generate_sudoku()
 					
+					for row in sudoku.grid:
+						solution.append([row[j].value for j in range(len(row))])
+
 					for row in range(4):
 						coords = list(choice(range(4)) for _ in range(3))
 						# Supprimer les doublons
@@ -295,6 +299,9 @@
 				else:
 					sudoku = Sudoku(9)
 					sudoku.generate_sudoku()
+					for row in sudoku.grid:
+						solution.append([row[j].value for j in range(len(row))])
+						
 					for row in range(9):
 						coords = list(choice(range(9)) for _ in range(nb_cases_a_suppr))
 						# Supprimer les doublons
