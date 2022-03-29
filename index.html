@@ -247,15 +247,14 @@
 				global sudoku
 
 				difficulty = document["time"].value
-
 				nb_cases_a_suppr = 0
 
 				if difficulty == "5min":
 					nb_cases_a_suppr = 5
 				elif difficulty == "10min":
 					nb_cases_a_suppr = 6
-				elif difficulty == "10min":
-					nb_cases_a_suppr = 7
+				elif difficulty == "20min":
+					nb_cases_a_suppr = 8
 
 
 				if difficulty == "1min":
@@ -294,9 +293,10 @@
 
 			document["new_game"].bind("click", new_game)
 			
-			
 			@bind("div.cell", "click")
 			def clicked_button(ev):
+				print("ddddd")
+				global sudoku
 				l = document.select(".number-selected")
 				if len(l) == 0:
 					return
@@ -307,8 +307,6 @@
 				new_value = l[0].innerText
 				ev.target.innerText = new_value
 				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
-
-				
 			
 		</script>
     	<div class="container">
