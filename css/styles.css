@@ -23,8 +23,13 @@ p {
 	padding: 5px;
 }
 
+#whole-thing {
+	width: 100%;
+}
+
 /* La grille du sudoku */
 #board {
+	position: relative;
 	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
 	width: 450px;
 	height: 450px;
@@ -52,6 +57,7 @@ p {
 }
 
 #alerts {
+	position: relative;
 	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
 	background-color: coral;
 	width: 450px;
