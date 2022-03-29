@@ -1,5 +1,6 @@
 var numSelected = null;
 var hasSetUp = false;
+var winSound = new Audio("media/victory.mp3")
 
 window.onload = function () {
     setUp();
@@ -91,4 +92,8 @@ function changeBoard(newSize) {
             document.getElementById("board").appendChild(cell);
         }
     }
+}
+
+function win() {
+    winSound.play()
 }

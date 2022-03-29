@@ -1,6 +1,6 @@
 body {
 	font-family: 'Oxygen', sans-serif;
-	background-color: rgb(227, 238, 238); /* proposé par Maxim */
+	background-color: rgb(227, 238, 238);
 }
 
 h1 {
@@ -83,6 +83,7 @@ p {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 10px;
 }
 
 /* Le nombre de la div #digits sélectionné (s'il y en a un) */
