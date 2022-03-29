@@ -110,7 +110,6 @@ function changeBoard(newSize) {
         e.removeChild(child);
         child = e.lastElementChild;
     }
-
     // Cleanup board
     e = document.getElementById("board")
     child = e.lastElementChild; 
