@@ -85,7 +85,6 @@
 			        """
 			        self.size = size
 			        self.grid = self.__generate_empty_sudoku()  # la grille est vide au départ
-			        window.changeBoard(size)
 
 
 			    # --- Fonctions modifiants le sudoku ---
@@ -242,6 +241,21 @@
 			        for row in self.grid:
 			            print([row[j].value for j in range(len(row))])
 
+			@bind("div.cell", "click")
+			def clicked_button(ev):
+				print("ddddd")
+				global sudoku
+				l = document.select(".number-selected")
+				if len(l) == 0:
+					return
+				
+				if ev.target.className.find("start-cell") != -1:
+					return
+				
+				new_value = l[0].innerText
+				ev.target.innerText = new_value
+				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
+			
 			sudoku = None
 			def new_game(ev):
 				global sudoku
@@ -268,6 +282,8 @@
 						for i in coords:
 							sudoku.grid[row][i].value = 0
 					
+					if len(document.select(".number")) == 9:
+						window.changeBoard(4)
 				else:
 					sudoku = Sudoku(9)
 					sudoku.generate_sudoku()
@@ -277,9 +293,16 @@
 						coords = list(dict.fromkeys(coords))
 						for i in coords:
 							sudoku.grid[row][i].value = 0
-					
+
+					if len(document.select(".number")) == 4:
+						window.changeBoard(9)
 
 				sudoku.debug()
+
+				for element in document.select(".cell"):
+					element.bind("click", clicked_button)
+
+
 
 				# On place!
 				for y in range(sudoku.size):
@@ -292,21 +315,6 @@
 
 
 			document["new_game"].bind("click", new_game)
-			
-			@bind("div.cell", "click")
-			def clicked_button(ev):
-				print("ddddd")
-				global sudoku
-				l = document.select(".number-selected")
-				if len(l) == 0:
-					return
-				
-				if ev.target.className.find("start-cell") != -1:
-					return
-				
-				new_value = l[0].innerText
-				ev.target.innerText = new_value
-				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
 			
 		</script>
     	<div class="container">
