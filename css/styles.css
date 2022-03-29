@@ -51,6 +51,16 @@ p {
 	background-color: rgb(214, 225, 225); /*temporaire*/
 }
 
+#alerts {
+	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
+	background-color: coral;
+	width: 450px;
+	height: 450px;
+	margin: 20px auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
 /* La div avec les nombres à sélectionner */
 #digits {
 	user-select: none;
@@ -89,6 +99,7 @@ p {
 .vertical-line {
 	border-right: 1px solid black;
 }
+
 
 #clock {
 	text-align: center;
