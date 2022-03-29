@@ -301,8 +301,7 @@
 
 				for element in document.select(".cell"):
 					element.bind("click", clicked_button)
-
-
+					window.removeClass(element, "start-cell")
 
 				# On place!
 				for y in range(sudoku.size):
