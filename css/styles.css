@@ -1,6 +1,6 @@
 body {
 	font-family: 'Oxygen', sans-serif;
-	background-color: rgb(227, 238, 238); /* proposé par Maxim */
+	background-color: rgb(227, 238, 238);
 }
 
 h1 {
@@ -23,8 +23,13 @@ p {
 	padding: 5px;
 }
 
+#whole-thing {
+	width: 100%;
+}
+
 /* La grille du sudoku */
 #board {
+	position: relative;
 	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
 	width: 450px;
 	height: 450px;
@@ -38,7 +43,6 @@ p {
 	width: 48px;
 	height: 48px;
 	border: 1px solid lightgray;
-	border-radius: 10px;
 	cursor: pointer;
 	font-size: 20px;
 	font-weight: bold;
@@ -50,6 +54,17 @@ p {
 /* Les cases de départs */
 .start-cell {
 	background-color: rgb(214, 225, 225); /*temporaire*/
+}
+
+#alerts {
+	position: relative;
+	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
+	background-color: coral;
+	width: 450px;
+	height: 450px;
+	margin: 20px auto;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 /* La div avec les nombres à sélectionner */
