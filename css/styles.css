@@ -1,9 +1,10 @@
 body {
-	font: Sudoku; /* ? */
+	font-family: 'Oxygen', sans-serif;
 	background-color: rgb(227, 238, 238); /* proposé par Maxim */
 }
 
 h1 {
+	font-family: 'Rock 3D', cursive;
 	text-align:center;
 }
 
