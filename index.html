@@ -255,6 +255,9 @@
 				if ev.target.className.find("start-cell") != -1:
 					return
 				
+				if document.select("body")[0].className.find("uneditable") != -1:
+					return
+				
 				new_value = l[0].innerText
 				ev.target.innerText = new_value
 				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
@@ -271,9 +274,9 @@
 				if difficulty == "5min":
 					nb_cases_a_suppr = 5
 				elif difficulty == "10min":
-					nb_cases_a_suppr = 6
+					nb_cases_a_suppr = 7
 				elif difficulty == "20min":
-					nb_cases_a_suppr = 8
+					nb_cases_a_suppr = 11
 
 
 				if difficulty == "1min":
@@ -329,11 +332,11 @@
 	        <div id="setting">
 	        	<label for="time">Choisir votre difficulté : </label>
 	        	<select id="time">
-	        		<option value="1min">Très facile (~1 minute)</option>
-	        		<option value="5min">Facile (~10 minutes)</option>
+	        		<option value="1min">Très facile (≈1 minute)</option>
+	        		<option value="5min">Facile (≈10 minutes)</option>
 					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
-	        		<option value="10min" selected>Moyenne (~15 minutes)</option>
-	        		<option value="20min">Difficile (~20 minutes)</option>	<!-- temps à préciser -->
+	        		<option value="10min" selected>Moyenne (≈15 minutes)</option>
+	        		<option value="20min">Difficile (>20 minutes)</option>	<!-- temps à préciser -->
 	        	</select>
 				<button id="new_game">Nouvelle partie</button>
 	        </div>

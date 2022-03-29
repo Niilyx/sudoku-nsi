@@ -21,6 +21,7 @@ function setUp() {
 }
 
 function selectNumber() {
+    if (document.querySelector("body").classList.contains("uneditable")) return
     if (numSelected != null) {
         if (this.classList.contains("number-selected")) {
             numSelected.classList.remove("number-selected");
@@ -57,6 +58,9 @@ function changeBoard(newSize) {
         number.classList.add("number");
         document.getElementById("digits").appendChild(number);
     }
+
+    document.getElementById('board').setAttribute("style","width:" + (newSize * 50).toString() +"px;height:" + (newSize * 50).toString() + "px;");
+
     // Board
     for (let i = 0; i < newSize; i++) {
         for (let j = 0; j < newSize; j++) {
@@ -89,11 +93,42 @@ function changeBoard(newSize) {
             // cell.addEventListener("click", selectCell);
             cell.classList.add("cell");
             if (!hasSetUp) { cell.classList.add("start-cell") }
-            document.getElementById("board").appendChild(cell);
+            document.getElementById("board").appendChild(cell);    
         }
     }
 }
 
+function getAllCells() {
+    return document.getElementsByClassName("cell")
+}
+
+function getAllDigits() {
+    return document.getElementsByClassName("number")
+}
+
 function win() {
     winSound.play()
+    document.querySelector("body").classList.add("uneditable")
+
+    if (numSelected != null) {
+        numSelected.classList.remove("number-selected");
+    }
+
+    for (let i = 0;i<3;i++) {
+        setTimeout(() => {
+            for (let cell of getAllCells()) {
+                cell.classList.add("end-cell")
+            }
+        }, 2200 + (1000 * i))
+        setTimeout(() => {
+            for (let cell of getAllCells()) {
+                cell.classList.remove("end-cell")
+            }
+        }, 2700 + (1000 * i))
+    }
+    setTimeout(() => {
+        for (let cell of getAllCells()) {
+            cell.classList.add("end-cell")
+        }
+    }, 5200)
 }

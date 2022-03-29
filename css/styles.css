@@ -92,6 +92,10 @@ p {
 	border-right: 1px solid black;
 }
 
+.end-cell {
+	background-color: greenyellow;
+}
+
 #clock {
 	text-align: center;
 }
