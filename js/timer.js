@@ -1,21 +1,19 @@
 function Time() {
-    // Creating object of the Date class
+    // Crée l'objet de classe Date
     var date = new Date();
-    // Get current hour
+    // Cherche l'heure actuelle
     var hour = date.getHours();
-    // Get current minute
+    // Cherche les minutes actuels
     var minute = date.getMinutes();
-    // Updating hour, minute, and second
-    // if they are less than 10
+    // Met à jour le temps
     hour = update(hour);
     minute = update(minute);
-    // Adding time elements to the div
+    // Met en forme
     document.getElementById("clock").innerText = hour+" : "+minute;
-    // Set Timer to 1 sec (1000 ms)
+    // Fréquence 1 seconde (1000ms)
     setTimeout(Time, 1000);
   }
-    // Function to update time elements if they are less than 10
-    // Append 0 before time elements if they are less than 10
+    // Fonction update qui met à jour le temps
     function update(t) {
     if (t < 10) {
     return "0" + t;
