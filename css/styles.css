@@ -90,6 +90,9 @@ p {
 	border-right: 1px solid black;
 }
 
+#clock {
+	text-align: center;
+}
 
 #footer {
 	border-radius: .3em .3em .3em .3em;
