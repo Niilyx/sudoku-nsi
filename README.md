@@ -1,8 +1,21 @@
 # Sudoku NSI
-Le meilleur jeu que t'as jamais vu de ta LIFE (enfin on voudrait bien)
+Projet de fin d'année réalisé dans le cadre de cours de NSI Terminale.
 
-*Projet d'NSI Terminale*
+## Installation :
+*à venir*
 
-exemples pour le Markdown :
-![image](https://user-images.githubusercontent.com/70155662/157402308-6c98e086-6273-41a1-aa8e-5cce1a96abe5.png)
-et pour les liens ``[texte](lien du texte)``
+## Contributeurs :
+<a href="https://github.com/Niilyx/sudoku-nsi/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Niilyx/sudoku-nsi" />
+</a>
+
+## Cahier des Charges :
+##### Partie logique :
+- Python/JavaScript [@Niilyx](https://github.com/Niilyx) [@Axxiar](https://github.com/Axxiar)
+
+##### Partie graphique :
+- HTML + CSS (Valentyn) [@SH8LL3](https://github.com/SH8LL3)
+- Design des éléments et assets [@Aixiis](https://github.com/Aixiis)
+
+## Outils utilisés :
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) [![Image](media/brython.jpg)](https://brython.info/index.html)
