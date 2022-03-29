@@ -74,7 +74,6 @@ function setUp() {
     */
 
     changeBoard(9)
-    document.getElementById("new_game").click()
 }
 
 function selectNumber() {
@@ -129,7 +128,6 @@ function changeBoard(newSize) {
         number.classList.add("number");
         document.getElementById("digits").appendChild(number);
     }
-
     // Board
     for (let i = 0; i < newSize; i++) {
         for (let j = 0; j < newSize; j++) {

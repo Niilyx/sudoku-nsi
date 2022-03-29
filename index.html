@@ -85,17 +85,7 @@
 			        """
 			        self.size = size
 			        self.grid = self.__generate_empty_sudoku()  # la grille est vide au départ
-			        print("-----------------")
-			        print(self.get_square(1))
-			        print(self.get_square(2))
-			        print(self.get_square(3))
-			        print(self.get_square(4))
-			        print(self.get_square(5))
-			        print(self.get_square(6))
-			        print(self.get_square(7))
-			        print(self.get_square(8))
-			        print(self.get_square(9))
-			        print("-----------------")
+			        window.changeBoard(size)
 
 
 			    # --- Fonctions modifiants le sudoku ---
@@ -249,8 +239,8 @@
 
 			    def debug(self):
 			        """Print le sudoku actuel dans un format plus lisible"""        
-			        for i in self.grid:
-			            print([i[j].value for j in range(len(i))])
+			        for row in self.grid:
+			            print([row[j].value for j in range(len(row))])
 
 			sudoku = None
 			def new_game(ev):
@@ -279,8 +269,6 @@
 						for i in coords:
 							sudoku.grid[row][i].value = 0
 					
-					if document["digits"].childElementCount == 9:
-						window.changeBoard(4)
 				else:
 					sudoku = Sudoku(9)
 					sudoku.generate_sudoku()
@@ -291,24 +279,20 @@
 						for i in coords:
 							sudoku.grid[row][i].value = 0
 					
-					if document["digits"].childElementCount == 4:
-						window.changeBoard(4)
 
 				sudoku.debug()
 
 				# On place!
 				for y in range(sudoku.size):
 					for x in range(sudoku.size):
-						if sudoku.grid[y][x].value != 0:
-							document[str(x) + ":" + str(y)].text = sudoku.grid[y][x].value
+						if sudoku.grid[x][y].value != 0:
+							document[str(x) + ":" + str(y)].text = sudoku.grid[x][y].value
 							window.addClass(str(x) + ":" + str(y), "start-cell")
 						else:
 							document[str(x) + ":" + str(y)].text = ""
 
 
 			document["new_game"].bind("click", new_game)
-
-			#print("Le sudoku est complet : ",sudoku.is_complete())
 			
 			
 			@bind("div.cell", "click")
@@ -322,9 +306,7 @@
 				
 				new_value = l[0].innerText
 				ev.target.innerText = new_value
-				print(ev.target.id)
-				sudoku.grid[int(ev.target.id[-1])][int(ev.target.id[0])].value = int(new_value)
-
+				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
 
 				
 			
