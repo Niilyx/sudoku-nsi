@@ -74,6 +74,7 @@ p {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 10px;
 }
 
 /* Le nombre de la div #digits sélectionné (s'il y en a un) */
