@@ -21,8 +21,7 @@
 			 - Alexis
 
 			Notes :
-			    • sk = sudoku
-			    • ici, les 0 dans les sudokus représentent des cases vides
+			    • Les 0 dans la grille des sudokus représentent des cases vides
 			    • Le sudoku peut être de taille 4x4 ou 9x9
 			    • Chaque case de sudoku est représentée par un objet de la classe Cell
 			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
@@ -331,16 +330,14 @@
 			document["new_game"].bind("click", new_game)
 			
 		</script>
-    	<div class="container">
-    		<div id="whole-thing">
-	        <h1>SUDOKU</h1>
+			<h1>SUDOKU</h1>
 	        <div id="clock"></div>
 	        <script type="text/javascript" src="js/timer.js"></script>
 	        <p>Règles :<br>blalblablabla</p>
 	        <div id="setting">
-	        	<label for="time">Choisir votre difficulté : </label>
+				<label for="time">Choisir votre difficulté : </label>
 	        	<select id="time">
-	        		<option value="1min">Très facile (≈1 minute)</option>
+					<option value="1min">Très facile (≈1 minute)</option>
 	        		<option value="5min">Facile (≈10 minutes)</option>
 					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
 	        		<option value="10min" selected>Moyenne (≈15 minutes)</option>
@@ -349,15 +346,17 @@
 				<button id="new_game">Nouvelle partie</button>
 	        </div>
 	        
-				<!-- Grille sudoku -->
+			<!-- Grille sudoku -->
+			<div id="board-container">
 				<div id="board"></div>
+				
 				<div id="alerts"></div>
-				<!-- Nombres à sélectionner -->
-				<div id="digits"></div>
 			</div>
-	        <div id="footer">
-	        	Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Maxim, Idir)
-	    	</div>
-        </div>
-    </body>
+			<!-- Nombres à sélectionner -->
+			<div id="digits"></div>
+		<div id="footer-container">
+			<div id="footer">
+				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Maxim, Idir)
+			</div>
+</body>
 </html>

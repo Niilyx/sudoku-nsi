@@ -12,7 +12,7 @@ p {
 	text-align: center;
 }
 
-.container {
+#footer-container {
 	margin: auto;
 	height: 720px;
 	width: 1080px;
@@ -27,13 +27,25 @@ p {
 	width: 100%;
 }
 
+#board-container {
+	position: relative;
+	height: 500px;
+}
+
 /* La grille du sudoku */
 #board {
 	position: relative;
 	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
 	width: 450px;
 	height: 450px;
-	margin: 20px auto;
+	position: absolute;
+	width: 450px;
+	height: 450px;
+	top: 50%;
+	bottom: 50%;
+	right: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -57,13 +69,14 @@ p {
 }
 
 #alerts {
-	position: relative;
+	position: absolute;
 	background-color: coral;
-	width: 40%;
+	width: 550px;
 	height: 450px;
-	margin: 20px auto;
-	display: flex;
-	flex-wrap: wrap;
+	right: 3%;
+	top: 50%;
+	bottom: 50%;
+	transform: translate(0,-50%);
 }
 
 /* La div avec les nombres à sélectionner */
