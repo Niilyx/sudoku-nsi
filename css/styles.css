@@ -29,6 +29,7 @@ p {
 
 #board-container {
 	position: relative;
+	background-color: yellow;
 	height: 500px;
 }
 
@@ -72,11 +73,18 @@ p {
 	position: absolute;
 	background-color: coral;
 	width: 550px;
-	height: 450px;
+	height: 400px;
 	right: 3%;
 	top: 50%;
 	bottom: 50%;
 	transform: translate(0,-50%);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Rock 3D', cursive;
+	font-size: 40px;
+	font-weight: bold;
 }
 
 /* La div avec les nombres à sélectionner */

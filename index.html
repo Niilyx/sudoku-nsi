@@ -333,15 +333,21 @@
 			<h1>SUDOKU</h1>
 	        <div id="clock"></div>
 	        <script type="text/javascript" src="js/timer.js"></script>
-	        <p>Règles :<br>blalblablabla</p>
+	        <p><b>Règles :</b><br><!-- à abréger -->
+				1) <i>Choisissez votre difficulté</i><br>
+				2) <i>Cliquez sur "Nouvelle partie"</i><br>
+				3) <i>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</i><br> 
+				4) <i>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</i><br>
+			
+			</p>
 	        <div id="setting">
-				<label for="time">Choisir votre difficulté : </label>
+				<label for="time">Difficulté : </label>
 	        	<select id="time">
-					<option value="1min">Très facile (≈1 minute)</option>
-	        		<option value="5min">Facile (≈10 minutes)</option>
+					<option value="1min">Très facile (≈1 min)</option>
+	        		<option value="5min">Facile (≈10 min)</option>
 					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
-	        		<option value="10min" selected>Moyenne (≈15 minutes)</option>
-	        		<option value="20min">Difficile (>20 minutes)</option>	<!-- temps à préciser -->
+	        		<option value="10min" selected>Moyen (≈15 min)</option>
+	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
 	        	</select>
 				<button id="new_game">Nouvelle partie</button>
 	        </div>

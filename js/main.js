@@ -108,9 +108,10 @@ function getAllDigits() {
 }
 
 function win() {
-    winSound.volume = 0.8
+    winSound.volume = 0.3
     winSound.play()
     document.querySelector("body").classList.add("uneditable")
+    document.getElementById("alerts").innerText = "Et c'est la win !"
 
     if (numSelected != null) {
         numSelected.classList.remove("number-selected");
