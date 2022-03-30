@@ -108,6 +108,7 @@ function getAllDigits() {
 }
 
 function win() {
+    winSound.volume = 0.8
     winSound.play()
     document.querySelector("body").classList.add("uneditable")
 

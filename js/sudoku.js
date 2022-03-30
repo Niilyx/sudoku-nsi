@@ -5,6 +5,7 @@ function range2(start = 0, end, interval = 1) {
   for (var i = start; i < end; i += interval) {
     l.push(i)
   }
+  
   return l
 }
 function range1(end, interval = 1) {
