@@ -12,6 +12,7 @@ function addClass(id, classe) {
 }
 
 function removeClass(element, classe) {
+    if (element.classList == undefined) return
     element.classList.remove(classe)
 }
 

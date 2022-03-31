@@ -1,0 +1,31 @@
+@font-face { 
+	font-family: "Rock 3D";  
+	src: url("../font/Rock3D-Regular.ttf") ;
+}
+@font-face {
+	font-family: "Oxygen";
+	src: url("../font//Oxygen-Regular.ttf");
+}
+
+body {
+	font-family: 'Oxygen', sans-serif;
+	background-color: rgb(227, 238, 238);
+}
+
+h1 {
+	font-family: 'Rock 3D', cursive;
+	text-align: center;
+}
+
+form {
+	background-color: brown;
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+}
+input {
+	margin: 25px 0px;
+}
+input[type=text] {
+	padding: 5px;
+}

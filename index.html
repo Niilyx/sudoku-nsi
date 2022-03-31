@@ -2,11 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Accueil</title> 
+    <title>Accueil</title>
+	<link rel="stylesheet" href="css/index.css"> 
 </head>
 <body>
-    <h1>Hello</h1>
-    <a href="sudoku.html">Lancer une partie !</a>
+    <h1>SUDOKU</h1>
+	<form>
+		<input type="text" placeholder="Pseudo">
+		<br>
+		<select id="time">
+			<option value="1min">Très facile (≈1 min)</option>
+			<option value="5min">Facile (≈10 min)</option>
+			<option value="10min" selected>Moyen (≈15 min)</option>
+			<option value="20min">Difficile (>20 min)</option>
+		</select>
+		<br>
+		<div title="Activer les aides">
+			<input type="checkbox">
+			<label>Aide</label>
+		</div>
+		<a href="sudoku.html">Lancer une partie !</a>
+	</form>
 </body>
 </html>

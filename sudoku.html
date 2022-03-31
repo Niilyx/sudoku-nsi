@@ -3,13 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>SUDOKU</title>
-        <link rel="stylesheet" href="css/styles.css"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Rock+3D&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/sudoku.css"/>
 		<script type="text/javascript" src="js/main.js"></script>
-		<!-- <script type="text/javascript" src="js/sudoku.js"></script> -->
 		<script type="text/javascript" src="brython/brython.js"></script>
 		<script type="text/javascript" src="brython/brython_stdlib.js"></script>
     </head>
@@ -278,6 +273,8 @@
 				elif difficulty == "20min":
 					nb_cases_a_suppr = 10
 
+				print(document)
+				window.removeClass(document.select("body")[0],"uneditable")
 
 				if difficulty == "1min":
 					sudoku = Sudoku(4)
