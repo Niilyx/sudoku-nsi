@@ -18,14 +18,53 @@ h1 {
 }
 
 form {
+	font-family: 'Oxygen';
+	color: white;
 	background-color: brown;
 	width: 500px;
 	margin: 0 auto;
 	text-align: center;
 }
-input {
-	margin: 25px 0px;
+div {
+	height: 30px;
+	margin: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
 }
-input[type=text] {
+input {
+	margin: 25px 10px;
+}
+input[type="text"] {
 	padding: 5px;
+	width: 50%;
+	background-color: blue;
+	border: 3px solid blue;
+	border-radius: 4px;
+	outline: 1px transparent;
+	transition: outline 150ms ease-in, width 150ms ease-in;
+}
+::placeholder {
+	color: lightgrey;
+}
+input[type="text"]:focus-visible {
+	outline: 1px solid white;
+	width: 70%;
+}
+
+select {
+	background-color: fuchsia;
+	color:white;
+	padding: 5px;
+	border: none;
+	border-radius: 4px;
+	outline: 1px transparent;
+	transition: outline 150ms ease-in;
+}
+select option {
+	color: black;
+}
+select:focus-visible {
+	outline: 1px solid white;
 }
