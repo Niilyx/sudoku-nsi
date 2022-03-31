@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>SUDOKU</h1>
-	<form>
-		<input type="text" placeholder="Pseudo">
+	<form action="sudoku.html" method="get">
+		<input name="pseudo" type="text" placeholder="Pseudo">
 		<br>
-		<select id="time">
+		<select name="difficulty" id="time">
 			<option value="1min">Très facile (≈1 min)</option>
 			<option value="5min">Facile (≈10 min)</option>
 			<option value="10min" selected>Moyen (≈15 min)</option>
@@ -18,10 +18,10 @@
 		</select>
 		<br>
 		<div title="Activer les aides">
-			<input type="checkbox">
+			<input name="help" type="checkbox">
 			<label>Aide</label>
 		</div>
-		<button><a href="sudoku.html">Lancer une partie !</a></button>
+		<input type="submit" value="Lancer une partie !">
 	</form>
 </body>
 </html>

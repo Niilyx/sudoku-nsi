@@ -3,6 +3,7 @@ var hasSetUp = false;
 var winSound = new Audio("media/victory.mp3")
 
 window.onload = function () {
+    alert(window.location.search)
     setUp();
     brython();
 }
