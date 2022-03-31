@@ -273,9 +273,8 @@
 				elif difficulty == "20min":
 					nb_cases_a_suppr = 10
 
-				print(document)
-				window.removeClass(document.select("body")[0],"uneditable")
-
+				window.removeClass(document.select("body")[0], "uneditable")
+				
 				if difficulty == "1min":
 					sudoku = Sudoku(4)
 					sudoku.generate_sudoku()
@@ -322,12 +321,15 @@
 							window.addClass(str(x) + ":" + str(y), "start-cell")
 						else:
 							document[str(x) + ":" + str(y)].text = ""
-
+				if window.won:
+					window.music()
+				
 
 			document["new_game"].bind("click", new_game)
 			
 		</script>
 			<h1>SUDOKU</h1>
+			<button><img id="bMute" src="media/img/unmute.png"></img></button>
 	        <div id="clock"></div>
 	        <script type="text/javascript" src="js/timer.js"></script>
 	        <p><b>Règles :</b><br><!-- à abréger -->
@@ -361,5 +363,6 @@
 			<div id="footer">
 				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Maxim, Idir)
 			</div>
+		</div>
 </body>
 </html>
