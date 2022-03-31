@@ -72,8 +72,8 @@ p {
 #alerts {
 	position: absolute;
 	background-color: coral;
-	width: 550px;
-	height: 400px;
+	width: 25%;
+	height: 370px;
 	right: 3%;
 	top: 50%;
 	bottom: 50%;

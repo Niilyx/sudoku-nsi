@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>SUDOKU</title>
+        <link rel="stylesheet" href="css/styles.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Rock+3D&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+		<script type="text/javascript" src="js/main.js"></script>
+		<!-- <script type="text/javascript" src="js/sudoku.js"></script> -->
+		<script type="text/javascript" src="brython/brython.js"></script>
+		<script type="text/javascript" src="brython/brython_stdlib.js"></script>
+    </head>
+    <body>
+		<script type="text/python">
+			"""
+			Je fais quelques tests pour la partie logique des sudokus.
+			Toute aide est la bienvenue !
+			 - Alexis
+
+			Notes :
+			    • Les 0 dans la grille des sudokus représentent des cases vides
+			    • Le sudoku peut être de taille 4x4 ou 9x9
+			    • Chaque case de sudoku est représentée par un objet de la classe Cell
+			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
+			"""
+			from math import sqrt
+			from random import choice
+			from browser import *
+			import javascript as js
+
+			class Cell:
+			    """Classe Cell, représente chaque cellule (case) du sudoku"""
+			    def __init__(self,value,x,y):
+			        """Constructeur
+			        Arguments :
+			            - value : la valeur de la case (entre 0 et 9)
+			            - x : position sur l'axe x de la case dans le sudoku
+			            - y : position sur l'axe y de la case dans le sudoku
+			        """
+			        self.value = value
+			        self.x = x
+			        self.y = y
+
+			    def get_square(self,size):      # à améliorer si possible
+			        """int -> int
+			        Renvoie le carré auquel appartient la case"""
+			        if size == 4:
+			            if 0 <= self.x <= 1 and 0 <= self.y <= 1:
+			                return 1
+			            elif 2 <= self.x <= 3 and 0 <= self.y <= 1:
+			                return 2
+			            elif 0 <= self.x <= 1 and 2 <= self.y <= 3:
+			                return 3
+			            elif 2 <= self.x <= 3 and 2 <= self.y <= 3:
+			                return 4
+
+			        elif size == 9:
+			            if 0 <= self.x <= 2 and 0 <= self.y <= 2:
+			                return 1
+			            elif 3 <= self.x <= 5 and 0 <= self.y <= 2:
+			                return 2
+			            elif 6 <= self.x <= 8 and 0 <= self.y <= 2:
+			                return 3
+			            elif 0 <= self.x <= 2 and 3 <= self.y <= 5:
+			                return 4
+			            elif 3 <= self.x <= 5 and 3 <= self.y <= 5:
+			                return 5
+			            elif 6 <= self.x <= 8 and 3 <= self.y <= 5:
+			                return 6
+			            elif 0 <= self.x <= 2 and 6 <= self.y <= 8:
+			                return 7
+			            elif 3 <= self.x <= 5 and 6 <= self.y <= 8:
+			                return 8
+			            elif 6 <= self.x <= 8 and 6 <= self.y <= 8:
+			                return 9
+
+
+			class Sudoku:
+			    """Classe Sudoku, réprésente le sudoku entier"""
+			    def __init__(self,size=4):
+			        """Constructeur
+			        Arguments :
+			            - size : taille du sudoku (4x4 ou 9x9), par défaut 4
+			            - grid : listes imbriquées représentant la grille de sudoku
+			        """
+			        self.size = size
+			        self.grid = self.__generate_empty_sudoku()  # la grille est vide au départ
+
+
+			    # --- Fonctions modifiants le sudoku ---
+
+			    def __generate_empty_sudoku(self):
+			        """int -> list[int]
+			        Génére et renvoie une liste d'objet 'Cell' (dont la valeur est 0) en fonction de 'self.size'
+			        """
+			        return [[Cell(0,i,int(j/self.size)) for i in range(self.size)] for j in range(0,self.size**2,self.size)]
+
+
+			    def generate_sudoku(self):      # assez basique, à améliorer si possible
+			        """Modifie 'self.grid' en générant un sudoku entier dont la taille dépend de 'self.size'"""
+
+			        # while not self.is_complete():
+			        while True:
+			            empty_cell = self.find_empty_cell()
+			            if not empty_cell:
+			                break
+
+			            numbers = list(range(1,self.size+1)) # Les possibilités à tester
+			            new_value = choice(numbers)
+
+			            while True:
+
+			                move_is_correct = self.is_correct(empty_cell,new_value)
+
+			                if move_is_correct == True:
+			                    # print(True)
+			                    # on pose le chiffre
+			                    # print("On pose")
+			                    empty_cell.value = new_value
+			                    break
+
+			                else:
+			                    # print(False)
+			                    try:
+			                        # on réessaye avec un autre chiffre
+			                        numbers.remove(new_value)
+			                        new_value = choice(numbers)
+			                        # print(f"On change new_value : {new_value}")
+			                    except:
+			                        # on échange les cases
+			                        #ici il faudrait test 3 fois en fait, (au cas où il y'auraits)
+			                        old_cell = move_is_correct[0][move_is_correct[1]]
+			                        # print(f"Cases changées : {old_cell.value,old_cell.x,old_cell.y} => {new_value}")
+			                        old_cell.value = 0
+			                        # if self.is_correct(empty_cell,new_value) == True:
+			                        #     empty_cell.value = new_value
+			                        # break
+			            # self.debug()
+			            # print("---")
+
+
+			    # --- Fonctions récupérants des données sur le sudoku (getters,...) ---
+
+			    def find_empty_cell(self):
+			        """-> Cell | None
+			        Renvoie la première case de la grille dont la valeur est 0, renvoie None s'il n'y en a pas"""
+			        for i in self.grid:
+			            for j in i:
+			                if j.value == 0:
+			                    return j
+			        return None
+
+			    def get_column(self,column,values=True):
+			        """int * bool -> list[int] | list[Cell] | False
+			        Renvoie une liste contenant les numéros de la colonne donnée en paramètres ('column') si 'values' == True
+			                                                                                              sinon renvoies la liste même liste mais avec des objet Cell directement"""
+			        if column > self.size or column < 1:
+			            return False
+
+			        if values:
+			            return [self.grid[i][column-1].value for i in range(len(self.grid))]
+			        else:
+			            return [self.grid[i][column-1] for i in range(len(self.grid))]
+
+
+			    def get_row(self,row,values=True):
+			        """int * bool -> list[int] | list[Cell] | False
+			        Renvoie une liste contenant les numéros de la ligne donnée en paramètres ('row') si 'values' == True
+			                                                                                           sinon renvoies la liste même liste mais avec des objet Cell directement"""
+			        if row > self.size or row < 1:
+			            return False
+
+			        if values:
+			            return [i.value for i in self.grid[row-1]]
+			        else:
+			            return [i for i in self.grid[row-1]]
+
+
+
+			    def get_square(self,square,values=True):    # pas du tout opti, à amélorer si possible
+			        """int * bool -> list[int] | list[Cell] | False
+			        Renvoie une liste contenant les numéros du carré (sous-grille) donné en paramètres ('square') si 'values' == True
+			                                                                                                      sinon renvoies la liste même liste mais avec des objet Cell directement"""
+			        if square < 1 or square > self.size:
+			            return False
+
+			        l = []
+			        sr_size = sqrt(self.size)   # racine carrée de la taille du sudoku
+			        x_min = ((square-1)%sr_size)*sr_size
+			        y_min = ((square-1)//sr_size)*sr_size
+
+			        if values:
+			        	for j in self.grid:
+							for k in j:
+								if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
+									l.append(k.value)
+
+			        else:
+			            for j in self.grid:
+			                for k in j:
+			                    if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
+			                        l.append(k)
+			        return l
+
+
+			    # --- Fonctions de tests et aide ---
+
+			    def is_complete(self):
+			        """renvoie True si le sudoku est réussi sinon False"""
+			        for i in range(self.size):
+			            for j in range(self.size):
+			                current_cell = self.grid[i][j]
+			                if current_cell.value == 0 or self.get_row(i+1).count(current_cell.value) > 1 or self.get_column(j+1).count(current_cell.value) > 1 or self.get_square(current_cell.get_square(self.size)).count(current_cell.value) > 1:
+			                    return False
+			        return True
+
+
+			    def is_correct(self,cell,new_value):
+			        """Cell*int -> tuple(list[Cell],int) | True
+			        Renvoie True si 'new_value' peut être placée aux coordonées x,y de 'cell'
+			            sinon renvoie un tuple de la liste des cellules où se trouve l'élément dupliqué, ainsi que de l'index de 'new_value' dans cette même liste ([Cell],int)"""
+			        x,y,square = cell.x,cell.y,cell.get_square(self.size)
+
+			        # si la ligne contient la nouvelle valeur
+			        if new_value in self.get_row(y+1):  
+			            return self.get_row(y+1,False),self.get_row(y+1).index(new_value)
+
+			        # si la colonne contient la nouvelle valeur
+			        elif new_value in self.get_column(x+1): 
+			            return self.get_column(x+1,False),self.get_column(x+1).index(new_value)
+
+			        # si le carré contient la nouvelle valeur
+			        elif new_value in self.get_square(square):  
+			            return self.get_square(square,False),self.get_square(square).index(new_value)
+
+			        return True
+
+
+			    def debug(self):
+			        """Print le sudoku actuel dans un format plus lisible"""        
+			        for row in self.grid:
+			            print([row[j].value for j in range(len(row))])
+
+			@bind("div.cell", "click")
+			def clicked_button(ev):
+				global sudoku
+				l = document.select(".number-selected")
+				if len(l) == 0:
+					return
+				
+				if ev.target.className.find("start-cell") != -1:
+					return
+				
+				if document.select("body")[0].className.find("uneditable") != -1:
+					return
+				
+				new_value = l[0].innerText
+				ev.target.innerText = new_value
+				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
+				if sudoku.is_complete():
+					window.win()
+			
+			solution = []
+			sudoku = None
+			def new_game(ev):
+				global sudoku
+
+				difficulty = document["time"].value
+				nb_cases_a_suppr = 0
+
+				if difficulty == "5min":
+					nb_cases_a_suppr = 5
+				elif difficulty == "10min":
+					nb_cases_a_suppr = 7
+				elif difficulty == "20min":
+					nb_cases_a_suppr = 10
+
+
+				if difficulty == "1min":
+					sudoku = Sudoku(4)
+					sudoku.generate_sudoku()
+					
+					for row in sudoku.grid:
+						solution.append([row[j].value for j in range(len(row))])
+
+					for row in range(4):
+						coords = list(choice(range(4)) for _ in range(3))
+						# Supprimer les doublons
+						coords = list(dict.fromkeys(coords))
+						for i in coords:
+							sudoku.grid[row][i].value = 0
+					
+					if len(document.select(".number")) == 9:
+						window.changeBoard(4)
+				else:
+					sudoku = Sudoku(9)
+					sudoku.generate_sudoku()
+					for row in sudoku.grid:
+						solution.append([row[j].value for j in range(len(row))])
+						
+					for row in range(9):
+						coords = list(choice(range(9)) for _ in range(nb_cases_a_suppr))
+						# Supprimer les doublons
+						coords = list(dict.fromkeys(coords))
+						for i in coords:
+							sudoku.grid[row][i].value = 0
+
+					if len(document.select(".number")) == 4:
+						window.changeBoard(9)
+
+				sudoku.debug()
+
+				for element in document.select(".cell"):
+					element.bind("click", clicked_button)
+					window.removeClass(element, "start-cell")
+
+				# On place!
+				for y in range(sudoku.size):
+					for x in range(sudoku.size):
+						if sudoku.grid[x][y].value != 0:
+							document[str(x) + ":" + str(y)].text = sudoku.grid[x][y].value
+							window.addClass(str(x) + ":" + str(y), "start-cell")
+						else:
+							document[str(x) + ":" + str(y)].text = ""
+
+
+			document["new_game"].bind("click", new_game)
+			
+		</script>
+			<h1>SUDOKU</h1>
+	        <div id="clock"></div>
+	        <script type="text/javascript" src="js/timer.js"></script>
+	        <p><b>Règles :</b><br><!-- à abréger -->
+				1) <i>Choisissez votre difficulté</i><br>
+				2) <i>Cliquez sur "Nouvelle partie"</i><br>
+				3) <i>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</i><br> 
+				4) <i>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</i><br>
+			
+			</p>
+	        <div id="setting">
+				<label for="time">Difficulté : </label>
+	        	<select id="time">
+					<option value="1min">Très facile (≈1 min)</option>
+	        		<option value="5min">Facile (≈10 min)</option>
+					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
+	        		<option value="10min" selected>Moyen (≈15 min)</option>
+	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
+	        	</select>
+				<button id="new_game">Nouvelle partie</button>
+	        </div>
+	        
+			<!-- Grille sudoku -->
+			<div id="board-container">
+				<div id="board"></div>
+				
+				<div id="alerts"></div>
+			</div>
+			<!-- Nombres à sélectionner -->
+			<div id="digits"></div>
+		<div id="footer-container">
+			<div id="footer">
+				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Maxim, Idir)
+			</div>
+</body>
+</html>
