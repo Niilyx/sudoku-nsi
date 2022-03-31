@@ -1,8 +1,11 @@
 var numSelected = null;
 var hasSetUp = false;
 var winSound = new Audio("media/victory.mp3")
+var bgMusic = [new Audio("media/bg1.mp3"),
+               new Audio("media/bg2.mp3"),];
+var currentMusic;
 
-window.onload = function () {
+window.onload = () => {
     setUp();
     brython();
 }
@@ -15,9 +18,25 @@ function removeClass(element, classe) {
     element.classList.remove(classe)
 }
 
+function choice(choices) {
+    var index = Math.floor(Math.random() * choices.length);
+    return choices[index];
+  }
+
 function setUp() {
-   changeBoard(9)
-   hasSetUp = true;
+    for (let mus of bgMusic) {
+        mus.onended = () => {
+            setTimeout(() => {
+                currentMusic = choice(bgMusic)
+                currentMusic.play()
+            }, 3000)
+        }
+    }
+
+    currentMusic = choice(bgMusic)
+    currentMusic.play()
+    changeBoard(9)
+    hasSetUp = true;
 }
 
 function selectNumber() {
@@ -108,6 +127,11 @@ function getAllDigits() {
 }
 
 function win() {
+    // TODO
+    var fadeOut = setInterval(() => {
+        clearInterval(fadeOut)
+    }, 1)
+
     winSound.volume = 0.3
     winSound.play()
     document.querySelector("body").classList.add("uneditable")

@@ -8,8 +8,9 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Rock+3D&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+
+
 		<script type="text/javascript" src="js/main.js"></script>
-		<!-- <script type="text/javascript" src="js/sudoku.js"></script> -->
 		<script type="text/javascript" src="brython/brython.js"></script>
 		<script type="text/javascript" src="brython/brython_stdlib.js"></script>
     </head>
@@ -278,7 +279,8 @@
 				elif difficulty == "20min":
 					nb_cases_a_suppr = 10
 
-
+				window.removeClass(document.select("body")[0], "uneditable")
+				
 				if difficulty == "1min":
 					sudoku = Sudoku(4)
 					sudoku.generate_sudoku()
