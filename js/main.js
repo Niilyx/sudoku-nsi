@@ -1,5 +1,7 @@
 var numSelected = null;
 var hasSetUp = false;
+
+var won = false;
 var winSound = new Audio("media/victory.mp3")
 var bgMusic = [new Audio("media/bg1.mp3"),
                new Audio("media/bg2.mp3"),];
@@ -21,7 +23,14 @@ function removeClass(element, classe) {
 function choice(choices) {
     var index = Math.floor(Math.random() * choices.length);
     return choices[index];
-  }
+}
+
+function music() {
+    currentMusic = choice(bgMusic)
+	currentMusic.currentTime = 0
+    currentMusic.volume = 0.8
+    currentMusic.play()
+}
 
 function setUp() {
     for (let mus of bgMusic) {
@@ -33,8 +42,8 @@ function setUp() {
         }
     }
 
-    currentMusic = choice(bgMusic)
-    currentMusic.play()
+    music()
+
     changeBoard(9)
     hasSetUp = true;
 }
@@ -127,9 +136,15 @@ function getAllDigits() {
 }
 
 function win() {
-    // TODO
     var fadeOut = setInterval(() => {
-        clearInterval(fadeOut)
+        let speed = 0.005
+
+        if (currentMusic.volume - speed < 0) {
+            currentMusic.volume = 0
+            clearInterval(fadeOut)
+        } else {
+            currentMusic.volume -= speed
+        }
     }, 1)
 
     winSound.volume = 0.3
@@ -158,4 +173,6 @@ function win() {
             cell.classList.add("end-cell")
         }
     }, 5200)
+
+	won = true
 }

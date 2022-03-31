@@ -327,12 +327,15 @@
 							window.addClass(str(x) + ":" + str(y), "start-cell")
 						else:
 							document[str(x) + ":" + str(y)].text = ""
-
+				if window.won:
+					window.music()
+				
 
 			document["new_game"].bind("click", new_game)
 			
 		</script>
 			<h1>SUDOKU</h1>
+			<button><img id="bMute" src="media/img/unmute.png"></img></button>
 	        <div id="clock"></div>
 	        <script type="text/javascript" src="js/timer.js"></script>
 	        <p><b>Règles :</b><br><!-- à abréger -->
@@ -366,5 +369,6 @@
 			<div id="footer">
 				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Maxim, Idir)
 			</div>
+		</div>
 </body>
 </html>
