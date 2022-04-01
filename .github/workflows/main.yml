@@ -1,0 +1,9 @@
+- name: Check LoC
+  # You may pin to the exact commit or the version.
+  # uses: Berke-Ates/LoC@d5f9b99f77bda0c7163eddaf113f073894ba3ae9
+  uses: Berke-Ates/LoC@v1.1
+  with:
+    # Folder to scan
+    folder: # optional, default is ./
+    # Max lines of code per file
+    max-lines: # default is 1000
