@@ -1,5 +1,4 @@
 # Sudoku NSI
-![](https://tokei.rs/b1/github/Niilyx/sudoku-nsi?category=code) ![](https://tokei.rs/b1/github/Niilyx/sudoku-nsi?category=files)
 
 Projet de fin d'année réalisé dans le cadre de cours de NSI Terminale.
 
