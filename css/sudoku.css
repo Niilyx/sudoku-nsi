@@ -1,10 +1,10 @@
 @font-face { 
 	font-family: "Rock 3D";  
-	src: url("../font/Rock3D-Regular.ttf") ;
+	src: url("../media/font/Rock3D-Regular.ttf") ;
 }
 @font-face {
 	font-family: "Oxygen";
-	src: url("../font//Oxygen-Regular.ttf");
+	src: url("../media/font/Oxygen-Regular.ttf");
 }
 
 body {
