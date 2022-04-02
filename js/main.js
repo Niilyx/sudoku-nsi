@@ -39,18 +39,20 @@ window.onload = () => {
 }
 
 function mute() {
+    let muteButton = document.getElementById("iMute")
     if (isMuted) {
         for (let m of bgMusic) {
             m.volume = 0.8
         }
-
-        document.getElementById("iMute").setAttribute("src", "media/img/unmute.png")
+        
+        winSound.volume = 0.8
+        muteButton.setAttribute("src", "media/img/unmute.png")
     } else {
         for (let m of bgMusic) {
             m.volume = 0
         }
-
-        document.getElementById("iMute").setAttribute("src", "media/img/mute.png")
+        winSound.volume = 0
+        muteButton.setAttribute("src", "media/img/mute.png")
     }
 
     isMuted = !isMuted
@@ -199,8 +201,10 @@ function win() {
         }
     }, 1)
 
+    winSound.currentTime = 0
     winSound.volume = 0.3
     winSound.play()
+
     document.querySelector("body").classList.add("uneditable")
     document.getElementById("alerts").innerText = "Et c'est la win !"
 
