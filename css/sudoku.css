@@ -150,7 +150,7 @@ p {
 }
 
 #bMute {
-	width: 50px;
+	width: fit-content;
 	border: none;
 	background: none;
 }
@@ -159,6 +159,10 @@ p {
 	border: none;
 	background: none;
 	cursor: pointer;
+}
+
+#iMute {
+	width: 50px;
 }
 
 #footer {

@@ -44,14 +44,16 @@ function mute() {
             m.volume = 0.8
         }
 
-        document.getElementById("bMute").setAttribute("src", "media/img/unmute.png")
+        document.getElementById("iMute").setAttribute("src", "media/img/unmute.png")
     } else {
         for (let m of bgMusic) {
             m.volume = 0
         }
 
-        document.getElementById("bMute").setAttribute("src", "media/img/mute.png")
+        document.getElementById("iMute").setAttribute("src", "media/img/mute.png")
     }
+
+    isMuted = !isMuted
 }
 
 function wereArgsPassed() {
