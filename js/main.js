@@ -11,6 +11,8 @@ var pseudo;
 var difficulte;
 var aide;
 
+var isMuted;
+
 window.onload = () => {
     let passedArgs = new URLSearchParams(window.location.search)
     pseudo = passedArgs.get("pseudo")
@@ -34,6 +36,22 @@ window.onload = () => {
 
     setUp();
     brython();
+}
+
+function mute() {
+    if (isMuted) {
+        for (let m of bgMusic) {
+            m.volume = 0.8
+        }
+
+        document.getElementById("bMute").setAttribute("src", "media/img/unmute.png")
+    } else {
+        for (let m of bgMusic) {
+            m.volume = 0
+        }
+
+        document.getElementById("bMute").setAttribute("src", "media/img/mute.png")
+    }
 }
 
 function wereArgsPassed() {
