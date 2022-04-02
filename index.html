@@ -8,13 +8,13 @@
 <body>
     <h1>SUDOKU</h1>
 	<form action="sudoku.html" id="options">
-		<input required id="pseudo" name="pseudo" type="text" placeholder="Pseudo">
+		<input id="pseudo" name="pseudo" type="text" placeholder="Pseudo">
 		<br>
 		<label>Difficulté :</label>
 		<select name="difficulty" id="time">
 			<option value="1min">Très facile (≈1 min)</option>
-			<option value="5min">Facile (≈10 min)</option>
-			<option value="10min" selected>Moyen (≈15 min)</option>
+			<option value="10min">Facile (≈10 min)</option>
+			<option value="15min" selected>Moyen (≈15 min)</option>
 			<option value="20min">Difficile (>20 min)</option>
 		</select>
 		<br>
@@ -23,18 +23,6 @@
 			<label>Aide</label>
 		</div>
 		<input type="submit" value="Lancer une partie !"/>
-		<script type="text/javascript">
-			document.getElementById("options").onsubmit = () => {
-				var toPass = new URLSearchParams();
-
-				let pseudo = document.getElementById("pseudo")
-
-				toPass.append("Pseudo", pseudo.value)
-				toPass.append("Difficulty", document.getElementById("time").value)
-				toPass.append("Aide", document.getElementById("aide").value)
-				location.href = "sudoku.html?" + toPass.toString();
-			}
-		</script>
 	</form>
 </body>
 </html>

@@ -20,8 +20,8 @@ window.onload = () => {
     aide = passedArgs.has("help")
     
     // obligé de cleanup, au cas où un petit rigolo change l'URL...
-    if (pseudo == "") {
-        pseudo = "L'anonyme dissident"
+    if (pseudo.replaceAll(" ","") == "") {
+        pseudo = choice(["L'anonyme dissident","Rick Astley","Bababoi","The Rock","Risitas","xX_SudokuMaster75_Xx","5UD0KU_PGM","DarkFlameMaster","D4RKSaSuke"])
     }
     
     let isDifficValid = false
@@ -33,7 +33,7 @@ window.onload = () => {
     }
     if (!isDifficValid) document.getElementById("time").value = "15min"
     else document.getElementById("time").value = difficulte
-
+    alert(pseudo+" : "+aide+" : "+difficulte)
     setUp();
     brython();
 }
