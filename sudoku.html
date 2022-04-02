@@ -269,9 +269,9 @@
 				if difficulty == "10min":
 					nb_cases_a_suppr = 5
 				elif difficulty == "15min":
-					nb_cases_a_suppr = 7
+					nb_cases_a_suppr = 8
 				elif difficulty == "20min":
-					nb_cases_a_suppr = 10
+					nb_cases_a_suppr = 11
 
 				window.removeClass(document.select("body")[0], "uneditable")
 				
@@ -299,6 +299,9 @@
 						
 					for row in range(9):
 						coords = list(choice(range(9)) for _ in range(nb_cases_a_suppr))
+						if len(coords) < 5 and difficulty == "20min":
+							coords.append(list(choice(range(9)) for _ in range(4)))
+
 						# Supprimer les doublons
 						coords = list(dict.fromkeys(coords))
 						for i in coords:
@@ -331,7 +334,9 @@
 				new_game(None)
 			
 		</script>
-			<img src="media/img/logo.png" alt="Logo du site">
+			<div>
+				<img style="display: block; margin: 0 auto;" src="media/img/sudoku-title.png" />
+			</div>
 			<img id="iMute" src="media/img/unmute.png" onclick="mute()"/>
 	        <div id="clock"></div>
 	        <script type="text/javascript" src="js/timer.js"></script>
@@ -364,7 +369,7 @@
 			<div id="digits"></div>
 		<div id="footer-container">
 			<div id="footer">
-				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Maxim, Idir)
+				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Ma<a class="x" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">x</a>im, Idir)
 			</div>
 		</div>
 </body>
