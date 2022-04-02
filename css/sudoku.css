@@ -148,17 +148,13 @@ p {
 	align-content: center;
 }
 
-#iMute{
-	transform: scale(0.4);
-}
-
-#bMute {
+#iMute {
 	width: fit-content;
 	border: none;
 	background: none;
 }
 
-#bMute:hover, #bMute:focus {
+#iMute:hover, #iMute:focus {
 	border: none;
 	background: none;
 	cursor: pointer;

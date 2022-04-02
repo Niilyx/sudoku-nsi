@@ -77,7 +77,10 @@ function choice(choices) {
 function music() {
     currentMusic = choice(bgMusic)
 	currentMusic.currentTime = 0
-    currentMusic.volume = 0.8
+    if (isMuted)
+        currentMusic.volume = 0
+    else
+        currentMusic.volume = 0.8
     currentMusic.play()
 }
 
