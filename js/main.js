@@ -181,10 +181,12 @@ function win() {
     document.querySelector("body").classList.add("uneditable")
     document.getElementById("alerts").innerText = "Et c'est la win !"
 
+    //désélectionner le nombre en cours
     if (numSelected != null) {
         numSelected.classList.remove("number-selected");
     }
 
+    //anim
     for (let i = 0;i<3;i++) {
         setTimeout(() => {
             for (let cell of getAllCells()) {
