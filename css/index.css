@@ -8,6 +8,7 @@
 }
 
 body {
+	font-size: 20px;
 	font-family: 'Oxygen', sans-serif;
 	background-color: rgb(227, 238, 238);
 }
@@ -15,30 +16,29 @@ body {
 h1 {
 	font-family: 'Rock 3D', cursive;
 	text-align: center;
+	font-size: 60px;
 }
 
 form {
 	font-family: 'Oxygen';
 	color: white;
 	background-color: brown;
-	width: 500px;
+	width: 600px;
 	margin: 0 auto;
 	text-align: center;
 }
-div {
-	height: 30px;
-	margin: 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	
-}
+/* Tous les inputs */
 input {
 	margin: 25px 10px;
 }
+
+/* Pseudo */
 input[type="text"] {
+	color: white;
+	font-size: 30px;
 	padding: 5px;
 	width: 50%;
+	height: 35px;
 	background-color: blue;
 	border: 3px solid blue;
 	border-radius: 4px;
@@ -47,15 +47,17 @@ input[type="text"] {
 }
 ::placeholder {
 	color: lightgrey;
-}
-input[type="text"]:focus-visible {
-	outline: 1px solid white;
-	width: 70%;
+	font-size: 30px;
+	position: absolute;
+	bottom: 5px;
 }
 
+/* Difficulté */
 select {
-	background-color: fuchsia;
-	color:white;
+	background-color: white;
+	color: fuchsia;
+	margin: 20px;
+	height: 40px;
 	padding: 5px;
 	border: none;
 	border-radius: 4px;
@@ -63,13 +65,50 @@ select {
 	transition: outline 150ms ease-in;
 }
 select option {
-	color: black;
-}
-select:focus-visible {
-	outline: 1px solid white;
+	background-color: fuchsia;
+	color:white;
 }
 
-button {
+/* Aide */
+div {
+	height: 30px;
+	margin: 20px 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+input[type="checkbox"] {
+	position: relative;
+	appearance: none;
+	width: 40px;
+	height: 20px;
+	background-color: lightgray;
+	border-radius: 25px;
+	transition: 250ms;
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+}
+input[type="checkbox"]:checked {
+	background-color: #03a9f4;
+}
+input[type="checkbox"]::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	transform: scale(1.1);
+	background-color: white;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+	transition: 200ms;
+}
+input[type="checkbox"]:checked::before{
+	left: 20px;
+}
+
+/* Bouton lancer la partie */
+input[type="submit"] {
 	margin-bottom: 10px;
 	padding: 5px 10px;
 	border: 1px solid white;
@@ -78,7 +117,15 @@ button {
 	border-radius: 4px;
 	transition: all 150ms ease-in;
 }
-button:hover {
+
+/* Focus des éléments */
+input:focus-visible, select:focus-visible {
+	outline: 1px solid white;
+}
+input[type="text"]:focus-visible {
+	width: 70%;
+}
+input[type="submit"]:hover, input[type="submit"]:focus-visible {
 	color: white;
 	background-color: black;
 	width: 40%;
