@@ -38,7 +38,6 @@ p {
 
 #board-container {
 	position: relative;
-	background-color: yellow;
 	height: 500px;
 }
 
@@ -149,7 +148,15 @@ p {
 	align-content: center;
 }
 
+#iMute{
+	transform: scale(0.4);
+}
+
 #bMute {
+	box-sizing: content-box;
+	position: absolute;
+	top: 0;
+	left: 0;
 	border: none;
 	background: none;
 }
