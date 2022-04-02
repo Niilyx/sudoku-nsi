@@ -140,9 +140,24 @@ p {
 	background-color: greenyellow;
 }
 
+.end-cell.start-cell {
+	background-color: rgb(143, 225, 17);
+}
+
 #clock {
 	text-align: center;
 	align-content: center;
+}
+
+#bMute {
+	border: none;
+	background: none;
+}
+
+#bMute:hover, #bMute:focus {
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 
 #footer {
