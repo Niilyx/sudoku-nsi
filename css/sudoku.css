@@ -50,6 +50,34 @@ p {
 	height: 500px;
 }
 
+#leaderboard {
+	position: relative;
+    top: 25%;
+    left: 3%;
+    margin: auto;
+}
+
+ol {
+	margin: auto 0;
+    width: fit-content;
+}
+
+.lead {
+	font-size: larger;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+#lead1 {
+	color: gold;
+}
+#lead2 {
+	color: silver;
+}
+#lead3 {
+	color: #CD7F32;
+}
+
 /* La grille du sudoku */
 #board {
 	position: relative;
@@ -153,6 +181,8 @@ p {
 }
 
 #clock {
+	font-size: xxx-large;
+	margin-top: 10px;
 	text-align: center;
 	align-content: center;
 }

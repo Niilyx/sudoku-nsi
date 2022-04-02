@@ -1,26 +1,31 @@
+var secs=0
+var minutes=0
+var promise;
 function Time() {
 
-  var date = new Date();
+    secs++
+    
+    if (secs >= 60) {
+        secs = 0
+        minutes++
+    }
+    
+    secs=update(secs)
+    minutes=update(minutes)
 
-  var hour = date.getHours();
+    document.getElementById("clock").innerText = minutes + ":" + secs;
 
-  var minute = date.getMinutes();
+    secs=parseInt(secs)
+    minutes=parseInt(minutes)
 
-  hour = update(hour);
-  minute = update(minute);
-
-  document.getElementById("clock").innerText = hour + " : " + minute;
-
-  setTimeout(Time, 1000);
+    promise = setTimeout(Time, 1000);
 }
 
 function update(t) {
-  if (t < 10) {
-    return "0" + t;
-  }
-  else {
-    return t;
-  }
+    if (t < 10) {
+        return "0" + t;
+    }
+    else {
+        return t;
+    }
 }
-
-Time();

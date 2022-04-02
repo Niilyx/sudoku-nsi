@@ -13,6 +13,8 @@ var aide;
 
 var isMuted;
 
+var leaderboard = [];
+
 window.onload = () => {
     let passedArgs = new URLSearchParams(window.location.search)
     pseudo = passedArgs.get("pseudo")
@@ -36,6 +38,23 @@ window.onload = () => {
 
     setUp();
     brython();
+
+    if (document.cookie !== '') {
+        leaderboard = document.cookie.split(";")
+    }
+}
+
+function startChrono() {
+    secs = 0
+    minutes = 0
+    Time()
+}
+
+function stopChrono() {
+    clearTimeout(promise)
+    
+    //obligé
+    clearTimeout(promise + 1)
 }
 
 function mute() {
@@ -233,4 +252,10 @@ function win() {
     }, 5200)
 
 	won = true
+
+    stopChrono()
+
+    if (leaderboard.length < 10) {
+        leaderboard.push(pseudo + "," + difficulte + "," + minutes + "," + secs)
+    }
 }

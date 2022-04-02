@@ -8,7 +8,7 @@
 <body>
     <img src="media/img/sudoku-title.png" />
 	<form action="sudoku.html" id="options">
-		<input required id="pseudo" name="pseudo" type="text" placeholder="Pseudo">
+		<input required onkeydown="return keyispressed(event)" id="pseudo" name="pseudo" type="text" placeholder="Pseudo">
 		<br>
 		<label>Difficulté :</label>
 		<select name="difficulty" id="time">
@@ -24,5 +24,13 @@
 		</div>
 		<input type="submit" value="Lancer une partie !"/>
 	</form>
+	<script type="text/javascript">
+		function keyispressed(e){
+            if(e.key == ";"){
+                e.preventDefault();
+            }
+            return true;
+        }
+	</script>
 </body>
 </html>
