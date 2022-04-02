@@ -150,6 +150,7 @@ p {
 }
 
 #bMute {
+	width: 50px;
 	border: none;
 	background: none;
 }
