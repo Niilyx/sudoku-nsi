@@ -12,9 +12,9 @@ body {
 	background-color: rgb(227, 238, 238);
 }
 
-h1 {
-	font-family: 'Rock 3D', cursive;
-	text-align:center;
+img {
+	margin-left: 50%;
+	transform: translate(-50%,0) scale(0.5);
 }
 
 p {
