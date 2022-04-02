@@ -38,7 +38,6 @@ p {
 
 #board-container {
 	position: relative;
-	background-color: yellow;
 	height: 500px;
 }
 
@@ -147,6 +146,10 @@ p {
 #clock {
 	text-align: center;
 	align-content: center;
+}
+
+#iMute{
+	transform: scale(0.4);
 }
 
 #bMute {

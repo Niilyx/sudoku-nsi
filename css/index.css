@@ -21,8 +21,7 @@ h1 {
 
 form {
 	font-family: 'Oxygen';
-	color: white;
-	background-color: brown;
+	color: black;
 	width: 600px;
 	margin: 0 auto;
 	text-align: center;
@@ -120,10 +119,10 @@ input[type="submit"] {
 
 /* Focus des éléments */
 input:focus-visible, select:focus-visible {
-	outline: 1px solid white;
+	outline: 1px solid black;
 }
 input[type="text"]:focus-visible {
-	width: 70%;
+	width: 80%;
 }
 input[type="submit"]:hover, input[type="submit"]:focus-visible {
 	color: white;
