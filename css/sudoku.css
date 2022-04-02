@@ -1,7 +1,8 @@
-@font-face { 
-	font-family: "Rock 3D";  
-	src: url("../media/font/Rock3D-Regular.ttf") ;
+:root {
+	--dark: "#fff";
+	--light: "#fff";
 }
+
 @font-face {
 	font-family: "Oxygen";
 	src: url("../media/font/Oxygen-Regular.ttf");
@@ -9,12 +10,14 @@
 
 body {
 	font-family: 'Oxygen', sans-serif;
-	background-color: rgb(227, 238, 238);
+	background-color: var(--light);
 }
 
-img {
-	margin-left: 50%;
-	transform: translate(-50%,0) scale(0.5);
+#logo {
+	display: block;
+	margin: 0 auto;
+	transform: scale(0.5);
+	border: 5px dashed black;
 }
 
 p {
@@ -72,7 +75,7 @@ p {
 .cell {
 	width: 48px;
 	height: 48px;
-	border: 1px solid lightgray;
+	border: 1px solid white;
 	cursor: pointer;
 	font-size: 20px;
 	font-weight: bold;
@@ -83,12 +86,12 @@ p {
 
 /* Les cases de départs */
 .start-cell {
-	background-color: rgb(214, 225, 225); /*temporaire*/
+	background-color: var(--dark); 
 }
 
 #alerts {
 	position: absolute;
-	background-color: coral;
+	background-color: var(--dark);
 	width: 25%;
 	height: 370px;
 	right: 3%;
@@ -131,17 +134,23 @@ p {
 
 /* Le nombre de la div #digits sélectionné (s'il y en a un) */
 .number-selected {
-	background-color: lightsalmon; /*temporaire*/
+	background-color: var(--dark);
 }
 
 /* Les cases au-dessus des lignes horizontales */
-.horizontal-line {
+.bottom-horizontal-line {
 	border-bottom: 1px solid black;
+}
+.top-horizontal-line {
+	border-top: 1px solid black;
 }
 
 /* Les cases à gauche des lignes verticales */
-.vertical-line {
+.right-vertical-line {
 	border-right: 1px solid black;
+}
+.left-vertical-line {
+	border-left: 1px solid black;
 }
 
 .end-cell {

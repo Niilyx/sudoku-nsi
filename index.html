@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="css/index.css"> 
 </head>
 <body>
-    <img src="media/img/sudoku-title.png" alt="Logo du site"/>
+    <img id="logo" src="media/img/sudoku-title.png" alt="Logo du site"/>
 	<form action="sudoku.html" id="options">
 		<input id="pseudo" name="pseudo" type="text" placeholder="Pseudo">
 		<br>
@@ -19,10 +19,10 @@
 		</select>
 		<br>
 		<div title="Activer les aides">
-			<input id="aide" name="help" type="checkbox">
+			<input id="help" name="help" type="checkbox">
 			<label>Aide</label>
 		</div>
-		<input type="submit" value="Lancer une partie !"/>
+		<input id="start" type="submit" value="Lancer une partie !"/>
 	</form>
 </body>
 </html>

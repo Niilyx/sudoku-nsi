@@ -4,7 +4,7 @@ var hasSetUp = false;
 var won = false;
 var winSound = new Audio("media/victory.mp3")
 var bgMusic = [new Audio("media/bg1.mp3"),
-               new Audio("media/bg2.mp3"),];
+new Audio("media/bg2.mp3"),];
 var currentMusic;
 
 var pseudo;
@@ -14,16 +14,23 @@ var aide;
 var isMuted;
 
 window.onload = () => {
+    // couleur aléatoire
+    let randomColor = randomRgb();
+    let root = document.querySelector(':root');
+    root.style.setProperty('--light', randomColor[0]);
+    root.style.setProperty('--dark', randomColor[1]);
+
     let passedArgs = new URLSearchParams(window.location.search)
     pseudo = passedArgs.get("pseudo")
     difficulte = passedArgs.get("difficulty")
     aide = passedArgs.has("help")
-    
+
+
     // obligé de cleanup, au cas où un petit rigolo change l'URL...
-    if (pseudo.replaceAll(" ","") == "") {
-        pseudo = choice(["L'anonyme dissident","Rick Astley","Bababoi","The Rock","Risitas","xX_SudokuMaster75_Xx","5UD0KU_PGM","DarkFlameMaster","D4RKSaSuke"])
+    if (pseudo.replaceAll(" ", "") == "") {
+        pseudo = choice(["L'anonyme dissident", "Rick Astley", "Bababoi", "The Rock", "Risitas", "xX_SudokuMaster75_Xx", "5UD0KU_PGM", "DarkFlameMaster", "D4RKSaSuke"])
     }
-    
+
     let isDifficValid = false
     for (let i of Array.apply(null, document.getElementById("time").options)) {
         if (difficulte == i.value) {
@@ -33,10 +40,22 @@ window.onload = () => {
     }
     if (!isDifficValid) document.getElementById("time").value = "15min"
     else document.getElementById("time").value = difficulte
-    alert(pseudo+" : "+aide+" : "+difficulte)
+    alert(pseudo + " : " + aide + " : " + difficulte)
     setUp();
     brython();
 }
+
+function randomRgb() {
+    let red = Math.floor((1 + Math.random()) * 256 / 2) - 20;
+    let green = Math.floor((1 + Math.random()) * 256 / 2) - 20;
+    let blue = Math.floor((1 + Math.random()) * 256 / 2) - 20;
+    let darkRed = red - 30;
+    let darkGreen = green - 30;
+    let darkBlue = blue - 30;
+
+    return ["rgb(" + red + ", " + green + ", " + blue + ")", "rgb(" + darkRed + ", " + darkGreen + ", " + darkBlue + ")"];
+}
+
 
 function mute() {
     let muteButton = document.getElementById("iMute")
@@ -44,7 +63,7 @@ function mute() {
         for (let m of bgMusic) {
             m.volume = 0.8
         }
-        
+
         winSound.volume = 0.8
         muteButton.setAttribute("src", "media/img/unmute.png")
     } else {
@@ -78,7 +97,7 @@ function choice(choices) {
 
 function music() {
     currentMusic = choice(bgMusic)
-	currentMusic.currentTime = 0
+    currentMusic.currentTime = 0
     if (isMuted)
         currentMusic.volume = 0
     else
@@ -118,14 +137,14 @@ function selectNumber() {
 function changeBoard(newSize) {
     // Cleanup digits
     let e = document.getElementById("digits")
-    let child = e.lastElementChild; 
+    let child = e.lastElementChild;
     while (child) {
         e.removeChild(child);
         child = e.lastElementChild;
     }
     // Cleanup board
     e = document.getElementById("board")
-    child = e.lastElementChild; 
+    child = e.lastElementChild;
     while (child) {
         e.removeChild(child);
         child = e.lastElementChild;
@@ -141,8 +160,8 @@ function changeBoard(newSize) {
         document.getElementById("digits").appendChild(number);
     }
 
-    document.getElementById('board').setAttribute("style","width:" + (newSize * 50).toString() +"px;height:" + (newSize * 50).toString() + "px;");
-    document.getElementById('digits').setAttribute("style","width:" + (newSize * 50).toString() +"px;height: 50px;");
+    document.getElementById('board').setAttribute("style", "width:" + (newSize * 50).toString() + "px;height:" + (newSize * 50).toString() + "px;");
+    document.getElementById('digits').setAttribute("style", "width:" + (newSize * 50).toString() + "px;height: 50px;");
 
     // Board
     for (let i = 0; i < newSize; i++) {
@@ -159,24 +178,32 @@ function changeBoard(newSize) {
             // Placement d'une ligne verticale et horizontale pour marquer les séparations
             if (newSize == 9) {
                 if (i == 2 || i == 5) {
-                    cell.classList.add("horizontal-line");
+                    cell.classList.add("bottom-horizontal-line");
+                } else if (i == 3 || i == 6) {
+                    cell.classList.add("top-horizontal-line");
                 }
                 if (j == 2 || j == 5) {
-                    cell.classList.add("vertical-line");
+                    cell.classList.add("right-vertical-line");
+                } else if (j == 3 || j == 6) {
+                    cell.classList.add("left-vertical-line");
                 }
             } else { // ça ne peut être que 4.
                 if (i == 1) {
-                    cell.classList.add("horizontal-line");
+                    cell.classList.add("bottom-horizontal-line");
+                } else if (i == 2) {
+                    cell.classList.add("top-horizontal-line")
                 }
                 if (j == 1) {
-                    cell.classList.add("vertical-line");
+                    cell.classList.add("right-vertical-line");
+                } else if (j == 2) {
+                    cell.classList.add("left-vertical-line")
                 }
             }
 
             // cell.addEventListener("click", selectCell);
             cell.classList.add("cell");
             if (!hasSetUp) { cell.classList.add("start-cell") }
-            document.getElementById("board").appendChild(cell);    
+            document.getElementById("board").appendChild(cell);
         }
     }
 }
@@ -214,7 +241,7 @@ function win() {
     }
 
     //anim
-    for (let i = 0;i<3;i++) {
+    for (let i = 0; i < 3; i++) {
         setTimeout(() => {
             for (let cell of getAllCells()) {
                 cell.classList.add("end-cell")
@@ -232,5 +259,5 @@ function win() {
         }
     }, 5200)
 
-	won = true
+    won = true
 }
