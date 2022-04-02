@@ -15,7 +15,7 @@ window.onload = () => {
     let passedArgs = new URLSearchParams(window.location.search)
     pseudo = passedArgs.get("pseudo")
     difficulte = passedArgs.get("difficulty")
-    aide = passedArgs.has("aide")
+    aide = passedArgs.has("help")
     
     // obligé de cleanup, au cas où un petit rigolo change l'URL...
     if (pseudo == "") {
