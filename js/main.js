@@ -7,10 +7,37 @@ var bgMusic = [new Audio("media/bg1.mp3"),
                new Audio("media/bg2.mp3"),];
 var currentMusic;
 
-window.onload = function () {
-    alert(window.location.search)
+var pseudo;
+var difficulte;
+var aide;
+
+window.onload = () => {
+    let passedArgs = new URLSearchParams(window.location.search)
+    pseudo = passedArgs.get("pseudo")
+    difficulte = passedArgs.get("difficulty")
+    aide = passedArgs.has("help")
+    
+    // obligé de cleanup, au cas où un petit rigolo change l'URL...
+    if (pseudo == "") {
+        pseudo = "L'anonyme dissident"
+    }
+    
+    let isDifficValid = false
+    for (let i of Array.apply(null, document.getElementById("time").options)) {
+        if (difficulte == i.value) {
+            isDifficValid = true
+            break
+        }
+    }
+    if (!isDifficValid) document.getElementById("time").value = "15min"
+    else document.getElementById("time").value = difficulte
+
     setUp();
     brython();
+}
+
+function wereArgsPassed() {
+    return window.location.search != ""
 }
 
 function addClass(id, classe) {
@@ -154,10 +181,12 @@ function win() {
     document.querySelector("body").classList.add("uneditable")
     document.getElementById("alerts").innerText = "Et c'est la win !"
 
+    //désélectionner le nombre en cours
     if (numSelected != null) {
         numSelected.classList.remove("number-selected");
     }
 
+    //anim
     for (let i = 0;i<3;i++) {
         setTimeout(() => {
             for (let cell of getAllCells()) {

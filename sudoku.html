@@ -266,9 +266,9 @@
 				difficulty = document["time"].value
 				nb_cases_a_suppr = 0
 
-				if difficulty == "5min":
+				if difficulty == "10min":
 					nb_cases_a_suppr = 5
-				elif difficulty == "10min":
+				elif difficulty == "15min":
 					nb_cases_a_suppr = 7
 				elif difficulty == "20min":
 					nb_cases_a_suppr = 10
@@ -322,14 +322,17 @@
 						else:
 							document[str(x) + ":" + str(y)].text = ""
 				if window.won:
+					# Relancer la musique
 					window.music()
 				
 
 			document["new_game"].bind("click", new_game)
+			if window.wereArgsPassed():
+				new_game(None)
 			
 		</script>
 			<h1>SUDOKU</h1>
-			<button><img id="bMute" src="media/img/unmute.png"></img></button>
+			<button id="bMute"><img id="iMute" src="media/img/unmute.png"></img></button>
 	        <div id="clock"></div>
 	        <script type="text/javascript" src="js/timer.js"></script>
 	        <p><b>Règles :</b><br><!-- à abréger -->
@@ -343,9 +346,9 @@
 				<label for="time">Difficulté : </label>
 	        	<select id="time">
 					<option value="1min">Très facile (≈1 min)</option>
-	        		<option value="5min">Facile (≈10 min)</option>
+	        		<option value="10min">Facile (≈10 min)</option>
 					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
-	        		<option value="10min" selected>Moyen (≈15 min)</option>
+	        		<option value="15min" selected>Moyen (≈15 min)</option>
 	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
 	        	</select>
 				<button id="new_game">Nouvelle partie</button>
