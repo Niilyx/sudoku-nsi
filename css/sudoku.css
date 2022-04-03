@@ -121,6 +121,7 @@ p {
 .number {
 	width: 44px;
 	height: 44px;
+	color: white;
 	border: 1px solid black;
 	margin: 2px;
 	cursor: pointer;
