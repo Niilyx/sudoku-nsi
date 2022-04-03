@@ -444,5 +444,5 @@ function updateLeaderboard() {
 }
 
 function giveUp() {
-
+    document.getElementById("giveup").blur()
 }
