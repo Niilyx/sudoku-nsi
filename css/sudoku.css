@@ -159,7 +159,6 @@ ol {
 
 #panel {
 	position: absolute;
-	/* background-color: var(--dark); */
 	width: 120px;
 	height: 370px;
 	right: 28%;
