@@ -43,7 +43,7 @@ window.onload = () => {
     }
     if (!isDifficValid) document.getElementById("time").value = "15min"
     else document.getElementById("time").value = difficulte
-    alert(pseudo + " : " + aide + " : " + difficulte)
+    alert("Bienvenue " + pseudo + "!\n")
     setUp();
     brython();
 
