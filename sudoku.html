@@ -328,6 +328,7 @@
 					element.bind("click", clicked_button)
 					window.removeClass(element, "start-cell")
 					window.removeClass(element, "end-cell")
+					window.removeClass(element, "wrong")
 
 				# On place!
 				for y in range(sudoku.size):
@@ -374,6 +375,8 @@
 
 			def help(ev):
 				if window.won:
+					return
+				if not window.aide:
 					return
 				while True:
 					x = randint(0,sudoku.size - 1)
