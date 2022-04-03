@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>SUDOKU</title>
+        <title>Jeu | Sudoku</title>
         <link rel="stylesheet" href="css/sudoku.css"/>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="brython/brython.js"></script>
@@ -349,57 +349,57 @@
 				new_game(None)
 			
 		</script>
-			<div>
-				<img style="display: block; margin: 0 auto;" src="media/img/sudoku-title.png" />
-			</div>
-			<img id="iMute" src="media/img/unmute.png" onclick="mute()"/>
-	        <div id="clock">00:00</div>
-	        <script type="text/javascript" src="js/timer.js"></script>
-	        <p><b>Règles :</b><br><!-- à abréger -->
-				1) <i>Choisissez votre difficulté</i><br>
-				2) <i>Cliquez sur "Nouvelle partie"</i><br>
-				3) <i>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</i><br> 
-				4) <i>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</i><br>
+		<div>
+			<img style="display: block; margin: 0 auto;" src="media/img/sudoku-title.png" />
+		</div>
+		<img id="iMute" src="media/img/unmute.png" onclick="mute()"/>
+	    <div id="clock">00:00</div>
+	    <script type="text/javascript" src="js/timer.js"></script>
+	    <p><b>Règles :</b><br><!-- à abréger -->
+			1) <i>Choisissez votre difficulté</i><br>
+			2) <i>Cliquez sur "Nouvelle partie"</i><br>
+			3) <i>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</i><br> 
+			4) <i>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</i><br>
 			
-			</p>
-	        <div id="setting">
-				<label for="time">Difficulté : </label>
-	        	<select id="time">
-					<option value="1min">Très facile (≈1 min)</option>
-	        		<option value="10min">Facile (≈10 min)</option>
-					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
-	        		<option value="15min" selected>Moyen (≈15 min)</option>
-	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
-	        	</select>
-				<button id="new_game">Nouvelle partie</button>
-	        </div>
+		</p>
+	    <div id="setting">
+			<label for="time">Difficulté : </label>
+	        <select id="time">
+				<option value="1min">Très facile (≈1 min)</option>
+	        	<option value="10min">Facile (≈10 min)</option>
+				<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
+	        	<option value="15min" selected>Moyen (≈15 min)</option>
+	        	<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
+	        </select>
+			<button id="new_game">Nouvelle partie</button>
+	    </div>
 	        
-			<!-- Grille sudoku -->
-			<div id="board-container">
-				<div id="leaderboard">
-					<ol>
-						<li class="lead" id="lead1"></li>
-						<li class="lead" id="lead2"></li>
-						<li class="lead" id="lead3"></li>
-						<li class="lead" id="lead4"></li>
-						<li class="lead" id="lead5"></li>
-						<li class="lead" id="lead6"></li>
-						<li class="lead" id="lead7"></li>
-						<li class="lead" id="lead8"></li>
-						<li class="lead" id="lead9"></li>
-						<li class="lead" id="lead10"></li>
-					</ol>
-				</div>
-				<div id="board"></div>
-				
-				<div id="alerts"></div>
+		<!-- Grille sudoku -->
+		<div id="board-container">
+			<div id="leaderboard">
+				<ol>
+					<li class="lead" id="lead1"></li>
+					<li class="lead" id="lead2"></li>
+					<li class="lead" id="lead3"></li>
+					<li class="lead" id="lead4"></li>
+					<li class="lead" id="lead5"></li>
+					<li class="lead" id="lead6"></li>
+					<li class="lead" id="lead7"></li>
+					<li class="lead" id="lead8"></li>
+					<li class="lead" id="lead9"></li>
+					<li class="lead" id="lead10"></li>
+				</ol>
 			</div>
-			<!-- Nombres à sélectionner -->
-			<div id="digits"></div>
+			<div id="board"></div>
+				
+			<div id="alerts"></div>
+		</div>
+		<!-- Nombres à sélectionner -->
+		<div id="digits"></div>
 		<div id="footer-container">
 			<div id="footer">
 				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Ma<a class="x" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">x</a>im, Idir)
 			</div>
 		</div>
-</body>
+	</body>
 </html>
