@@ -248,7 +248,6 @@
 
 			@bind("div.cell", "click")
 			def clicked_button(ev):
-				print(ev.button)
 				global sudoku
 				l = document.select(".number-selected")
 				if len(l) == 0:
@@ -262,7 +261,16 @@
 				
 				new_value = l[0].innerText
 				ev.target.innerText = new_value
+				
+				if window.aide:
+					if type(sudoku.is_correct(sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])], int(new_value))) == tuple:
+						if not sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value == int(new_value):
+							window.addClass(ev.target.id, "wrong")
+					else:
+						window.removeClass(ev.target.id, "wrong")
+
 				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
+
 				if sudoku.is_complete():
 					window.win()
 			
@@ -336,17 +344,39 @@
 					# Relancer la musique
 					window.music()
 				
+				window.won = False
+				
 				#Lancer le chrono
 				window.startChrono()
 
 				window.difficulte = difficulty
+			
+			
+			def erase(where):
+				global sudoku
+				if window.hasClass(where, "start-cell"):
+					return
 				
+				id = where.id
+				x = int(id[0])
+				y = int(id[-1])
+
+				if window.aide:
+					window.removeClass(where, "wrong")
+
+				#Pas besoin au final, de toute façon ça levait une exception de brython
+				sudoku.grid[x][y].value = 0
+				sudoku.debug()
+
+				where.innerText = ""
 
 			document["new_game"].bind("click", new_game)
 
 
 			if window.wereArgsPassed():
 				new_game(None)
+			
+			window.pullOut = erase 
 			
 		</script>
 			<div>
@@ -357,7 +387,7 @@
 				<img id="iMute" src="media/img/unmute.png" alt="Couper le son" onclick="mute()"/>
 			</div>
 
-			<div id="info">
+			<div id="info" style="display: none;">
 				<h3>Comment jouer :</h3>
 				<ol>
 					<li>Choisissez votre difficulté</li>

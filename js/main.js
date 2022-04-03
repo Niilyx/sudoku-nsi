@@ -29,8 +29,8 @@ window.onload = () => {
 
 
     // obligé de cleanup, au cas où un petit rigolo change l'URL...
-    if (pseudo.replaceAll(" ", "") == "") {
-        pseudo = choice(["L'anonyme dissident", "Rick Astley", "Bababoi", "The Rock", "Risitas", "xX_SudokuMaster75_Xx", "5UD0KU_PGM", "DarkFlameMaster", "D4RKSaSuke"])
+    if (pseudo == undefined || pseudo.replaceAll(" ", "") == "") {
+        pseudo = choice(["Théophile", "L'anonyme dissident", "Rick Astley", "Bababooey", "The Rock", "Risitas", "xX_SudokuMaster75_Xx", "5UD0KU_PGM", "DarkFlameMaster", "D4RKSaSuke"])
     }
 
     let isDifficValid = false
@@ -46,9 +46,15 @@ window.onload = () => {
     setUp();
     brython();
 
-    if (document.cookie !== '') {
-        leaderboard = document.cookie.split(";")
+    document.getElementById("board").oncontextmenu = (event) => {
+        pullOut(event.path[0])
+        console.log()
+        return false
     }
+}
+
+function pullOut(a) {
+
 }
 
 function startChrono() {
@@ -140,6 +146,10 @@ function wereArgsPassed() {
 
 function addClass(id, classe) {
     document.getElementById(id).classList.add(classe)
+}
+
+function hasClass(element, classe) {
+    return element.classList.contains(classe)
 }
 
 function removeClass(element, classe) {
@@ -274,16 +284,8 @@ function getAllDigits() {
 }
 
 function win() {
-    var fadeOut = setInterval(() => {
-        let speed = 0.005
-
-        if (currentMusic.volume + speed > 0.8) {
-            currentMusic.volume = 0.8
-            clearInterval(fadeOut)
-        } else {
-            currentMusic.volume += speed
-        }
-    }, 1)
+    currentMusic.pause()
+    currentMusic.currentTime = 0
 
     if (!isMuted) {
         winSound.currentTime = 0
@@ -297,6 +299,10 @@ function win() {
     //désélectionner le nombre en cours
     if (numSelected != null) {
         numSelected.classList.remove("number-selected");
+    }
+
+    for (let i of getAllCells()) {
+        i.classList.remove("wrong")
     }
 
     //anim

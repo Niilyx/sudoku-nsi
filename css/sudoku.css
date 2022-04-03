@@ -118,6 +118,10 @@ ol {
 	background-color: var(--dark); 
 }
 
+.wrong {
+	background-color: rgb(141, 0, 0);
+}
+
 #alerts {
 	position: absolute;
 	background-color: var(--dark);
