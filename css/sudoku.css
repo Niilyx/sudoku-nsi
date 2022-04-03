@@ -122,7 +122,7 @@ ol {
 	background-color: rgb(141, 0, 0);
 }
 
-#alerts {
+#panel {
 	position: absolute;
 	background-color: var(--dark);
 	width: 25%;
@@ -138,6 +138,27 @@ ol {
 	font-family: 'Rock 3D', cursive;
 	font-size: 40px;
 	font-weight: bold;
+}
+
+#help:focus-visible {
+	background-color: #bbbbbb;
+}
+
+#giveup {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+	border: 2px solid red;
+}
+
+#giveup:hover {
+	outline: 1px solid red;
+	color: #eeeeee;
+}
+
+#giveup:focus {
+	outline: 1px solid red;
+	color: #cccccc;
 }
 
 /* La div avec les nombres à sélectionner */

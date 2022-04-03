@@ -4,7 +4,8 @@ var hasSetUp = false;
 var later = [];
 var won = false;
 var winSound = new Audio("media/victory.mp3")
-var bgMusic = [new Audio("media/bg1.mp3"), new Audio("media/bg2.mp3"),];
+var bgMusic =  [new Audio("media/bg1.mp3"), new Audio("media/bg2.mp3"),
+                new Audio("media/bg3.mp3"), new Audio("media/bg4.mp3")];
 var currentMusic;
 
 var pseudo;
@@ -294,7 +295,6 @@ function win() {
     }
 
     document.querySelector("body").classList.add("uneditable")
-    document.getElementById("alerts").innerText = "Et c'est la win !"
 
     //désélectionner le nombre en cours
     if (numSelected != null) {
@@ -441,4 +441,8 @@ function updateLeaderboard() {
     for (const el in leaderboard) {
         setCookie("lead" + el, leaderboard[el])
     }
+}
+
+function giveUp() {
+
 }

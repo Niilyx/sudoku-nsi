@@ -370,7 +370,11 @@
 
 				where.innerText = ""
 
+			def help(ev):
+				pass
+			
 			document["new_game"].bind("click", new_game)
+			document["help"].bind("click", help)
 
 
 			if window.wereArgsPassed():
@@ -431,7 +435,10 @@
 			</div>
 			<div id="board"></div>
 				
-			<div id="alerts"></div>
+			<div id="panel">
+				<button id="help">Indice</button>
+				<button id="giveup" onclick="giveUp()">Abandonner</button>
+			</div>
 		</div>
 		<!-- Nombres à sélectionner -->
 		<div id="digits"></div>
