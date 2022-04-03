@@ -167,6 +167,7 @@ function choice(choices) {
 
 function music() {
     currentMusic = choice(bgMusic)
+    if (!currentMusic.paused) return
     currentMusic.currentTime = 0
     if (isMuted)
         currentMusic.volume = 0
