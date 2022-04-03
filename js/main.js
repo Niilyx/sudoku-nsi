@@ -451,7 +451,7 @@ function updateLeaderboard() {
     }
 
     for (const el in leaderboard) {
-        window.localStorage.setItem("lead" + el, leaderboard[el])
+        window.localStorage.setItem("lead" + el.toString(), leaderboard[el])
     }
 }
 
