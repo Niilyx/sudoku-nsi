@@ -3,6 +3,7 @@ var hasSetUp = false;
 
 var later = [];
 var won = false;
+var solution;
 var winSound = new Audio("media/victory.mp3")
 var bgMusic =  [new Audio("media/bg1.mp3"), new Audio("media/bg2.mp3"),
                 new Audio("media/bg3.mp3"), new Audio("media/bg4.mp3")];
@@ -28,7 +29,7 @@ window.onload = () => {
     pseudo = passedArgs.get("pseudo")
     difficulte = passedArgs.get("difficulty")
     aide = passedArgs.has("help")
-
+    document.getElementById("help-button").checked = aide
 
     // obligé de cleanup, au cas où un petit rigolo change l'URL...
     if (pseudo == undefined || pseudo.replaceAll(" ", "") == "") {
@@ -44,8 +45,8 @@ window.onload = () => {
     }
     if (!isDifficValid) document.getElementById("time").value = "15min"
     else document.getElementById("time").value = difficulte
-    alert("Bienvenue " + pseudo + "!\n")
     setUp();
+    alert("Bienvenue " + pseudo + "!\n")
     brython();
 
     document.getElementById("board").oncontextmenu = (event) => {
@@ -286,6 +287,8 @@ function getAllDigits() {
 }
 
 function win() {
+    won = true
+
     currentMusic.pause()
     currentMusic.currentTime = 0
 
@@ -324,8 +327,6 @@ function win() {
             cell.classList.add("end-cell")
         }
     }, 5200))
-
-    won = true
 
     stopChrono()
 
@@ -446,4 +447,20 @@ function updateLeaderboard() {
 
 function giveUp() {
     document.getElementById("giveup").blur()
+    if (won) return
+    won = true
+    document.querySelector("body").classList.add("uneditable")
+
+    //désélectionner le nombre en cours
+    if (numSelected != null) {
+        numSelected.classList.remove("number-selected");
+    }
+
+    let cells = getAllCells()
+    for (let i in cells) {
+        cells[i].innerText = solution[i]
+        if (cells[i].classList != undefined) cells[i].classList.add("wrong")
+    }
+    
+    stopChrono()
 }

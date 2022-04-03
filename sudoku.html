@@ -25,7 +25,7 @@
 			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
 			"""
 			from math import sqrt
-			from random import choice
+			from random import choice,randint
 			from browser import *
 			import javascript as js
 
@@ -346,12 +346,16 @@
 				
 				window.won = False
 				
+				# Aide est-il coché?
+				window.aide = document["help-button"].checked
+
 				#Lancer le chrono
 				window.stopChrono()
 				window.startChrono()
 				
 				window.difficulte = difficulty
-			
+
+				window.solution = [i[j] for i in solution for j in range(len(i))]
 			
 			def erase(where):
 				global sudoku
@@ -372,7 +376,20 @@
 				where.innerText = ""
 
 			def help(ev):
-				pass
+				if window.won:
+					return
+				while True:
+					x = randint(0,sudoku.size - 1)
+					y = randint(0,sudoku.size - 1)
+
+					idToSeek = str(x) + ":" + str(y)
+					if document[idToSeek].innerText == "":
+						sudoku.grid[x][y].value = solution[x][y]
+						document[idToSeek].innerText = str(solution[x][y])
+						break
+				
+				if sudoku.is_complete():
+					window.win()
 			
 			document["new_game"].bind("click", new_game)
 			document["help"].bind("click", help)
@@ -415,7 +432,11 @@
 	        		<option value="15min" selected>Moyen (≈15 min)</option>
 	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
 	        	</select>
-				<button id="new_game">Nouvelle partie</button>
+				<span title="Activer les aides">
+					<input id="help-button" name="help" type="checkbox">
+					<label>Aide</label>
+				</span>
+				<button style="background-color: blue; color: white; font-weight: bold;" id="new_game">Nouvelle partie</button>
 	        </div>
 	        
 		<!-- Grille sudoku -->
