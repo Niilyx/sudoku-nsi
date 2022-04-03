@@ -54,6 +54,16 @@ window.onload = () => {
         console.log()
         return false
     }
+
+    leaderboard = retrieveLeaderboard()
+}
+
+function retrieveLeaderboard() {
+    let l = []
+    for (let i = 0;i<10;i++) {
+        l.push(window.localStorage.getItem("lead" + i.toString()))
+    }
+    return l
 }
 
 function pullOut(a) {
@@ -408,12 +418,12 @@ function updateLeaderboard() {
         //on coupe le nouveau dernier
         leaderboard.length = 10
     }
-    for (let pos in document.getElementsByClassName("lead")) {
-
+    for (let pos in Array.apply(document.getElementsByClassName("lead"))) {
         if (JSON.stringify(leaderboard[pos]) == 'null') {
             document.getElementsByClassName("lead")[pos].innerText = ""
             continue
         }
+        
         var e = JSON.parse(JSON.stringify(leaderboard[pos]));
 
         switch (e[1]) {
@@ -436,12 +446,12 @@ function updateLeaderboard() {
         }
 
         let s = pseudo + ": " + e[1] + " en " + update(e[2]) + "min " + update(e[3]) + "s"
-
+        
         document.getElementsByClassName("lead")[pos].innerText = s
     }
 
     for (const el in leaderboard) {
-        setCookie("lead" + el, leaderboard[el])
+        window.localStorage.setItem("lead" + el, leaderboard[el])
     }
 }
 
