@@ -13,6 +13,7 @@ var difficulte;
 var aide;
 
 var isMuted;
+var canCount = false;
 
 var leaderboard = [null, null, null, null, null, null, null, null, null, null];
 

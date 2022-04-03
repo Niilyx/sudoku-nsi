@@ -18,7 +18,7 @@ function Time() {
     secs = parseInt(secs)
     minutes = parseInt(minutes)
 
-    promise = setTimeout(Time, 1000);
+    if (!won) promise = setTimeout(Time, 1000);
 }
 
 function update(t) {
