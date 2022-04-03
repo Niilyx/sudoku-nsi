@@ -14,6 +14,7 @@ var difficulte;
 var aide;
 
 var isMuted;
+var setUpMusic = false;
 var canCount = false;
 
 var leaderboard = [null, null, null, null, null, null, null, null, null, null];
@@ -64,6 +65,12 @@ function retrieveLeaderboard() {
         l.push(window.localStorage.getItem("lead" + i.toString()))
     }
     return l
+}
+
+window.onclick = () => {
+    if (setUpMusic) return
+    setUpMusic = true
+    music()
 }
 
 function pullOut(a) {
@@ -177,6 +184,7 @@ function choice(choices) {
 
 function music() {
     currentMusic = choice(bgMusic)
+    if (!currentMusic.paused) return
     currentMusic.currentTime = 0
     if (isMuted)
         currentMusic.volume = 0
