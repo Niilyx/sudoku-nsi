@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Jeu | Sudoku</title>
+        <title>Sudoku</title>
         <link rel="stylesheet" href="css/sudoku.css"/>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="brython/brython.js"></script>
@@ -349,30 +349,39 @@
 				new_game(None)
 			
 		</script>
-		<div>
-			<img style="display: block; margin: 0 auto;" src="media/img/sudoku-title.png" />
-		</div>
-		<img id="iMute" src="media/img/unmute.png" onclick="mute()"/>
-	    <div id="clock">00:00</div>
-	    <script type="text/javascript" src="js/timer.js"></script>
-	    <p><b>Règles :</b><br><!-- à abréger -->
-			1) <i>Choisissez votre difficulté</i><br>
-			2) <i>Cliquez sur "Nouvelle partie"</i><br>
-			3) <i>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</i><br> 
-			4) <i>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</i><br>
-			
-		</p>
-	    <div id="setting">
-			<label for="time">Difficulté : </label>
-	        <select id="time">
-				<option value="1min">Très facile (≈1 min)</option>
-	        	<option value="10min">Facile (≈10 min)</option>
-				<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
-	        	<option value="15min" selected>Moyen (≈15 min)</option>
-	        	<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
-	        </select>
-			<button id="new_game">Nouvelle partie</button>
-	    </div>
+			<div>
+				<img id="logo" src="media/img/sudoku-title.png" alt="Logo du site"/>
+			</div>
+			<div id="top-right">
+				<img src="media/img/info.png" alt="Informations" onclick="toggleInfoDiv()">
+				<img id="iMute" src="media/img/unmute.png" alt="Couper le son" onclick="mute()"/>
+			</div>
+
+			<div id="info">
+				<h3>Comment jouer :</h3>
+				<ol>
+					<li>Choisissez votre difficulté</li>
+					<li>Cliquez sur "Nouvelle partie"</li>
+					<li>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</li>
+					<li>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</li>
+				</ol>
+				<a href="https://github.com/Niilyx/sudoku-nsi/" target="_blank">Code Source</a>
+			</div>
+	        
+			<div id="clock">00:00</div>
+	        <script type="text/javascript" src="js/timer.js"></script>
+	        
+	        <div id="setting">
+				<label for="time">Difficulté : </label>
+	        	<select id="time">
+					<option value="1min">Très facile (≈1 min)</option>
+	        		<option value="10min">Facile (≈10 min)</option>
+					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
+	        		<option value="15min" selected>Moyen (≈15 min)</option>
+	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
+	        	</select>
+				<button id="new_game">Nouvelle partie</button>
+	        </div>
 	        
 		<!-- Grille sudoku -->
 		<div id="board-container">

@@ -1,29 +1,27 @@
-@font-face { 
-	font-family: "Rock 3D";  
-	src: url("../media/font/Rock3D-Regular.ttf") ;
-}
 @font-face {
 	font-family: "Oxygen";
 	src: url("../media/font/Oxygen-Regular.ttf");
 }
+* {
+	font-size: 20px;
+}
 
 body {
-	font-size: 20px;
 	font-family: 'Oxygen', sans-serif;
 	background-color: rgb(227, 238, 238);
 }
 
-h1 {
-	font-family: 'Rock 3D', cursive;
-	text-align: center;
-	font-size: 60px;
+#logo {
+	display: block;
+	margin: 0 auto;
+	transform: scale(0.5);
 }
 
+
 form {
-	font-family: 'Oxygen';
 	color: black;
 	width: 600px;
-	margin: 0 auto;
+	margin: 5% auto;
 	text-align: center;
 }
 /* Tous les inputs */
@@ -33,39 +31,35 @@ input {
 
 /* Pseudo */
 input[type="text"] {
-	color: white;
-	font-size: 30px;
+	color: black;
 	padding: 5px;
-	width: 50%;
-	height: 35px;
-	background-color: #03a9f4;
-	border: 3px solid #03a9f4;
+	width: 70%;
+	height: 30px;
+	border: 2px solid black;
+	background-color: whitesmoke;
 	border-radius: 4px;
 	outline: 1px transparent;
 	transition: outline 150ms ease-in, width 150ms ease-in;
+	padding: 10px;
 }
 ::placeholder {
-	color: white;
-	font-size: 30px;
-	position: absolute;
-	bottom: 5px;
+	font-family: "Oxygen";
+	color: rgba(0, 0, 0, 0.4);
 }
 
 /* Difficulté */
-select {
-	background-color: white;
-	color: #03a9f4;
+select, select option {
+	background-color: whitesmoke;
+	border-radius: 4px;
+	font-size: 15px;
+	color: black;
 	margin: 20px;
 	height: 40px;
 	padding: 5px;
-	border: none;
+	border: 2px solid black;
 	border-radius: 4px;
 	outline: 1px transparent;
 	transition: outline 150ms ease-in;
-}
-select option {
-	background-color: #03a9f4;
-	color:white;
 }
 
 /* Aide */
@@ -87,7 +81,7 @@ input[type="checkbox"] {
 	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
 }
 input[type="checkbox"]:checked {
-	background-color: #03a9f4;
+	background-color: #178FEB;
 }
 input[type="checkbox"]::before {
 	content: '';
@@ -110,11 +104,13 @@ input[type="checkbox"]:checked::before{
 input[type="submit"] {
 	margin-bottom: 10px;
 	padding: 5px 10px;
-	border: 1px solid white;
-	width: 30%;
-	height: 50px;
+	border: 2px solid black;
+	background-color: whitesmoke;
+	width: 50%;
+	height: 65px;
 	border-radius: 4px;
 	transition: all 150ms ease-in;
+	font-family: "Oxygen";
 }
 
 /* Focus des éléments */
@@ -122,11 +118,11 @@ input:focus-visible, select:focus-visible {
 	outline: 1px solid black;
 }
 input[type="text"]:focus-visible {
-	width: 80%;
+	width: 90%;
 }
 input[type="submit"]:hover, input[type="submit"]:focus-visible {
-	color: white;
-	background-color: black;
-	width: 40%;
-	height: 55px;
+	width: 60%;
+	height: 75px;
+	background-color: white;
+	outline: 1px solid black;
 }

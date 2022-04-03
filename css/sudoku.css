@@ -1,7 +1,8 @@
-@font-face { 
-	font-family: "Rock 3D";  
-	src: url("../media/font/Rock3D-Regular.ttf") ;
+:root {
+	--dark: "#fff";
+	--light: "#fff";
 }
+
 @font-face {
 	font-family: "Oxygen";
 	src: url("../media/font/Oxygen-Regular.ttf");
@@ -9,13 +10,16 @@
 
 body {
 	font-family: 'Oxygen', sans-serif;
-	background-color: rgb(227, 238, 238);
+	background-color: var(--light);
 }
 
-h1 {
-	font-family: 'Rock 3D', cursive;
-	text-align:center;
+#logo {
+	display: block;
+	margin: 0 auto;
+	transform: scale(0.5);
+	border: 5px dashed black;
 }
+
 
 p {
 	text-align: center;
@@ -54,7 +58,7 @@ p {
 	position: relative;
     top: 25%;
     left: 3%;
-    margin: auto;
+	width: 40%;
 }
 
 ol {
@@ -100,7 +104,7 @@ ol {
 .cell {
 	width: 48px;
 	height: 48px;
-	border: 1px solid lightgray;
+	border: 1px solid white;
 	cursor: pointer;
 	font-size: 20px;
 	font-weight: bold;
@@ -111,19 +115,19 @@ ol {
 
 /* Les cases de départs */
 .start-cell {
-	background-color: rgb(214, 225, 225); /*temporaire*/
+	background-color: var(--dark); 
 }
 
 #alerts {
 	position: absolute;
-	background-color: coral;
+	background-color: var(--dark);
 	width: 25%;
 	height: 370px;
 	right: 3%;
 	top: 50%;
 	bottom: 50%;
 	transform: translate(0,-50%);
-
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -146,6 +150,7 @@ ol {
 .number {
 	width: 44px;
 	height: 44px;
+	color: white;
 	border: 1px solid black;
 	margin: 2px;
 	cursor: pointer;
@@ -159,23 +164,28 @@ ol {
 
 /* Le nombre de la div #digits sélectionné (s'il y en a un) */
 .number-selected {
-	background-color: lightsalmon; /*temporaire*/
+	background-color: var(--dark);
 }
 
 /* Les cases au-dessus des lignes horizontales */
-.horizontal-line {
+.bottom-horizontal-line {
 	border-bottom: 1px solid black;
+}
+.top-horizontal-line {
+	border-top: 1px solid black;
 }
 
 /* Les cases à gauche des lignes verticales */
-.vertical-line {
+.right-vertical-line {
 	border-right: 1px solid black;
+}
+.left-vertical-line {
+	border-left: 1px solid black;
 }
 
 .end-cell {
 	background-color: greenyellow;
 }
-
 .end-cell.start-cell {
 	background-color: rgb(143, 225, 17);
 }
@@ -187,12 +197,23 @@ ol {
 	align-content: center;
 }
 
-#iMute {
+/* Div contenant les icones 'couper le son' et 'info' */
+#top-right {
 	position: fixed;
+	width: 120px;
 	top: 10px;
 	right: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 1;
+}
+
+/* Bouton couper le son */
+#iMute {
 	border: none;
 	background: none;
+	width: 50px;
 }
 
 #iMute:hover, #iMute:focus {
@@ -201,12 +222,85 @@ ol {
 	cursor: pointer;
 }
 
-#iMute {
-	width: 50px;
+/* Div contenant les informations */
+#info {
+	font-family: 'Oxygen';
+	display: none;
+	opacity: 0;
+	box-shadow: 0 0 5px 3px white;
+	padding: 30px;
+	border-radius: .3em;
+	background-color: var(--dark);
+	position: fixed;
+	top: 80px;
+	right: 20px;
+	width: 30%;
+	height: 28%;
+	z-index: 1; /*Pour être par dessus les autres éléments*/
+}
+#info li {
+	padding: 2px;
+}
+#info a, #info a:visited {
+	font-size: 25px;
+	color: whitesmoke;
+	text-decoration: none;
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	transform: translate(-50%,0);
+	transition: all 150ms ease-in;
+}
+#info a::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0%;
+	height: 2px;
+	left: 0;
+	background-color: var(--light);
+	transition: width 0.3s;
+}
+#info a:hover::after {
+	width: 100%;
+}
+
+/* Difficulté */
+select, select option {
+	background-color: whitesmoke;
+	border-radius: 4px;
+	font-size: 15px;
+	color: black;
+	margin: 5px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 4px;
+	outline: 1px transparent;
+	transition: outline 150ms ease-in;
+}
+select:focus-visible {
+	outline: 1px solid black;
+}
+
+button {
+	background-color: whitesmoke;
+	border-radius: 4px;
+	font-size: 15px;
+	color: black;
+	margin: 5px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 4px;
+	outline: 1px transparent;
+	transition: all 150ms ease-in;
+}
+button:hover, button:focus-visible {
+	background-color: white;
+	outline: 1px solid black;
 }
 
 #footer {
-	border-radius: .3em .3em .3em .3em;
+	border-radius: .3em;
 	padding: 5px;
 	background-color: #999999;
 	color: white;
