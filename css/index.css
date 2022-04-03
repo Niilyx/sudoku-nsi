@@ -38,14 +38,14 @@ input[type="text"] {
 	padding: 5px;
 	width: 50%;
 	height: 35px;
-	background-color: blue;
-	border: 3px solid blue;
+	background-color: #03a9f4;
+	border: 3px solid #03a9f4;
 	border-radius: 4px;
 	outline: 1px transparent;
 	transition: outline 150ms ease-in, width 150ms ease-in;
 }
 ::placeholder {
-	color: lightgrey;
+	color: white;
 	font-size: 30px;
 	position: absolute;
 	bottom: 5px;
@@ -54,7 +54,7 @@ input[type="text"] {
 /* Difficulté */
 select {
 	background-color: white;
-	color: fuchsia;
+	color: #03a9f4;
 	margin: 20px;
 	height: 40px;
 	padding: 5px;
@@ -64,7 +64,7 @@ select {
 	transition: outline 150ms ease-in;
 }
 select option {
-	background-color: fuchsia;
+	background-color: #03a9f4;
 	color:white;
 }
 
