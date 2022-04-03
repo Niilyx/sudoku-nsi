@@ -13,7 +13,7 @@ var aide;
 
 var isMuted;
 
-var leaderboard = [];
+var leaderboard = [null, null, null, null, null, null, null, null, null, null];
 
 window.onload = () => {
     let passedArgs = new URLSearchParams(window.location.search)
@@ -64,7 +64,7 @@ function mute() {
             m.volume = 0.8
         }
         
-        winSound.volume = 0.8
+        winSound.volume = 0.3
         muteButton.setAttribute("src", "media/img/unmute.png")
     } else {
         for (let m of bgMusic) {
@@ -219,10 +219,12 @@ function win() {
             currentMusic.volume -= speed
         }
     }, 1)
-
-    winSound.currentTime = 0
-    winSound.volume = 0.3
-    winSound.play()
+    
+    if (!isMuted) {
+        winSound.currentTime = 0
+        winSound.volume = 0.3
+        winSound.play()
+    }
 
     document.querySelector("body").classList.add("uneditable")
     document.getElementById("alerts").innerText = "Et c'est la win !"
@@ -255,7 +257,117 @@ function win() {
 
     stopChrono()
 
-    if (leaderboard.length < 10) {
-        leaderboard.push(pseudo + "," + difficulte + "," + minutes + "," + secs)
+    updateLeaderboard()
+}
+
+function updateLeaderboard() {
+    if (hasSetUp) {
+        let dIndex;
+        switch (difficulte) {
+            case "1min": {
+                dIndex = 0
+                break
+            }
+            case "10min": {
+                dIndex = 1
+                break
+            }
+            case "15min": {
+                dIndex = 2
+                break
+            }
+            case "20min": {
+                dIndex = 3
+                break
+            }
+
+            case "très facile": {
+                dIndex = 0
+                break
+            }
+            case "facile": {
+                dIndex = 1
+                break
+            }
+            case "moyen": {
+                dIndex = 2
+                break
+            }
+            case "difficile": {
+                dIndex = 3
+                break
+            }
+        }
+        leaderboard.push([pseudo,dIndex,minutes,secs])
+        
+        leaderboard.sort((a,b) => {
+            if (a == null) return 1
+            if (b == null) return -1
+
+
+            // si le sudoku était plus difficile...
+            if (a[1] > b[1]) {
+                //mieux classer le résultat
+                return -1
+            } else if (a[1] < b[1]) {
+                return 1
+            }
+
+            // sinon, si on a pris moins de minutes...
+            if (a[2] < b[2]) {
+                // mieux classer
+                return -1
+            } else if (a[2] > b[2]) {
+                return 1
+            }
+
+            // sinon, si on a pris moins de secondes...
+            if (a[3] < b[3]) {
+                // mieux classer
+                return -1
+            } else if (a[3] > b[3]) {
+                return 1
+            }
+
+            return 0
+        })
+
+        //on coupe le nouveau dernier
+        leaderboard.length = 10
+    }
+    for (let pos in document.getElementsByClassName("lead")) {
+        
+        if (JSON.stringify(leaderboard[pos]) == 'null') {
+            document.getElementsByClassName("lead")[pos].innerText = ""
+            continue
+        }
+        var e = JSON.parse(JSON.stringify(leaderboard[pos]));
+        
+        switch (e[1]) {
+            case 0: {
+                e[1] = "très facile"
+                break
+            }
+            case 1: {
+                e[1] = "facile" 
+                break
+            }
+            case 2: {
+                e[1] = "moyen"
+                break
+            }
+            case 3: {
+                e[1] = "difficile"
+                break
+            }
+        }
+        
+        let s = pseudo + ": " + e[1] + " en " + update(e[2]) + "min " + update(e[3]) + "s"
+
+        document.getElementsByClassName("lead")[pos].innerText = s
+    }
+
+    for (const el in leaderboard) {
+        setCookie("lead" + el, leaderboard[el])
     }
 }

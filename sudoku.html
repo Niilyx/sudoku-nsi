@@ -7,6 +7,9 @@
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="brython/brython.js"></script>
 		<script type="text/javascript" src="brython/brython_stdlib.js"></script>
+		<script type="module" src="js/js.cookie.mjs"></script>
+		<script type="module" src="js/js.cookie.js"></script>
+		<script type="module" src="js/cookieman.js"></script>
     </head>
     <body>
 		<script type="text/python">
@@ -239,8 +242,13 @@
 			        for row in self.grid:
 			            print([row[j].value for j in range(len(row))])
 
+
+			solution = []
+			sudoku = None
+
 			@bind("div.cell", "click")
 			def clicked_button(ev):
+				print(ev.button)
 				global sudoku
 				l = document.select(".number-selected")
 				if len(l) == 0:
@@ -258,8 +266,6 @@
 				if sudoku.is_complete():
 					window.win()
 			
-			solution = []
-			sudoku = None
 			def new_game(ev):
 				global sudoku
 
@@ -330,9 +336,13 @@
 				
 				#Lancer le chrono
 				window.startChrono()
+
+				window.difficulte = difficulty
 				
 
 			document["new_game"].bind("click", new_game)
+
+
 			if window.wereArgsPassed():
 				new_game(None)
 			
