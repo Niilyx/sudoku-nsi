@@ -58,7 +58,7 @@ p {
 	position: relative;
     top: 25%;
     left: 3%;
-    margin: auto;
+	width: 40%;
 }
 
 ol {
@@ -186,7 +186,6 @@ ol {
 .end-cell {
 	background-color: greenyellow;
 }
-
 .end-cell.start-cell {
 	background-color: rgb(143, 225, 17);
 }
@@ -198,21 +197,7 @@ ol {
 	align-content: center;
 }
 
-#iMute {
-	border: none;
-	background: none;
-}
-
-#iMute:hover, #iMute:focus {
-	border: none;
-	background: none;
-	cursor: pointer;
-}
-
-#iMute {
-	width: 50px;
-}
-
+/* Div contenant les icones 'couper le son' et 'info' */
 #top-right {
 	position: fixed;
 	width: 120px;
@@ -221,19 +206,101 @@ ol {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	z-index: 1;
 }
 
+/* Bouton couper le son */
+#iMute {
+	border: none;
+	background: none;
+	width: 50px;
+}
+
+#iMute:hover, #iMute:focus {
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+/* Div contenant les informations */
 #info {
-	background-color: aqua;
+	font-family: 'Oxygen';
+	display: none;
+	opacity: 0;
+	box-shadow: 0 0 5px 3px white;
+	padding: 30px;
+	border-radius: .3em;
+	background-color: var(--dark);
 	position: fixed;
-	top: 90px;
-	right: 10px;
-	width: 400px;
-	height: 300px;
+	top: 80px;
+	right: 20px;
+	width: 30%;
+	height: 28%;
+	z-index: 1; /*Pour être par dessus les autres éléments*/
+}
+#info li {
+	padding: 2px;
+}
+#info a, #info a:visited {
+	font-size: 25px;
+	color: whitesmoke;
+	text-decoration: none;
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	transform: translate(-50%,0);
+	transition: all 150ms ease-in;
+}
+#info a::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0%;
+	height: 2px;
+	left: 0;
+	background-color: var(--light);
+	transition: width 0.3s;
+}
+#info a:hover::after {
+	width: 100%;
+}
+
+/* Difficulté */
+select, select option {
+	background-color: whitesmoke;
+	border-radius: 4px;
+	font-size: 15px;
+	color: black;
+	margin: 5px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 4px;
+	outline: 1px transparent;
+	transition: outline 150ms ease-in;
+}
+select:focus-visible {
+	outline: 1px solid black;
+}
+
+button {
+	background-color: whitesmoke;
+	border-radius: 4px;
+	font-size: 15px;
+	color: black;
+	margin: 5px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 4px;
+	outline: 1px transparent;
+	transition: all 150ms ease-in;
+}
+button:hover, button:focus-visible {
+	background-color: white;
+	outline: 1px solid black;
 }
 
 #footer {
-	border-radius: .3em .3em .3em .3em;
+	border-radius: .3em;
 	padding: 5px;
 	background-color: #999999;
 	color: white;

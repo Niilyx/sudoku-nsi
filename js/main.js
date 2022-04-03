@@ -3,8 +3,7 @@ var hasSetUp = false;
 
 var won = false;
 var winSound = new Audio("media/victory.mp3")
-var bgMusic = [new Audio("media/bg1.mp3"),
-new Audio("media/bg2.mp3"),];
+var bgMusic = [new Audio("media/bg1.mp3"), new Audio("media/bg2.mp3"),];
 var currentMusic;
 
 var pseudo;
@@ -59,7 +58,7 @@ function startChrono() {
 
 function stopChrono() {
     clearTimeout(promise)
-    
+
     //obligé
     clearTimeout(promise + 1)
 }
@@ -82,7 +81,7 @@ function mute() {
         for (let m of bgMusic) {
             m.volume = 0.8
         }
-        
+
         winSound.volume = 0.3
         muteButton.setAttribute("src", "media/img/unmute.png")
     } else {
@@ -97,7 +96,36 @@ function mute() {
 }
 
 function toggleInfoDiv() {
-    
+    infoDiv = document.getElementById("info");
+    if (infoDiv.style.display=="none") {
+        infoDiv.style.display = "block";
+
+        let opacity = 0;
+        let top = 65;
+        var interval = setInterval(()=> {
+            if (opacity>=1) {
+                clearInterval(interval);
+            }
+            opacity+=0.2;
+            top+=2;
+            infoDiv.style.top = top+"px";
+            infoDiv.style.opacity = opacity;
+        },50)
+        
+    } else {
+        let opacity = 1;
+        let top = 75;
+        var interval = setInterval(()=> {
+            if (opacity<=0) {
+                clearInterval(interval)
+                infoDiv.style.display = "none";
+            }
+            opacity-=0.2;
+            top -=2;
+            infoDiv.style.top = top+"px";
+            infoDiv.style.opacity = opacity;
+        },30)
+    }
 }
 
 function wereArgsPassed() {
@@ -109,7 +137,7 @@ function addClass(id, classe) {
 }
 
 function removeClass(element, classe) {
-    if (element.classList == undefined) return
+    if (element.classList == undefined) { return; }
     element.classList.remove(classe)
 }
 
@@ -250,7 +278,7 @@ function win() {
             currentMusic.volume -= speed
         }
     }, 1)
-    
+
     if (!isMuted) {
         winSound.currentTime = 0
         winSound.volume = 0.3
@@ -284,7 +312,7 @@ function win() {
         }
     }, 5200)
 
-	won = true
+    won = true
 
     stopChrono()
 
@@ -329,9 +357,9 @@ function updateLeaderboard() {
                 break
             }
         }
-        leaderboard.push([pseudo,dIndex,minutes,secs])
-        
-        leaderboard.sort((a,b) => {
+        leaderboard.push([pseudo, dIndex, minutes, secs])
+
+        leaderboard.sort((a, b) => {
             if (a == null) return 1
             if (b == null) return -1
 
@@ -367,20 +395,20 @@ function updateLeaderboard() {
         leaderboard.length = 10
     }
     for (let pos in document.getElementsByClassName("lead")) {
-        
+
         if (JSON.stringify(leaderboard[pos]) == 'null') {
             document.getElementsByClassName("lead")[pos].innerText = ""
             continue
         }
         var e = JSON.parse(JSON.stringify(leaderboard[pos]));
-        
+
         switch (e[1]) {
             case 0: {
                 e[1] = "très facile"
                 break
             }
             case 1: {
-                e[1] = "facile" 
+                e[1] = "facile"
                 break
             }
             case 2: {
@@ -392,7 +420,7 @@ function updateLeaderboard() {
                 break
             }
         }
-        
+
         let s = pseudo + ": " + e[1] + " en " + update(e[2]) + "min " + update(e[3]) + "s"
 
         document.getElementsByClassName("lead")[pos].innerText = s

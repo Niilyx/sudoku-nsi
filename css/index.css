@@ -124,4 +124,5 @@ input[type="submit"]:hover, input[type="submit"]:focus-visible {
 	width: 60%;
 	height: 75px;
 	background-color: white;
+	outline: 1px solid black;
 }

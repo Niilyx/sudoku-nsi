@@ -8,7 +8,7 @@
 <body>
     <img id="logo" src="media/img/sudoku-title.png" alt="Logo du site"/>
 	<form action="sudoku.html" id="options">
-		<input required onkeydown="return keyispressed(event)" id="pseudo" name="pseudo" type="text" placeholder="Pseudo">
+		<input onkeydown="return keyispressed(event)" id="pseudo" name="pseudo" type="text" placeholder="Pseudo" maxlength="30">
 		<br>
 		<label>Difficulté :</label>
 		<select name="difficulty" id="time">

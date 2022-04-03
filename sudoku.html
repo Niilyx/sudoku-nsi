@@ -321,6 +321,7 @@
 				for element in document.select(".cell"):
 					element.bind("click", clicked_button)
 					window.removeClass(element, "start-cell")
+					window.removeClass(element, "end-cell")
 
 				# On place!
 				for y in range(sudoku.size):
@@ -351,20 +352,24 @@
 				<img id="logo" src="media/img/sudoku-title.png" alt="Logo du site"/>
 			</div>
 			<div id="top-right">
-				<img src="media/img/info.png" alt="Informations">
-				<img id="iMute" src="media/img/unmute.png" onclick="mute()"/>
+				<img src="media/img/info.png" alt="Informations" onclick="toggleInfoDiv()">
+				<img id="iMute" src="media/img/unmute.png" alt="Couper le son" onclick="mute()"/>
 			</div>
-			<div id="info"></div>
-			<img id="iMute" src="media/img/unmute.png" onclick="mute()"/>
-	        <div id="clock">00:00</div>
+
+			<div id="info">
+				<h3>Comment jouer :</h3>
+				<ol>
+					<li>Choisissez votre difficulté</li>
+					<li>Cliquez sur "Nouvelle partie"</li>
+					<li>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</li>
+					<li>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</li>
+				</ol>
+				<a href="https://github.com/Niilyx/sudoku-nsi/" target="_blank">Code Source</a>
+			</div>
+	        
+			<div id="clock">00:00</div>
 	        <script type="text/javascript" src="js/timer.js"></script>
-	        <p><b>Règles :</b><br><!-- à abréger --> 
-				1) <i>Choisissez votre difficulté</i><br>
-				2) <i>Cliquez sur "Nouvelle partie"</i><br>
-				3) <i>Cliquez sur un chiffre à placer dans la liste de numéros sous le sudoku</i><br> 
-				4) <i>Cliquez sur une case du sudoku pour y placer le numéro sélectionné</i><br>
-			
-			</p>
+	        
 	        <div id="setting">
 				<label for="time">Difficulté : </label>
 	        	<select id="time">
