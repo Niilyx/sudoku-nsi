@@ -15,8 +15,8 @@ function Time() {
 
     document.getElementById("clock").innerText = minutes + ":" + secs;
 
-    secs=parseInt(secs)
-    minutes=parseInt(minutes)
+    secs = parseInt(secs)
+    minutes = parseInt(minutes)
 
     promise = setTimeout(Time, 1000);
 }

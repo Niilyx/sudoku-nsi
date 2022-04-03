@@ -125,9 +125,9 @@ ol {
 #panel {
 	position: absolute;
 	background-color: var(--dark);
-	width: 10%;
+	width: 120px;
 	height: 370px;
-	right: 3%;
+	right: 28%;
 	top: 50%;
 	bottom: 50%;
 	transform: translate(0,-50%);
@@ -139,11 +139,26 @@ ol {
 	font-weight: bold;
 }
 
+.mid {
+	margin: 0;
+	position: absolute;
+  	top: 50%;
+  	-ms-transform: translateY(-50%);
+  	transform: translateY(-50%);
+}
+
+#help {
+	margin: 0 50%;
+    transform: translate(-50%);
+}
+
 #help:focus-visible {
 	background-color: #bbbbbb;
 }
 
 #giveup {
+	margin: 0 50%;
+    transform: translate(-50%);
 	background-color: red;
 	color: white;
 	font-weight: bold;
