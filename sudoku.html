@@ -318,9 +318,11 @@
 
 				sudoku.debug()
 
+				window.clearWinAnim()
 				for element in document.select(".cell"):
 					element.bind("click", clicked_button)
 					window.removeClass(element, "start-cell")
+					window.removeClass(element, "end-cell")
 
 				# On place!
 				for y in range(sudoku.size):

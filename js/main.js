@@ -1,6 +1,7 @@
 var numSelected = null;
 var hasSetUp = false;
 
+var later = [];
 var won = false;
 var winSound = new Audio("media/victory.mp3")
 var bgMusic = [new Audio("media/bg1.mp3"),
@@ -75,6 +76,12 @@ function mute() {
     }
 
     isMuted = !isMuted
+}
+
+function clearWinAnim() {
+    for (const i of later) {
+        clearTimeout(i)
+    }
 }
 
 function wereArgsPassed() {
@@ -212,11 +219,11 @@ function win() {
     var fadeOut = setInterval(() => {
         let speed = 0.005
 
-        if (currentMusic.volume - speed < 0) {
-            currentMusic.volume = 0
+        if (currentMusic.volume + speed > 0.8) {
+            currentMusic.volume = 0.8
             clearInterval(fadeOut)
         } else {
-            currentMusic.volume -= speed
+            currentMusic.volume += speed
         }
     }, 1)
     
@@ -236,22 +243,22 @@ function win() {
 
     //anim
     for (let i = 0;i<3;i++) {
-        setTimeout(() => {
+        later.push(setTimeout(() => {
             for (let cell of getAllCells()) {
                 cell.classList.add("end-cell")
             }
-        }, 2200 + (1000 * i))
-        setTimeout(() => {
+        }, 2200 + (1000 * i)))
+        later.push(setTimeout(() => {
             for (let cell of getAllCells()) {
                 cell.classList.remove("end-cell")
             }
-        }, 2700 + (1000 * i))
+        }, 2700 + (1000 * i)))
     }
-    setTimeout(() => {
+    later.push(setTimeout(() => {
         for (let cell of getAllCells()) {
             cell.classList.add("end-cell")
         }
-    }, 5200)
+    }, 5200))
 
 	won = true
 
