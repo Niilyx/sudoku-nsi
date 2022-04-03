@@ -14,6 +14,7 @@ var difficulte;
 var aide;
 
 var isMuted;
+var setUpMusic = false;
 var canCount = false;
 
 var leaderboard = [null, null, null, null, null, null, null, null, null, null];
@@ -54,6 +55,12 @@ window.onload = () => {
         console.log()
         return false
     }
+}
+
+window.onclick = () => {
+    if (setUpMusic) return
+    setUpMusic = true
+    music()
 }
 
 function pullOut(a) {
