@@ -20,6 +20,7 @@ body {
 	border: 5px dashed black;
 }
 
+
 p {
 	text-align: center;
 }
@@ -98,7 +99,7 @@ p {
 	top: 50%;
 	bottom: 50%;
 	transform: translate(0,-50%);
-
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -168,9 +169,6 @@ p {
 }
 
 #iMute {
-	position: fixed;
-	top: 10px;
-	right: 10px;
 	border: none;
 	background: none;
 }
@@ -183,6 +181,25 @@ p {
 
 #iMute {
 	width: 50px;
+}
+
+#top-right {
+	position: fixed;
+	width: 120px;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#info {
+	background-color: aqua;
+	position: fixed;
+	top: 90px;
+	right: 10px;
+	width: 400px;
+	height: 300px;
 }
 
 #footer {

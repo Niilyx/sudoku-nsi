@@ -77,6 +77,10 @@ function mute() {
     isMuted = !isMuted
 }
 
+function toggleInfoDiv() {
+    
+}
+
 function wereArgsPassed() {
     return window.location.search != ""
 }
