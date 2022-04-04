@@ -11,15 +11,11 @@
     <body>
 		<script type="text/python">
 			"""
-			Je fais quelques tests pour la partie logique des sudokus.
-			Toute aide est la bienvenue !
-			 - Alexis
-
 			Notes :
 			    • Les 0 dans la grille des sudokus représentent des cases vides
 			    • Le sudoku peut être de taille 4x4 ou 9x9
 			    • Chaque case de sudoku est représentée par un objet de la classe Cell
-			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
+			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans la grille du sudoku
 			"""
 			from math import sqrt
 			from random import choice,randint
@@ -441,6 +437,7 @@
 				<a href="https://github.com/Niilyx/sudoku-nsi/" target="_blank">Code Source</a>
 			</div>
 	        
+			<!-- Timer -->
 			<div id="clock">00:00</div>
 	        <script type="text/javascript" src="js/timer.js"></script>
 	        
@@ -449,9 +446,8 @@
 	        	<select id="time">
 					<option value="1min">Très facile (≈1 min)</option>
 	        		<option value="10min">Facile (≈10 min)</option>
-					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
 	        		<option value="15min" selected>Moyen (≈15 min)</option>
-	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
+	        		<option value="20min">Difficile (>20 min)</option>
 	        	</select>
 				<span title="Activer les aides">
 					<input id="help-button" name="help" type="checkbox">
@@ -460,8 +456,8 @@
 				<button style="background-color: blue; color: white; font-weight: bold;" id="new_game">Nouvelle partie</button>
 	        </div>
 	        
-		<!-- Grille sudoku -->
 		<div id="board-container">
+			<!-- Classement -->
 			<div id="leaderboard">
 				<ol>
 					<li class="lead" id="lead1"></li>
@@ -476,8 +472,11 @@
 					<li class="lead" id="lead10"></li>
 				</ol>
 			</div>
+			
+			<!-- Grille du sudoku -->
 			<div id="board"></div>
-				
+			
+			<!-- Div contenant les boutons 'indice' et 'abandonner' -->
 			<div id="panel">
 				<div class="mid">
 					<button id="help">Indice</button>
@@ -485,8 +484,11 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- Nombres à sélectionner -->
 		<div id="digits"></div>
+
+		<!-- Bas de page -->
 		<div id="footer-container">
 			<div id="footer">
 				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Ma<a class="x" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">x</a>im, Idir)
