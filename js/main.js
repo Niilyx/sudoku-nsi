@@ -307,15 +307,6 @@ function getAllDigits() {
 function win() {
     won = true
 
-    currentMusic.pause()
-    currentMusic.currentTime = 0
-
-    if (!isMuted) {
-        winSound.currentTime = 0
-        winSound.volume = 0.3
-        winSound.play()
-    }
-
     document.querySelector("body").classList.add("uneditable")
 
     //désélectionner le nombre en cours
@@ -349,6 +340,15 @@ function win() {
     stopChrono()
 
     updateLeaderboard()
+
+    currentMusic.pause()
+    currentMusic.currentTime = 0
+
+    if (!isMuted) {
+        winSound.currentTime = 0
+        winSound.volume = 0.3
+        winSound.play()
+    }
 }
 
 function updateLeaderboard() {
