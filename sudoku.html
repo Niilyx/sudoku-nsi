@@ -275,6 +275,10 @@
 			
 			def new_game(ev):
 				global sudoku
+				global solution
+				
+				#reset la solution
+				solution = []
 
 				difficulty = document["time"].value
 				nb_cases_a_suppr = 0
@@ -385,7 +389,7 @@
 				where.innerText = ""
 
 			def help(ev):
-				
+				print(solution)
 				if window.won:
 					return
 				if not window.aide:
@@ -393,14 +397,15 @@
 				
 				#Ne jamais compter sur le while True
 				i = 0
-				while i<99:
+				while i<999:
 					x = randint(0,sudoku.size - 1)
 					y = randint(0,sudoku.size - 1)
 
-					idToSeek = str(x) + ":" + str(y)
+					idToSeek = str(y) + ":" + str(x)
 					if document[idToSeek].innerText == "":
-						sudoku.grid[x][y].value = solution[x][y]
-						document[idToSeek].innerText = str(solution[x][y])
+						print(x,y,idToSeek)
+						sudoku.grid[y][x].value = solution[y][x]
+						document[idToSeek].innerText = str(solution[y][x])
 						break
 
 					i += 1
