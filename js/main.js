@@ -58,6 +58,8 @@ window.onload = () => {
     brython();
 
     //préparer la suppression clic droit
+    //à ce propos: le fait de supprimer une case avec clic droit ne fonctionne que sur Windows...
+    //J'ai essayé de le fix, mais Linux n'aime pas quand on annule l'événement oncontextmenu??
     if (navigator.oscpu.contains("Linux")) {
         document.getElementById("board").oncontextmenu = (event) => {
             pullOut(event.target[0])
@@ -512,7 +514,7 @@ function updateLeaderboard() {
 function giveUp() {
     document.getElementById("giveup").blur()
     if (won) return
-    
+
     //cette variable permet de ne pas avoir de problèmes avec la musique
     wonByGiveup = true
     document.querySelector("body").classList.add("uneditable")
