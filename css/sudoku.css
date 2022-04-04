@@ -1,8 +1,11 @@
+/* Variables qui seront modifiées par le javascript 
+	(pour la génération de couleurs aléatoires)*/
 :root {
 	--dark: "#fff";
 	--light: "#fff";
 }
 
+/* Importation de la police Oxygen */
 @font-face {
 	font-family: "Oxygen";
 	src: url("../media/font/Oxygen-Regular.ttf");
@@ -13,6 +16,7 @@ body {
 	background-color: var(--light);
 }
 
+/* Logo du site */
 #logo {
 	display: block;
 	margin: 0 auto;
@@ -20,11 +24,11 @@ body {
 	border: 5px dashed black;
 }
 
-
 p {
 	text-align: center;
 }
 
+/* Checkbox Aide */
 input[type="checkbox"] {
 	position: relative;
 	appearance: none;
@@ -36,6 +40,8 @@ input[type="checkbox"] {
 	transition: 250ms;
 	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
 }
+
+/* Checkbox quand elle est cochée */
 input[type="checkbox"]:checked {
 	background-color: #178FEB;
 }
@@ -60,11 +66,11 @@ input[type="checkbox"]:checked::before{
 	color: rgb(240, 240, 240);
 	text-decoration: none;
 }
-
 .x:hover {
 	cursor: default;
 }
 
+/* Bas de page */
 #footer-container {
 	margin: auto;
 	height: 720px;
@@ -76,15 +82,13 @@ input[type="checkbox"]:checked::before{
 	padding: 5px;
 }
 
-#whole-thing {
-	width: 100%;
-}
-
+/* Container de la grille de sudoku */
 #board-container {
 	position: relative;
 	height: 500px;
 }
 
+/* Classement */
 #leaderboard {
 	position: relative;
     top: 25%;
@@ -102,13 +106,15 @@ ol {
     margin: 0;
     overflow-wrap: anywhere;
 }
-
+/* 1er du classement */
 #lead1 {
 	color: gold;
 }
+/* 2ème du classement */
 #lead2 {
 	color: silver;
 }
+/* 3ème du classement */
 #lead3 {
 	color: #CD7F32;
 }
@@ -116,7 +122,7 @@ ol {
 /* La grille du sudoku */
 #board {
 	position: relative;
-	user-select: none;	/*Comme ça l'utilisateur ne sélectionne pas les nombres quand il clique dessus*/
+	user-select: none;	/*Empêche l'utilisateur de sélectionner le numéro d'une case quand il clique dessus*/
 	width: 450px;
 	height: 450px;
 	position: absolute;
@@ -144,15 +150,15 @@ ol {
 	align-items: center;
 }
 
-/* Les cases de départs */
+/* Les cases de départs (restantes après la génération du sudoku et suppression de cases aléatoires) */
 .start-cell {
 	background-color: var(--dark); 
 }
 
+/* Style des cases quand la numéro posé est interdit (si l'aide est activée) */
 .wrong {
 	background-color: rgb(141, 0, 0);
 }
-
 .wrong.start-cell {
 	background-color: rgb(111, 0, 0);
 }
@@ -181,21 +187,22 @@ ol {
   	transform: translateY(-50%);
 }
 
+/* Bouton indice */
 #help {
 	margin: 0 50%;
     transform: translate(-50%);
 }
-
+/* Bouton indice quand l'aide est désactivée */
 #help[disabled] {
 	cursor: not-allowed;
   	pointer-events: all !important;
 	  background-color: #555555;
 }
-
 #help:focus-visible {
 	background-color: #bbbbbb;
 }
 
+/* Bouton abandonner */
 #giveup {
 	margin: 0 50%;
     transform: translate(-50%);
@@ -269,6 +276,7 @@ ol {
 	background-color: rgb(143, 225, 17);
 }
 
+/* Timer */
 #clock {
 	font-size: xxx-large;
 	margin-top: -30px;
