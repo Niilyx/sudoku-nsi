@@ -7,6 +7,7 @@
 </head>
 <body>
     <img id="logo" src="media/img/sudoku-title.png" alt="Logo du site"/>
+
 	<form action="sudoku.html" id="options">
 		<input onkeydown="return keyispressed(event)" id="pseudo" name="pseudo" type="text" placeholder="Pseudo" maxlength="30">
 		<br>
@@ -24,7 +25,9 @@
 		</div>
 		<input id="start" type="submit" value="Lancer une partie !"/>
 	</form>
+
 	<script type="text/javascript">
+		// Empêche l'utilisateur de mettre des points-virgules dans son pseudo
 		function keyispressed(e){
             if(e.key == ";"){
                 e.preventDefault();
