@@ -186,6 +186,12 @@ ol {
     transform: translate(-50%);
 }
 
+#help[disabled] {
+	cursor: not-allowed;
+  	pointer-events: all !important;
+	  background-color: #555555;
+}
+
 #help:focus-visible {
 	background-color: #bbbbbb;
 }

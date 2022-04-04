@@ -250,10 +250,12 @@
 				if len(l) == 0:
 					return
 				
-				if ev.target.className.find("start-cell") != -1:
+				# Si on trouve la classe...
+				if window.hasClass(ev.target, "start-cell"):
+					#Alors on y touche pas
 					return
 				
-				if document.select("body")[0].className.find("uneditable") != -1:
+				if window.hasClass(document.select("body")[0], "uneditable"):
 					return
 				
 				new_value = l[0].innerText
@@ -323,6 +325,7 @@
 
 				sudoku.debug()
 
+				#on clear le tableau
 				window.clearWinAnim()
 				for element in document.select(".cell"):
 					element.bind("click", clicked_button)
@@ -338,14 +341,21 @@
 							window.addClass(str(x) + ":" + str(y), "start-cell")
 						else:
 							document[str(x) + ":" + str(y)].text = ""
-				if window.won:
-					# Relancer la musique
-					window.music()
+				
+				if not window.wonByGiveup:
+					if window.won:
+						# Relancer la musique seulement si une ne joue pas
+						window.music()
 				
 				window.won = False
-				
+				window.wonByGiveup = False
+
 				# Aide est-il coché?
 				window.aide = document["help-button"].checked
+				if not window.aide:
+					window.addAttr(document["help"], "disabled")
+				elif "disabled" in document["help"].attrs:
+					del document["help"].attrs["disabled"]
 
 				#Lancer le chrono
 				window.stopChrono()
@@ -353,6 +363,7 @@
 				
 				window.difficulte = difficulty
 
+				#Préparer la solution si le joueur abandonne
 				window.solution = [i[j] for i in solution for j in range(len(i))]
 			
 			def erase(where):
@@ -374,11 +385,15 @@
 				where.innerText = ""
 
 			def help(ev):
+				
 				if window.won:
 					return
 				if not window.aide:
 					return
-				while True:
+				
+				#Ne jamais compter sur le while True
+				i = 0
+				while i<99:
 					x = randint(0,sudoku.size - 1)
 					y = randint(0,sudoku.size - 1)
 
@@ -387,7 +402,8 @@
 						sudoku.grid[x][y].value = solution[x][y]
 						document[idToSeek].innerText = str(solution[x][y])
 						break
-				
+
+					i += 1
 				if sudoku.is_complete():
 					window.win()
 			

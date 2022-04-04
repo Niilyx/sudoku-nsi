@@ -3,6 +3,7 @@ var hasSetUp = false;
 
 var later = [];
 var won = false;
+var wonByGiveup = false;
 var solution;
 var winSound = new Audio("media/victory.mp3")
 var bgMusic =  [new Audio("media/bg1.mp3"), new Audio("media/bg2.mp3"),
@@ -154,6 +155,11 @@ function wereArgsPassed() {
     return window.location.search != ""
 }
 
+function addAttr(el, attr) {
+    let a = document.createAttribute(attr)
+    el.setAttributeNode(a)
+}
+
 function addClass(id, classe) {
     document.getElementById(id).classList.add(classe)
 }
@@ -192,8 +198,6 @@ function setUp() {
             }, 3000)
         }
     }
-
-    music()
 
     changeBoard(9)
     hasSetUp = true;
@@ -323,18 +327,18 @@ function win() {
             for (let cell of getAllCells()) {
                 cell.classList.add("end-cell")
             }
-        }, 2200 + (1000 * i)))
+        }, 1300 + (1000 * i)))
         later.push(setTimeout(() => {
             for (let cell of getAllCells()) {
                 cell.classList.remove("end-cell")
             }
-        }, 2700 + (1000 * i)))
+        }, 1800 + (1000 * i)))
     }
     later.push(setTimeout(() => {
         for (let cell of getAllCells()) {
             cell.classList.add("end-cell")
         }
-    }, 5200))
+    }, 4300))
 
     stopChrono()
 
@@ -456,7 +460,7 @@ function updateLeaderboard() {
 function giveUp() {
     document.getElementById("giveup").blur()
     if (won) return
-    won = true
+    wonByGiveup = true
     document.querySelector("body").classList.add("uneditable")
 
     //désélectionner le nombre en cours
