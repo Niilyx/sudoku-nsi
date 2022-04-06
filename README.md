@@ -32,7 +32,7 @@ Projet de fin d'année réalisé dans le cadre de cours de NSI Terminale.
 - Python/JavaScript [@Niilyx](https://github.com/Niilyx) [@Axxiar](https://github.com/Axxiar)
 
 ##### Partie graphique :
-- HTML + CSS (Valentyn) [@SH8LL3](https://github.com/SH8LL3)
+- HTML + CSS (Valentyn) [@SH8LL3](https://github.com/SH8LL3), [@Axxiar](https://github.com/Axxiar)
 - Design des éléments et assets [@Aixiis](https://github.com/Aixiis)
 
 ## License : 
