@@ -8,7 +8,7 @@ Projet de fin d'année réalisé dans le cadre de cours de NSI Terminale.
 <details>
 <summary>Avec git</summary>
    
-  - Cloner le repo
+  - Clonez le repo
     * `git clone https://github.com/Niilyx/sudoku-nsi.git` via HTTPS
     * `git clone git@github.com:Niilyx/sudoku-nsi.git` via SSH
   - Ouvrez le fichier [index.html](/index.html) avec votre navigateur
