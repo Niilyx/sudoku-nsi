@@ -506,7 +506,7 @@ function updateLeaderboard() {
     }
 
     for (const el in leaderboard) {
-        setCookie("lead" + el, leaderboard[el])
+        // setCookie("lead" + el, leaderboard[el])
     }
 }
 
