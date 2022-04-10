@@ -259,10 +259,10 @@
 				
 				if window.aide:
 					if type(sudoku.is_correct(sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])], int(new_value))) == tuple:
-						if not sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value == int(new_value):
+						if sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value != int(new_value):
 							window.addClass(ev.target.id, "wrong")
 					else:
-						window.removeClass(ev.target.id, "wrong")
+						window.removeClass(document[ev.target.id], "wrong")
 
 				sudoku.grid[int(ev.target.id[0])][int(ev.target.id[-1])].value = int(new_value)
 
@@ -328,7 +328,7 @@
 				#on clear le tableau
 				window.clearWinAnim()
 				for element in document.select(".cell"):
-					element.bind("click", clicked_button)
+					#element.bind("mousedown", clicked_button)
 					window.removeClass(element, "start-cell")
 					window.removeClass(element, "end-cell")
 					window.removeClass(element, "wrong")
@@ -380,7 +380,6 @@
 
 				#Pas besoin au final, de toute façon ça levait une exception de brython
 				sudoku.grid[x][y].value = 0
-				sudoku.debug()
 
 				where.innerText = ""
 
