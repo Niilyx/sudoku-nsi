@@ -328,7 +328,8 @@
 				#on clear le tableau
 				window.clearWinAnim()
 				for element in document.select(".cell"):
-					#element.bind("mousedown", clicked_button)
+					element.unbind("click")
+					element.bind("click", clicked_button)
 					window.removeClass(element, "start-cell")
 					window.removeClass(element, "end-cell")
 					window.removeClass(element, "wrong")
@@ -471,6 +472,7 @@
 					<li class="lead" id="lead9"></li>
 					<li class="lead" id="lead10"></li>
 				</ol>
+				<button id="clearLB" ></button>
 			</div>
 			
 			<!-- Grille du sudoku -->
