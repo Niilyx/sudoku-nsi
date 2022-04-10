@@ -148,6 +148,7 @@ ol {
 	transform: translate(-50%,-50%);
 	display: flex;
 	flex-wrap: wrap;
+	margin-right: 10px;
 }
 
 /* Les cases du sudoku */
@@ -414,7 +415,7 @@ button:hover, button:focus-visible {
 #footer {
 	border-radius: .3em;
 	padding: 5px;
-	background-color: #999999;
+	background-color: var(--dark);
 	color: white;
 	text-align: right;
 }
