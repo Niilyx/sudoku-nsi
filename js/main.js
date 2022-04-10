@@ -51,7 +51,11 @@ window.onload = () => {
     }
     if (!isDifficValid) document.getElementById("time").value = "15min"
     else document.getElementById("time").value = difficulte
+    
+    leaderboard = retrieveLeaderboard()
+    updateLeaderboard()
 
+    document.getElementById("clearLB").onclick = clearLeaderboard
 
     setUp();
     //démarrer brython
@@ -71,13 +75,44 @@ window.onload = () => {
             return false
         }
     }
-    // leaderboard = retrieveLeaderboard()
+}
+
+function clearLeaderboard() {
+    window.localStorage.clear()
+    for (let el of document.getElementsByClassName("lead")) {
+        el.innerText = ""
+    }
 }
 
 function retrieveLeaderboard() {
     let l = []
     for (let i = 0;i<10;i++) {
-        l.push(window.localStorage.getItem("lead" + i.toString()))
+        let e = window.localStorage.getItem("lead" + i.toString())
+        if (e == "null") {
+            l.push(null)
+        } else {
+            let array = e.split(",")
+            switch (array[1]) {
+                case "0": {
+                    array[1] = "très facile"
+                    break
+                }
+                case "1": {
+                    array[1] = "facile"
+                    break
+                }
+                case "2": {
+                    array[1] = "moyen"
+                    break
+                }
+                case "3": {
+                    array[1] = "difficile"
+                    break
+                }
+            }
+            
+            l.push(array)
+        }
     }
     return l
 }
@@ -523,9 +558,10 @@ function updateLeaderboard() {
 
         document.getElementsByClassName("lead")[pos].innerText = s
     }
-
-    for (const el in leaderboard) {
-        window.localStorage.setItem("lead" + el.toString(), leaderboard[el])
+    if (hasSetUp) {
+        for (const el in leaderboard) {
+            window.localStorage.setItem("lead" + el.toString(), leaderboard[el])
+        }
     }
 }
 
