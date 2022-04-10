@@ -9,7 +9,7 @@ function Time() {
         secs = 0
         minutes++
     }
-    if (minutes == 99 || secs == 59) {
+    if (minutes == 99 && secs == 60) {
         return
     }
     

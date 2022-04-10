@@ -91,9 +91,9 @@ input[type="checkbox"]:checked::before{
 
 /* Classement */
 #lb-container {
-	background-color: rgba(255, 255, 255, 0.815);
-	border: 2px solid black;
-	border-radius: 4px;
+	background-color: rgb(255, 255, 255);
+	border: 2px solid rgb(112, 112, 112);
+	border-radius: 12px;
 	position: relative;
     left: 2%;
 	top: 15%;
@@ -105,12 +105,14 @@ input[type="checkbox"]:checked::before{
 .fa.fa-trash-o {
 	font-size: 40px;
 	cursor: pointer;
-	padding: 20px;
+	padding: 10px 0 0 22px;
 }
 
 ol {
 	margin: auto 0;
     width: fit-content;
+	padding-inline-start: 55px;
+	-webkit-text-stroke: 0.2px black;
 }
 
 .lead {
