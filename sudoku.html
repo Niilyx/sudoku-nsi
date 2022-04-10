@@ -384,7 +384,6 @@
 				where.innerText = ""
 
 			def help(ev):
-				print(solution)
 				if window.won:
 					return
 				if not window.aide:
@@ -398,7 +397,6 @@
 
 					idToSeek = str(y) + ":" + str(x)
 					if document[idToSeek].innerText == "":
-						print(x,y,idToSeek)
 						sudoku.grid[y][x].value = solution[y][x]
 						document[idToSeek].innerText = str(solution[y][x])
 						break
