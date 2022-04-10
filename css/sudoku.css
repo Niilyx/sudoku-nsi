@@ -90,11 +90,22 @@ input[type="checkbox"]:checked::before{
 }
 
 /* Classement */
-#leaderboard {
+#lb-container {
+	background-color: rgba(255, 255, 255, 0.815);
+	border: 2px solid black;
+	border-radius: 4px;
 	position: relative;
-    top: 25%;
-    left: 3%;
-	width: 40%;
+    left: 2%;
+	top: 15%;
+	width: 30%;
+	height: 75%;
+}
+
+/* Bouton qui clear le classement */
+.fa.fa-trash-o {
+	font-size: 40px;
+	cursor: pointer;
+	padding: 20px;
 }
 
 ol {
@@ -107,6 +118,7 @@ ol {
     margin: 0;
     overflow-wrap: anywhere;
 }
+
 /* 1er du classement */
 #lead1 {
 	color: gold;
@@ -168,14 +180,13 @@ ol {
 	position: absolute;
 	width: 120px;
 	height: 370px;
-	right: 28%;
+	right: 15%;
 	top: 50%;
 	bottom: 50%;
 	transform: translate(0,-50%);
 	
 	justify-content: center;
 	align-items: center;
-	font-family: 'Rock 3D', cursive;
 	font-size: 40px;
 	font-weight: bold;
 }
@@ -186,15 +197,6 @@ ol {
   	top: 50%;
   	-ms-transform: translateY(-50%);
   	transform: translateY(-50%);
-}
-
-/* Bouton qui clear le calssement */
-.fa.fa-trash-o {
-	font-size: 40px;
-	position: relative;
-	cursor: pointer;
-	top: 30px;
-	left: 10px;
 }
 
 /* Bouton indice */
