@@ -492,7 +492,7 @@ function updateLeaderboard() {
     }
 
     //placer le leaderboard
-    for (let pos in Array.apply(document.getElementsByClassName("lead"))) {
+    for (let pos in Array.apply(null, document.getElementsByClassName("lead"))) {
 
         if (JSON.stringify(leaderboard[pos]) == 'null') {
             document.getElementsByClassName("lead")[pos].innerText = ""
