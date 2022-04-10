@@ -9,6 +9,9 @@ function Time() {
         secs = 0
         minutes++
     }
+    if (minutes == 99 || secs == 59) {
+        return
+    }
     
     secs=update(secs)
     minutes=update(minutes)
