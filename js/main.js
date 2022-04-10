@@ -88,6 +88,7 @@ function retrieveLeaderboard() {
     let l = []
     for (let i = 0;i<10;i++) {
         let e = window.localStorage.getItem("lead" + i.toString())
+        if (e == null) return [null,null,null,null,null,null,null,null,null,null]
         if (e == "null") {
             l.push(null)
         } else {
