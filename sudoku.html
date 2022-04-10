@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Sudoku</title>
         <link rel="stylesheet" href="css/sudoku.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="brython/brython.js"></script>
 		<script type="text/javascript" src="brython/brython_stdlib.js"></script>
@@ -422,8 +423,8 @@
 				<img id="logo" src="media/img/sudoku-title.png" alt="Logo du site"/>
 			</div>
 			<div id="top-right">
-				<img src="media/img/info.png" alt="Informations" onclick="toggleInfoDiv()">
-				<img id="iMute" src="media/img/unmute.png" alt="Couper le son" onclick="mute()"/>
+				<img src="media/img/info.png" alt="Informations" onclick="toggleInfoDiv()" style="cursor: pointer;" title="Informations"/>
+				<img id="iMute" src="media/img/unmute.png" alt="Couper le son" onclick="mute()" title="Couper la musique"/>
 			</div>
 
 			<div id="info" style="display: none;">
@@ -453,12 +454,11 @@
 					<input id="help-button" name="help" type="checkbox">
 					<label>Aide</label>
 				</span>
-				<button style="background-color: blue; color: white; font-weight: bold;" id="new_game">Nouvelle partie</button>
+				<button id="new_game">Nouvelle partie</button>
 	        </div>
 	        
-		<div id="board-container" style="background-color: aqua;">
+		<div id="board-container">
 			<!-- Classement -->
-			<button id="clearLB">Réinitialiser</button>
 			<div id="leaderboard">
 				<ol>
 					<li class="lead" id="lead1"></li>
@@ -472,7 +472,7 @@
 					<li class="lead" id="lead9"></li>
 					<li class="lead" id="lead10"></li>
 				</ol>
-				<button id="clearLB" ></button>
+				<i class="fa fa-trash-o" title="Vider le tableau des scores" onclick="clearLeaderboard()"></i>
 			</div>
 			
 			<!-- Grille du sudoku -->

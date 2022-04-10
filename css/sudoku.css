@@ -30,6 +30,7 @@ p {
 
 /* Checkbox Aide */
 input[type="checkbox"] {
+	cursor: pointer;
 	position: relative;
 	appearance: none;
 	width: 40px;
@@ -187,8 +188,18 @@ ol {
   	transform: translateY(-50%);
 }
 
+/* Bouton qui clear le calssement */
+.fa.fa-trash-o {
+	font-size: 40px;
+	position: relative;
+	cursor: pointer;
+	top: 30px;
+	left: 10px;
+}
+
 /* Bouton indice */
 #help {
+	cursor: pointer;
 	margin: 0 50%;
     transform: translate(-50%);
 }
@@ -202,8 +213,18 @@ ol {
 	background-color: #bbbbbb;
 }
 
+/* Bouton nouvelle partie */
+#new_game {
+	cursor: pointer;
+	background-color: blue;
+	color: white; 
+	font-weight: bold; 
+}
+
+
 /* Bouton abandonner */
 #giveup {
+	cursor: pointer;
 	margin: 0 50%;
     transform: translate(-50%);
 	background-color: red;
@@ -354,6 +375,7 @@ ol {
 
 /* Difficulté */
 select, select option {
+	cursor: pointer;
 	background-color: whitesmoke;
 	border-radius: 4px;
 	font-size: 15px;
