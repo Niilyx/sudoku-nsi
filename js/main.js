@@ -152,11 +152,11 @@ function toggleInfoDiv() {
             if (opacity>=1) {
                 clearInterval(interval);
             }
-            opacity+=0.2;
-            top+=2;
+            opacity+=0.1;
+            top+=1;
             infoDiv.style.top = top+"px";
             infoDiv.style.opacity = opacity;
-        },50)
+        },20)
         
     } else {
         let opacity = 1;
@@ -170,7 +170,7 @@ function toggleInfoDiv() {
             top -=2;
             infoDiv.style.top = top+"px";
             infoDiv.style.opacity = opacity;
-        },30)
+        },15)
     }
 }
 
