@@ -55,8 +55,6 @@ window.onload = () => {
     leaderboard = retrieveLeaderboard()
     updateLeaderboard()
 
-    document.getElementById("clearLB").onclick = clearLeaderboard
-
     setUp();
     //démarrer brython
     brython();
@@ -82,6 +80,7 @@ function clearLeaderboard() {
     for (let el of document.getElementsByClassName("lead")) {
         el.innerText = ""
     }
+    leaderboard = [null,null,null,null,null,null,null,null,null,null]
 }
 
 function retrieveLeaderboard() {
