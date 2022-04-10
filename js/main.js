@@ -357,6 +357,17 @@ function win() {
     //rend également la board intouchable quand on gagne
     won = true
 
+    //on reset la musique
+    currentMusic.pause()
+    currentMusic.currentTime = 0
+
+    //on joue la musique de victoire, si on y a le droit
+    if (!isMuted) {
+        winSound.currentTime = 0
+        winSound.volume = 0.3
+        winSound.play()
+    }
+    
     document.querySelector("body").classList.add("uneditable")
 
     //désélectionner le nombre en cours
