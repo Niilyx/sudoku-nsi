@@ -11,15 +11,11 @@
     <body>
 		<script type="text/python">
 			"""
-			Je fais quelques tests pour la partie logique des sudokus.
-			Toute aide est la bienvenue !
-			 - Alexis
-
 			Notes :
 			    • Les 0 dans la grille des sudokus représentent des cases vides
 			    • Le sudoku peut être de taille 4x4 ou 9x9
 			    • Chaque case de sudoku est représentée par un objet de la classe Cell
-			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans le tableau 
+			            chaque Cell a donc une valeur, ainsi qu'un x et un y correspondant à sa place dans la grille du sudoku
 			"""
 			from math import sqrt
 			from random import choice,randint
@@ -250,10 +246,12 @@
 				if len(l) == 0:
 					return
 				
-				if ev.target.className.find("start-cell") != -1:
+				# Si on trouve la classe...
+				if window.hasClass(ev.target, "start-cell"):
+					#Alors on y touche pas
 					return
 				
-				if document.select("body")[0].className.find("uneditable") != -1:
+				if window.hasClass(document.select("body")[0], "uneditable"):
 					return
 				
 				new_value = l[0].innerText
@@ -273,6 +271,10 @@
 			
 			def new_game(ev):
 				global sudoku
+				global solution
+				
+				#reset la solution
+				solution = []
 
 				difficulty = document["time"].value
 				nb_cases_a_suppr = 0
@@ -323,6 +325,7 @@
 
 				sudoku.debug()
 
+				#on clear le tableau
 				window.clearWinAnim()
 				for element in document.select(".cell"):
 					element.bind("click", clicked_button)
@@ -338,14 +341,21 @@
 							window.addClass(str(x) + ":" + str(y), "start-cell")
 						else:
 							document[str(x) + ":" + str(y)].text = ""
-				if window.won:
-					# Relancer la musique
-					window.music()
+				
+				if not window.wonByGiveup:
+					if window.won:
+						# Relancer la musique seulement si une ne joue pas
+						window.music()
 				
 				window.won = False
-				
+				window.wonByGiveup = False
+
 				# Aide est-il coché?
 				window.aide = document["help-button"].checked
+				if not window.aide:
+					window.addAttr(document["help"], "disabled")
+				elif "disabled" in document["help"].attrs:
+					del document["help"].attrs["disabled"]
 
 				#Lancer le chrono
 				window.stopChrono()
@@ -353,6 +363,7 @@
 				
 				window.difficulte = difficulty
 
+				#Préparer la solution si le joueur abandonne
 				window.solution = [i[j] for i in solution for j in range(len(i))]
 			
 			def erase(where):
@@ -374,20 +385,26 @@
 				where.innerText = ""
 
 			def help(ev):
+				print(solution)
 				if window.won:
 					return
 				if not window.aide:
 					return
-				while True:
+				
+				#Ne jamais compter sur le while True
+				i = 0
+				while i<999:
 					x = randint(0,sudoku.size - 1)
 					y = randint(0,sudoku.size - 1)
 
-					idToSeek = str(x) + ":" + str(y)
+					idToSeek = str(y) + ":" + str(x)
 					if document[idToSeek].innerText == "":
-						sudoku.grid[x][y].value = solution[x][y]
-						document[idToSeek].innerText = str(solution[x][y])
+						print(x,y,idToSeek)
+						sudoku.grid[y][x].value = solution[y][x]
+						document[idToSeek].innerText = str(solution[y][x])
 						break
-				
+
+					i += 1
 				if sudoku.is_complete():
 					window.win()
 			
@@ -420,6 +437,7 @@
 				<a href="https://github.com/Niilyx/sudoku-nsi/" target="_blank">Code Source</a>
 			</div>
 	        
+			<!-- Timer -->
 			<div id="clock">00:00</div>
 	        <script type="text/javascript" src="js/timer.js"></script>
 	        
@@ -428,9 +446,8 @@
 	        	<select id="time">
 					<option value="1min">Très facile (≈1 min)</option>
 	        		<option value="10min">Facile (≈10 min)</option>
-					<!-- NE PAS CHANGER LA VALEUR PAR DEFAUT PLEASE :) -->
 	        		<option value="15min" selected>Moyen (≈15 min)</option>
-	        		<option value="20min">Difficile (>20 min)</option>	<!-- temps à préciser -->
+	        		<option value="20min">Difficile (>20 min)</option>
 	        	</select>
 				<span title="Activer les aides">
 					<input id="help-button" name="help" type="checkbox">
@@ -439,8 +456,8 @@
 				<button style="background-color: blue; color: white; font-weight: bold;" id="new_game">Nouvelle partie</button>
 	        </div>
 	        
-		<!-- Grille sudoku -->
 		<div id="board-container">
+			<!-- Classement -->
 			<div id="leaderboard">
 				<ol>
 					<li class="lead" id="lead1"></li>
@@ -455,8 +472,11 @@
 					<li class="lead" id="lead10"></li>
 				</ol>
 			</div>
+			
+			<!-- Grille du sudoku -->
 			<div id="board"></div>
-				
+			
+			<!-- Div contenant les boutons 'indice' et 'abandonner' -->
 			<div id="panel">
 				<div class="mid">
 					<button id="help">Indice</button>
@@ -464,8 +484,11 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- Nombres à sélectionner -->
 		<div id="digits"></div>
+
+		<!-- Bas de page -->
 		<div id="footer-container">
 			<div id="footer">
 				Copyright&copy; Groupe NSI SG (Alexis, Valentyn, Ma<a class="x" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">x</a>im, Idir)

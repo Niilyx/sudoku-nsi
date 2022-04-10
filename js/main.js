@@ -3,6 +3,7 @@ var hasSetUp = false;
 
 var later = [];
 var won = false;
+var wonByGiveup = false;
 var solution;
 var winSound = new Audio("media/victory.mp3")
 var bgMusic =  [new Audio("media/bg1.mp3"), new Audio("media/bg2.mp3"),
@@ -26,6 +27,7 @@ window.onload = () => {
     root.style.setProperty('--light', randomColor[0]);
     root.style.setProperty('--dark', randomColor[1]);
 
+    //Récupérer les paramètres choisis dans index.html
     let passedArgs = new URLSearchParams(window.location.search)
     pseudo = passedArgs.get("pseudo")
     difficulte = passedArgs.get("difficulty")
@@ -34,9 +36,12 @@ window.onload = () => {
 
     // obligé de cleanup, au cas où un petit rigolo change l'URL...
     if (pseudo == undefined || pseudo.replaceAll(" ", "") == "") {
-        pseudo = choice(["Théophile", "L'anonyme dissident", "Rick Astley", "Bababooey", "The Rock", "Risitas", "xX_SudokuMaster75_Xx", "5UD0KU_PGM", "DarkFlameMaster", "D4RKSaSuke"])
+        pseudo = choice(["Théophile", "L'anonyme dissident", "Rick Astley",
+        "Bababooey", "The Rock", "Risitas", "xX_SudokuMaster75_Xx", "5UD0KU_PGM",
+        "DarkFlameMaster", "D4RKSaSuke"])
     }
 
+    // cleanup de la difficulté
     let isDifficValid = false
     for (let i of Array.apply(null, document.getElementById("time").options)) {
         if (difficulte == i.value) {
@@ -46,14 +51,25 @@ window.onload = () => {
     }
     if (!isDifficValid) document.getElementById("time").value = "15min"
     else document.getElementById("time").value = difficulte
+
+
     setUp();
-    alert("Bienvenue " + pseudo + "!\n")
+    //démarrer brython
     brython();
 
-    document.getElementById("board").oncontextmenu = (event) => {
-        pullOut(event.path[0])
-        console.log()
-        return false
+    //préparer la suppression clic droit
+    //à ce propos: le fait de supprimer une case avec clic droit ne fonctionne que sur Windows...
+    //J'ai essayé de le fix, mais Linux n'aime pas quand on annule l'événement oncontextmenu??
+    if (navigator.oscpu != undefined && navigator.oscpu.contains("Linux")) {
+        document.getElementById("board").oncontextmenu = (event) => {
+            pullOut(event.target[0])
+            return false
+        }
+    } else {
+        document.getElementById("board").oncontextmenu = (event) => {
+            pullOut(event.path[0])
+            return false
+        }
     }
 
     leaderboard = retrieveLeaderboard()
@@ -68,21 +84,25 @@ function retrieveLeaderboard() {
 }
 
 window.onclick = () => {
+    // A cause de la sécurité anti-autoplay, on doit attendre que l'utilisateur clique avant de jouer une musique
     if (setUpMusic) return
     setUpMusic = true
     music()
 }
 
+//Fonction qu'on va remplacer dans Python. On la crée pour que l'interpréteur JS ne se plaigne pas, puis on l'assigne dans Python
 function pullOut(a) {
 
 }
 
+//Redémarrer le chrono à un début de partie
 function startChrono() {
     secs = 0
     minutes = 0
     Time()
 }
 
+//Stopper le chrono
 function stopChrono() {
     clearTimeout(promise)
 
@@ -90,6 +110,7 @@ function stopChrono() {
     clearTimeout(promise + 1)
 }
 
+//Créer la couleur d'arrière-plan du site, et sa version "foncée"
 function randomRgb() {
     let red = Math.floor((1 + Math.random()) * 256 / 2) - 20;
     let green = Math.floor((1 + Math.random()) * 256 / 2) - 20;
@@ -101,7 +122,7 @@ function randomRgb() {
     return ["rgb(" + red + ", " + green + ", " + blue + ")", "rgb(" + darkRed + ", " + darkGreen + ", " + darkBlue + ")"];
 }
 
-
+//Mettre le volume à 0 (cette fonction n'arrête pas la musique)
 function mute() {
     let muteButton = document.getElementById("iMute")
     if (isMuted) {
@@ -122,11 +143,14 @@ function mute() {
     isMuted = !isMuted
 }
 
+//Arrêter prématurément l'animation (les flashs verts) de victoire, au cas où un joueur commence immédiatement une nouvelle partie
 function clearWinAnim() {
     for (const i of later) {
         clearTimeout(i)
     }
 }
+
+//La fonction qui s'occupe de faire apparaitre/disparaitre la bulle info
 function toggleInfoDiv() {
     infoDiv = document.getElementById("info");
     if (infoDiv.style.display=="none") {
@@ -160,28 +184,43 @@ function toggleInfoDiv() {
     }
 }
 
+//sudoku.html a-t-il des arguments avec lui?
 function wereArgsPassed() {
     return window.location.search != ""
 }
 
+//ajouter un attribut vide comme disabled (pour aider Python)
+function addAttr(el, attr) {
+    let a = document.createAttribute(attr)
+    el.setAttributeNode(a)
+}
+
+//ajouter une classe (pour aider Python)
 function addClass(id, classe) {
     document.getElementById(id).classList.add(classe)
 }
 
+//vérifier si un élément a une classe (pour aider Python)
 function hasClass(element, classe) {
     return element.classList.contains(classe)
 }
 
+//supprimer une classe (pour aider Python)
 function removeClass(element, classe) {
     if (element.classList == undefined) { return; }
     element.classList.remove(classe)
 }
 
+//Réplique de la fonction random.choice de Python: choisir un élément au hasard dans une liste et le retourner
 function choice(choices) {
+    /* Array -> any 
+    Hyp: liste non vide
+    */
     var index = Math.floor(Math.random() * choices.length);
     return choices[index];
 }
 
+//Lancer une musique
 function music() {
     currentMusic = choice(bgMusic)
     if (!currentMusic.paused) return
@@ -193,7 +232,9 @@ function music() {
     currentMusic.play()
 }
 
+//quelques préliminaires
 function setUp() {
+    //Quand une musique se termine, on attend 3 secondes et on en joue une autre
     for (let mus of bgMusic) {
         mus.onended = () => {
             setTimeout(() => {
@@ -203,21 +244,26 @@ function setUp() {
         }
     }
 
-    music()
-
+    //Dessiner un tableau vide
     changeBoard(9)
+    //Confirmer que cette fonctin s'est lancée
     hasSetUp = true;
 }
 
 function selectNumber() {
+    //si on est pas censés toucher à la grille (si on a gagné par exemple), alors annuler l'action
     if (document.querySelector("body").classList.contains("uneditable")) return
+
+
     if (numSelected != null) {
+        //si ce nombre était déja séléctionné, on le désélectionne
         if (this.classList.contains("number-selected")) {
             numSelected.classList.remove("number-selected");
             return
         }
         numSelected.classList.remove("number-selected");    // on enlève le background si il y'a déjà un nombre de séléctionné
     }
+    //sinon, on le séléctionne
     numSelected = this;
     numSelected.classList.add("number-selected");
 }
@@ -296,15 +342,19 @@ function changeBoard(newSize) {
     }
 }
 
+//un moyen de récupérer les cells sans saturer le code
 function getAllCells() {
     return document.getElementsByClassName("cell")
 }
 
+//un moyen de récupérer les chiffres sans saturer le code
 function getAllDigits() {
     return document.getElementsByClassName("number")
 }
 
 function win() {
+    //c'est une variable très importante, elle assure le bon fonctionnement de la musique et
+    //rend également la board intouchable quand on gagne
     won = true
 
     document.querySelector("body").classList.add("uneditable")
@@ -314,31 +364,33 @@ function win() {
         numSelected.classList.remove("number-selected");
     }
 
+    //si le joueur s'est trompé juste avant, on retire la propriété "faux" à toutes les cells, puisqu'on a gagné
     for (let i of getAllCells()) {
         i.classList.remove("wrong")
     }
 
-    //anim
+    //anim (flashs verts, donc le premier devrait être synchro avec la musique)
     for (let i = 0;i<3;i++) {
         later.push(setTimeout(() => {
             for (let cell of getAllCells()) {
                 cell.classList.add("end-cell")
             }
-        }, 2200 + (1000 * i)))
+        }, 1300 + (1000 * i)))
         later.push(setTimeout(() => {
             for (let cell of getAllCells()) {
                 cell.classList.remove("end-cell")
             }
-        }, 2700 + (1000 * i)))
+        }, 1800 + (1000 * i)))
     }
     later.push(setTimeout(() => {
         for (let cell of getAllCells()) {
             cell.classList.add("end-cell")
         }
-    }, 5200))
+    }, 4300))
 
     stopChrono()
 
+    //trier le leaderboard et le mettre à jour
     updateLeaderboard()
 
     currentMusic.pause()
@@ -463,10 +515,13 @@ function updateLeaderboard() {
     }
 }
 
+//logique du bouton abandonner
 function giveUp() {
     document.getElementById("giveup").blur()
     if (won) return
-    won = true
+
+    //cette variable permet de ne pas avoir de problèmes avec la musique
+    wonByGiveup = true
     document.querySelector("body").classList.add("uneditable")
 
     //désélectionner le nombre en cours
@@ -474,6 +529,7 @@ function giveUp() {
         numSelected.classList.remove("number-selected");
     }
 
+    //faire une board rouge pour différencier
     let cells = getAllCells()
     for (let i in cells) {
         cells[i].innerText = solution[i]

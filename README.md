@@ -8,7 +8,7 @@ Projet de fin d'année réalisé dans le cadre de cours de NSI Terminale.
 <details>
 <summary>Avec git</summary>
    
-  - Cloner le repo
+  - Clonez le repo
     * `git clone https://github.com/Niilyx/sudoku-nsi.git` via HTTPS
     * `git clone git@github.com:Niilyx/sudoku-nsi.git` via SSH
   - Ouvrez le fichier [index.html](/index.html) avec votre navigateur
@@ -32,5 +32,8 @@ Projet de fin d'année réalisé dans le cadre de cours de NSI Terminale.
 - Python/JavaScript [@Niilyx](https://github.com/Niilyx) [@Axxiar](https://github.com/Axxiar)
 
 ##### Partie graphique :
-- HTML + CSS (Valentyn) [@SH8LL3](https://github.com/SH8LL3)
+- HTML + CSS (Valentyn) [@SH8LL3](https://github.com/SH8LL3), [@Axxiar](https://github.com/Axxiar)
 - Design des éléments et assets [@Aixiis](https://github.com/Aixiis)
+
+## License : 
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />Ce(tte) œuvre est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Licence Creative Commons Attribution - Pas d’Utilisation Commerciale 4.0 International</a>.
