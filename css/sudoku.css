@@ -135,6 +135,7 @@ ol {
 	transform: translate(-50%,-50%);
 	display: flex;
 	flex-wrap: wrap;
+	margin-right: 10px;
 }
 
 /* Les cases du sudoku */
@@ -164,19 +165,18 @@ ol {
 }
 
 #panel {
-	position: absolute;
-	width: 120px;
-	height: 370px;
-	right: 28%;
-	top: 50%;
-	bottom: 50%;
-	transform: translate(0,-50%);
-	
-	justify-content: center;
-	align-items: center;
-	font-family: 'Rock 3D', cursive;
-	font-size: 40px;
-	font-weight: bold;
+	position: relative;
+    width: 120px;
+    height: 370px;
+    left: 75%;
+    bottom: 18%;
+    transform: translate(-50%,-50%);
+
+    justify-content: center;
+    align-items: center;
+    font-family: 'Rock 3D', cursive;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .mid {
