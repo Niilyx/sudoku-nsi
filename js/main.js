@@ -71,8 +71,7 @@ window.onload = () => {
             return false
         }
     }
-
-    leaderboard = retrieveLeaderboard()
+    // leaderboard = retrieveLeaderboard()
 }
 
 function retrieveLeaderboard() {
@@ -367,7 +366,8 @@ function win() {
         winSound.volume = 0.3
         winSound.play()
     }
-    
+
+    //rendre la board et les digits intouchables
     document.querySelector("body").classList.add("uneditable")
 
     //désélectionner le nombre en cours
@@ -404,6 +404,7 @@ function win() {
     //trier le leaderboard et le mettre à jour
     updateLeaderboard()
 
+    
     currentMusic.pause()
     currentMusic.currentTime = 0
 
@@ -497,7 +498,6 @@ function updateLeaderboard() {
             document.getElementsByClassName("lead")[pos].innerText = ""
             continue
         }
-        
         var e = JSON.parse(JSON.stringify(leaderboard[pos]));
 
         switch (e[1]) {
@@ -520,7 +520,7 @@ function updateLeaderboard() {
         }
 
         let s = pseudo + ": " + e[1] + " en " + update(e[2]) + "min " + update(e[3]) + "s"
-        
+
         document.getElementsByClassName("lead")[pos].innerText = s
     }
 
