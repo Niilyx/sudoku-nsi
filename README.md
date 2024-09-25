@@ -8,10 +8,10 @@ Projet de fin d'année réalisé dans le cadre des cours de NSI Terminale.
 
 ## Sudoker du sudoku :
 
-- ### Via le site web : 
+### Via le site web : 
 https://niilyx.github.io/sudoku-nsi/
 
-- ### Via installation :
+### Via installation :
 <details>
 <summary>Avec git</summary>
   - Clonez le repo
