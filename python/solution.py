@@ -25,39 +25,15 @@ class Cell:
         self.value = value
         self.x = x
         self.y = y
-    
-    def get_square(self,size):      # à améliorer si possible
+
+    def get_square(self,size):
         """int -> int
         Renvoie le carré auquel appartient la case"""
-        if size == 4:
-            if 0 <= self.x <= 1 and 0 <= self.y <= 1:
-                return 1
-            elif 2 <= self.x <= 3 and 0 <= self.y <= 1:
-                return 2
-            elif 0 <= self.x <= 1 and 2 <= self.y <= 3:
-                return 3
-            elif 2 <= self.x <= 3 and 2 <= self.y <= 3:
-                return 4
+        sqrt_size = int(size**0.5)
+        r = self.x // sqrt_size
+        c = self.y // sqrt_size
+        return c * sqrt_size + r + 1
 
-        elif size == 9:
-            if 0 <= self.x <= 2 and 0 <= self.y <= 2:
-                return 1
-            elif 3 <= self.x <= 5 and 0 <= self.y <= 2:
-                return 2
-            elif 6 <= self.x <= 8 and 0 <= self.y <= 2:
-                return 3
-            elif 0 <= self.x <= 2 and 3 <= self.y <= 5:
-                return 4
-            elif 3 <= self.x <= 5 and 3 <= self.y <= 5:
-                return 5
-            elif 6 <= self.x <= 8 and 3 <= self.y <= 5:
-                return 6
-            elif 0 <= self.x <= 2 and 6 <= self.y <= 8:
-                return 7
-            elif 3 <= self.x <= 5 and 6 <= self.y <= 8:
-                return 8
-            elif 6 <= self.x <= 8 and 6 <= self.y <= 8:
-                return 9
 
 
 class Sudoku:
@@ -70,18 +46,7 @@ class Sudoku:
         """
         self.size = size
         self.grid = self.__generate_empty_sudoku()  # la grille est vide au départ
-        print("-----------------")
-        print(self.get_square(1))
-        print(self.get_square(2))
-        print(self.get_square(3))
-        print(self.get_square(4))
-        print(self.get_square(5))
-        print(self.get_square(6))
-        print(self.get_square(7))
-        print(self.get_square(8))
-        print(self.get_square(9))
-        print("-----------------")
-        
+
 
     # --- Fonctions modifiants le sudoku ---
 
@@ -90,17 +55,17 @@ class Sudoku:
         Génére et renvoie une liste d'objet 'Cell' (dont la valeur est 0) en fonction de 'self.size'
         """
         return [[Cell(0,i,int(j/self.size)) for i in range(self.size)] for j in range(0,self.size**2,self.size)]
-        
+
 
     def generate_sudoku(self):      # assez basique, à améliorer si possible
         """Modifie 'self.grid' en générant un sudoku entier dont la taille dépend de 'self.size'"""
-        
+
         # while not self.is_complete():
         while True:
             empty_cell = self.find_empty_cell()
             if not empty_cell:
                 break
-            
+
             numbers = list(range(1,self.size+1)) # Les possibilités à tester
             new_value = choice(numbers)
 
@@ -190,14 +155,12 @@ class Sudoku:
                 for k in j:
                     if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
                         l.append(k.value)
-        
         else:
             for j in self.grid:
                 for k in j:
                     if x_min <= k.x < x_min+sr_size and y_min <= k.y < y_min+sr_size:
                         l.append(k)
         return l
-    
 
     # --- Fonctions de tests et aide ---
 
@@ -231,9 +194,9 @@ class Sudoku:
 
         return True
 
-   
+
     def debug(self):
-        """Print le sudoku actuel dans un format plus lisible"""        
+        """Print le sudoku actuel dans un format plus lisible"""
         for i in self.grid:
             print([i[j].value for j in range(len(i))])
 
@@ -244,4 +207,3 @@ if __name__ == "__main__":
     sk_9x9.generate_sudoku()
     sk_9x9.debug()
     print("Le sudoku est complet : ",sk_9x9.is_complete())
-    
